@@ -33,7 +33,7 @@ r2 = config['tags']['r2']
 samples = pd.read_table(config["samples"])
 samples['id'] = samples['id'].apply(str)
 sample_id = samples['id'] + "/" + samples['sample']
-runs = ['Raw_Hi-Seq_1', 'Raw_Hi-Seq_2']
+runs = ['Hiseq_1', 'Hiseq_2']
 counts_file = "data/aligned/counts/counts.out"
 
 ########################
