@@ -1,0 +1,13 @@
+---
+title: "About"
+author: "Stephen Pederson"
+date: "`r format(Sys.Date(), '%d %B, %Y')`"
+site: workflowr::wflow_site
+output:
+  workflowr::wflow_html:
+    toc: false
+editor_options:
+  chunk_output_type: console
+---
+
+Workflow and analysis written by Stephen Pederson, Dame Roma Mitchell Cancer Laboratories, Adelaide Medical School, University of Adelaide

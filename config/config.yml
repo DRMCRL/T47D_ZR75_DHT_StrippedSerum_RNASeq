@@ -1,0 +1,67 @@
+samples: config/samples.tsv
+
+# The file extension. Usually one of fq.gz/fastq.gz/fq/fastq
+ext: ".fastq.gz"
+
+# Common tags between the sample name given in samples.tsv and the extension
+# Any additional tag (e.g. _001) which appears between the read identifiers &
+# suffix should be placed here
+tags:
+  r1: "_R1"
+  r2: "_R2"
+  tag: "_001"
+
+# Arguments passed to STAR
+# sjdbOverhang should be ReadLength - 1 if you have reads < 50nt.
+# Otherwise the default setting of 100 will be suitable https://groups.google.com/g/rna-star/c/x60p1C-pGbc?pli=1
+# Any additional parameters to apply during indexing should be supplied using
+# indexing_extra, whilst additional parameters for alignment are passed through
+# align_extra
+star:
+  sjdbOverhang: 100
+  indexing_extra: ""
+  align_extra: "--outSAMtype BAM SortedByCoordinate"
+
+# The root argument tells you where the genome will be located
+# on the local system. All other arguments are required for
+# downloading
+ref:
+  build: GRCh38
+  release: 101
+  root: /hpcfs/users/a1018048/refs
+  seqtype: primary_assembly
+  species: homo_sapiens
+
+# Given we only have 75nt reads, don't group during fastqc
+fastqc:
+  params: "--nogroup --noextract"
+
+# Settings for Adapter Removal
+trimming:
+  adapter1: AGATCGGAAGAGCACACGTCTGAACTCCAGTCA
+  adapter2: AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+  maxns: 1
+  minlength: 75
+  minqual: 30
+  extra: "--gzip --trimqualities"
+
+# Settings for featureCounts. To set this to count strictly exonic reads,
+# change fracOverlap to be the value 1. The value minOverlap may also need
+# adjusting based on your own read lengths. This is also set to include
+# multi-mapping reads using fractional counts by default. Please remove
+# "-M --fraction" to disable this
+featureCounts:
+  minQual: 1
+  minOverlap: 75
+  fracOverlap: 1
+  strandedness: 0
+  extra: "-M --fraction -p"
+
+# Parameters for QC & Analysis.
+# These must correspond to columns in the samples file
+# and will be ignored if not. The 'group' value refers
+# to the primary grouping of interest, whilst the 'batch'
+# value refers to any secondary variables or confounders
+analysis:
+  group: treat
+  batch: cell_type
