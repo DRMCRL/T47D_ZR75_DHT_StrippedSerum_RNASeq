@@ -117,8 +117,8 @@ plotSummary(rawFqc)
 
 A total of `r length(rawFqc)` libraries were contained in this dataset, with read totals ranging between `r pander(comma(range(readTotals(rawFqc)$Total_Sequences)))` reads.
 
-Across all libraries, reads were between `r pander(range(getModule(rawFqc, "Sequence_Length")$Length))` bases.
-This does indicate some read trimmig had been performed prior to that undertaken here.
+Across all libraries, reads were between `r pander(range(as.numeric(getModule(rawFqc, "Sequence_Length")$Length)))` bases.
+This does indicate some read trimming had been performed prior to that undertaken here.
 
 ```{r plotReadTotals, fig.height=fh, fig.cap = "*Library Sizes for all supplied fastq files. Any samples run as multiple libraries are  shown as the supplied multiple libraries and have not been merged.*"}
 plotReadTotals(rawFqc, pattern = suffix, usePlotly = TRUE)
@@ -240,7 +240,7 @@ plotAdapterContent(
 
 ```{r os}
 os <- suppressMessages(getModule(rawFqc, "Over"))
-os_fh <- max(20, 6 + nrow(os) / 20)
+os_fh <- min(20, 6 + nrow(os) / 20)
 ```
 
 ```{r plotOverRep, fig.height=os_fh, fig.cap = "*Summary of over-represented sequences across all libraries*"}
