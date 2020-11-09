@@ -38,7 +38,7 @@ theme_set(theme_bw())
 ```{r config}
 config <- here::here("config/config.yml") %>%
   read_yaml()
-suffix <- paste0(config$tag, config$ext)
+suffix <- paste0(config$tags$tag, config$ext)
 sp <- config$ref$species %>%
   str_replace("(^[a-z])[a-z]*_([a-z]+)", "\\1\\2") %>%
   str_to_title()
@@ -49,7 +49,13 @@ samples <- config$samples %>%
   here::here() %>%
   read_tsv() %>%
   mutate(
-    Filename = paste0(sample, suffix)
+    R1 = paste0(sample, config$tags$r1, suffix),
+    R2 = paste0(sample, config$tags$r2, suffix),
+  ) %>%
+  pivot_longer(
+    cols = c("R1", "R2"),
+    names_to = "Reads",
+    values_to = "Filename"
   ) %>%
   mutate_if(
     function(x){length(unique(x)) < length(x)},
@@ -86,10 +92,10 @@ group_cols <- hcl.colors(
 
 
 ```{r setFigureSizes}
-fh <- round(6 + nrow(samples) / 15, 0)
+fh <- round(6 + nrow(samples) / 7, 0)
 ```
 
-# Quality Assessment on Trimmed Data
+# Quality Assessment on Trimmed Data {.tabset}
 
 In the workflow, trimming was performed using the tool `AdapterRemoval` with the settings:
 
@@ -111,6 +117,17 @@ trimFqc <- here::here("data/trimmed/FastQC") %>%
   .[fqName(.) %in% samples$Filename]
 ```
 
+```{r}
+for (i in seq_along(rawFqc)){
+  # Perform separately for raw & trimming, in case any orders change
+  run <- str_extract(path(rawFqc[[i]]), "Hiseq_[12]")
+  rawFqc[[i]]@Summary$Filename <- paste(run, rawFqc[[i]]@Summary$Filename, sep = "/")
+  run <- str_extract(path(trimFqc[[i]]), "Hiseq_[12]")
+  trimFqc[[i]]@Summary$Filename <- paste(run, trimFqc[[i]]@Summary$Filename, sep = "/")
+} 
+```
+
+
 After trimming, the library showing the highest level of possible adapter content contained `r getModule(trimFqc, "Adapter") %>% pivot_longer(-any_of(c("Filename", "Position"))) %>% group_by(Filename, Position) %>% summarise(Total = sum(value)) %>% summarise(max = max(Total)) %>% dplyr::filter(max == max(max)) %>% pull(max) %>% percent(accuracy = 0.01)` of reads as containing possible adapter sequences.
 
 ```{r plotSummary, fig.height=fh, fig.cap = "*Comparison of FastQC summaries A) before and B), after trimming*"}
@@ -130,8 +147,8 @@ plot_grid(
 ) +
   draw_plot(
     plot = get_legend(a), 
-    x = -0.3, 
-    y = -0.4, 
+    x = -0.4, 
+    y = -0.4
   )
 ```
 
@@ -179,8 +196,11 @@ ggplotly(
       `Cumulative Percent` = percent(`Cumulative Total` / max(`Cumulative Total`))
     ) %>%
     ungroup() %>%
+    separate(Filename, into = c("Run", "Filename"), sep = "/") %>%
     left_join(samples) %>%
+    unite(Filename, Run, Filename, sep = "/") %>%
     rename_all(str_to_title) %>%
+    mutate(Length = as.integer(Length)) %>%
     ggplot(aes(Length, `Cumulative Total`, group = Filename, label = `Cumulative Percent`)) +
     geom_line(aes(colour = Group), size = 1/4) +
     scale_y_continuous(label = comma) +
@@ -200,7 +220,9 @@ ggplotly(
       cumulative = cumsum(Count) / sum(Count)
     ) %>%
     ungroup() %>%
+    separate(Filename, into = c("Run", "Filename"), sep = "/") %>%
     left_join(samples) %>%
+    unite(Filename, Run, Filename, sep = "/") %>%
     bind_rows(
       getGC(gcTheoretical, sp, "Trans") %>%
         mutate_at(sp, cumsum) %>% 
@@ -248,7 +270,9 @@ plotly::ggplotly(
       names_to = "Nuc", 
       values_to = "resid"
     ) %>%
+    separate(Filename, into = c("Run", "Filename"), sep = "/") %>%
     left_join(samples) %>%
+    unite(Filename, Run, Filename, sep = "/") %>%
     ggplot(
       aes(Base, resid, group = Filename, colour = group)
     ) + 
