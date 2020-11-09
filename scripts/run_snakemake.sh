@@ -2,8 +2,8 @@
 #SBATCH -p batch
 #SBATCH -N 1
 #SBATCH -n 16
-#SBATCH --time=24:00:00
-#SBATCH --mem=128GB
+#SBATCH --time=36:00:00
+#SBATCH --mem=144GB
 #SBATCH -o /home/a1018048/slurm/T47D_ZR75_DHT_StrippedSerum_RNASeq/%x_%j.out
 #SBATCH -e /home/a1018048/slurm/T47D_ZR75_DHT_StrippedSerum_RNASeq/%x_%j.err
 #SBATCH --mail-type=END
