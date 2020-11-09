@@ -11,4 +11,4 @@ logs/
 *.fq.gz
 *.bam
 *.bai
-*/_STARtmp/*
+data/aligned/bam/**/**/**/_STARtmp/*

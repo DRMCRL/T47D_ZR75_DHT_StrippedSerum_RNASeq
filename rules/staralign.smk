@@ -12,7 +12,7 @@ rule star_pe:
         "logs/star/{sample}.log"
     params:
         extra = config['star']['align_extra']
-    threads: 4
+    threads: 8
     script:
         "../scripts/star_alignment.py"
 
