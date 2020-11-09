@@ -24,5 +24,5 @@ rule count:
          -T {threads} \
          -a {input.gtf} \
          -o {output} \
-         "{input.bams}"
+         {input.bams}
        """
