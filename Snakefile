@@ -1,5 +1,6 @@
 import pandas as pd
 import os.path
+import re
 
 configfile: "config/config.yml"
 
@@ -33,7 +34,7 @@ r2 = config['tags']['r2']
 samples = pd.read_table(config["samples"])
 samples['id'] = samples['id'].apply(str)
 sample_id = samples['id'] + "/" + samples['sample']
-runs = ['Hiseq_1', 'Hiseq_2']
+runs = re.split(r" ", config['runs'])
 counts_file = "data/aligned/counts/counts.out"
 
 ########################

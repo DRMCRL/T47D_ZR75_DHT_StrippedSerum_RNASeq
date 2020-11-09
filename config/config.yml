@@ -3,6 +3,9 @@ samples: config/samples.tsv
 # The file extension. Usually one of fq.gz/fastq.gz/fq/fastq
 ext: ".fastq.gz"
 
+# Any split runs can be identified here
+runs: "Hiseq_1 Hiseq_2"
+
 # Common tags between the sample name given in samples.tsv and the extension
 # Any additional tag (e.g. _001) which appears between the read identifiers &
 # suffix should be placed here
@@ -55,7 +58,7 @@ featureCounts:
   minOverlap: 75
   fracOverlap: 1
   strandedness: 0
-  extra: "-M --fraction -p"
+  extra: "-M --fraction -p -C"
 
 # Parameters for QC & Analysis.
 # These must correspond to columns in the samples file
