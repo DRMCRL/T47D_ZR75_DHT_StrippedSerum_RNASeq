@@ -67,4 +67,4 @@ featureCounts:
 # value refers to any secondary variables or confounders
 analysis:
   group: treat
-  batch: cell_type
+  batch: cell_line
