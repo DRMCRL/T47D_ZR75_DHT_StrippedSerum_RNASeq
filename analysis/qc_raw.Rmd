@@ -26,6 +26,7 @@ library(scales)
 library(pander)
 library(glue)
 library(plotly)
+library(msa)
 ```
 
 ```{r options}
@@ -55,6 +56,10 @@ samples <- config$samples %>%
     cols = c("R1", "R2"),
     names_to = "Reads",
     values_to = "Filename"
+  ) %>%
+  mutate_if(
+    function(x){length(unique(x)) < length(x)},
+    as.factor
   )
 ```
 
@@ -139,60 +144,16 @@ plotBaseQuals(
 
 ## GC Content
 
-```{r plotGC, fig.height=fh, fig.cap=glue("*GC content shown as the % above and below the theoretical GC content for the {sp} transcriptome.*")}
-plotGcContent(
-  x = rawFqc, 
-  pattern = suffix, 
-  species = sp, 
-  gcType = "Trans",
-  usePlotly = TRUE,
-  dendrogram = TRUE,
-  cluster = TRUE
-  )
+GC content patterns for both R1 and R2 reads were highly reminiscent of those seen when rRNA has not been completely removed.
+
+```{r plotR1GC, fig.cap="*GC content for all R1 libraries*"}
+plotGcContent(rawFqc[grepl("R1", fqName(rawFqc))], plotType = "line", usePlotly = TRUE, gcType = "Trans") 
 ```
 
-```{r plotCumulativeGC, fig.cap = "*GC content shown as a cumulative distribution for all libraries. Groups can be hidden by clicking on them in the legend.*"}
-ggplotly(
-  getModule(rawFqc, "Per_sequence_GC_content") %>%
-    group_by(Filename) %>%
-    mutate(
-      cumulative = cumsum(Count) / sum(Count)
-    ) %>%
-    ungroup() %>%
-    separate(Filename, into = c("Run", "Filename"), sep = "/") %>%
-    left_join(samples) %>%
-    bind_rows(
-      getGC(gcTheoretical, sp, "Trans") %>%
-        mutate_at(sp, cumsum) %>% 
-        rename_all(
-          str_replace_all, 
-          pattern = sp, replacement = "cumulative",
-        ) %>%
-        mutate(
-          Filename = "Theoretical GC",
-          group = Filename
-        )
-    ) %>%
-    unite(Filename, Run, Filename, sep = "/") %>%
-    mutate(
-      group = as.factor(group),
-      group = relevel(group, ref = "Theoretical GC"),
-      cumulative = round(cumulative*100, 2)
-    ) %>%
-    ggplot(aes(GC_Content, cumulative, group = Filename)) +
-    geom_line(aes(colour = group), size = 1/3) +
-    scale_x_continuous(label = ngsReports:::.addPercent) +
-    scale_y_continuous(label = ngsReports:::.addPercent) +
-    scale_colour_manual(
-      values = c("#000000", group_cols)
-    ) +
-    labs(
-      x = "GC Content",
-      y = "Cumulative Total",
-      colour = "Group"
-    )
-)
+```{r plotR2GC, fig.cap="*GC content for all R2 libraries*"}
+plotGcContent(rawFqc[grepl("R2", fqName(rawFqc))], plotType = "line", usePlotly = TRUE, gcType = "Trans") 
 ```
+
 
 ## Sequence Content
 
@@ -267,9 +228,59 @@ os %>%
     Total = sum(Count),
     `Largest Percent` = glue("{round(max(Percentage), 2)}%")
   ) %>%
+  ungroup() %>%
   arrange(desc(Total)) %>%
+  dplyr::filter(Total > 5e5) %>%
+  mutate(Rank = seq_along(Total)) %>%
   pander(
     caption = "*Summary of over-represented sequences within the raw data.*"
   )
 ```
+
+```{r}
+os %>%
+  group_by(Sequence, Possible_Source) %>%
+  summarise(
+    `Found in` = n(),
+    Total = sum(Count),
+    `Largest Percent` = glue("{round(max(Percentage), 2)}%")
+  ) %>%
+  ungroup() %>%
+  arrange(desc(Total)) %>%
+  pull("Sequence") %>%
+  setNames(paste0("os", seq_along(.))) %>%
+  .[c(1:3, 7, 8, 10, 11, 12, 18, 19)] %>%
+  as("DNAStringSet") %>%
+  msa() %>%
+  print(show = 'complete')
+```
+
+
+
+A BLAST search of 10 manually selected sequences (which are clearly the same sequence) revealed this to be a perfect match to multiple genomic locations such as [RPS29](https://www.ncbi.nlm.nih.gov/nucleotide/NG_050638.2), [RN7SL3](https://www.ncbi.nlm.nih.gov/nucleotide/NR_145670.1), [NEMF](https://www.ncbi.nlm.nih.gov/nucleotide/NG_051075.1) and [RN7SL396P](https://www.ncbi.nlm.nih.gov/nucleotide/NG_042962.1).
+It is clear that this is likely to have some association with rRNA.
+
+
+```{r}
+os %>%
+  group_by(Sequence, Possible_Source) %>%
+  summarise(
+    `Found in` = n(),
+    Total = sum(Count),
+    `Largest Percent` = glue("{round(max(Percentage), 2)}%")
+  ) %>%
+  ungroup() %>%
+  arrange(desc(Total)) %>%
+  pull("Sequence") %>%
+  setNames(paste0("os", seq_along(.))) %>%
+  .[(c(9, 13, 17))] %>%
+  as("DNAStringSet") %>%
+  msa() %>%
+  print(show = 'complete')
+```
+
+A manual search using additional over-represented sequences which did not align to the above consensus, revealed matches to additional SRP RNAs and [7S RNA](https://www.ncbi.nlm.nih.gov/nucleotide/V00477.1)
+
+As such, rRNA may present some issues for this dataset as these sequences will not be removed by adapter removal. 
+Alignment to a rRNA genome may be of benefit.
 

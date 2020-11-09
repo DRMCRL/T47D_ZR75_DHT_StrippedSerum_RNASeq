@@ -273,6 +273,7 @@ plotly::ggplotly(
     separate(Filename, into = c("Run", "Filename"), sep = "/") %>%
     left_join(samples) %>%
     unite(Filename, Run, Filename, sep = "/") %>%
+    mutate(Base = as.integer(Base)) %>%
     ggplot(
       aes(Base, resid, group = Filename, colour = group)
     ) + 
@@ -284,3 +285,4 @@ plotly::ggplotly(
     )
 )
 ```
+
