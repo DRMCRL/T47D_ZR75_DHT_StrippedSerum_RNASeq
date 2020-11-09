@@ -11,3 +11,4 @@ logs/
 *.fq.gz
 *.bam
 *.bai
+*/_STARtmp/*
