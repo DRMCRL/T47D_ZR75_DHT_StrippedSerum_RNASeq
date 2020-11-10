@@ -101,14 +101,14 @@ rule build_dge_analysis:
         yaml = rules.create_site_yaml.output,
         counts = rules.merge_counts.output,
         rds = rules.build_qc_aligned.output.rds,
-        rmd = "analysis/{cell_line}_dge_analysis.Rmd",
+        rmd = "analysis/{cellline}_dge_analysis.Rmd",
         rproj = rules.make_rproj.output
     output:
-        html = "docs/{cell_line}_dge_analysis.html"
+        html = "docs/{cellline}_dge_analysis.html"
     conda:
         "../envs/workflowr.yml"
     log:
-        "logs/workflowr/dge_analysis.log"
+        "logs/workflowr/{cellline}_dge_analysis.log"
     threads: 1
     shell:
        """
@@ -123,7 +123,7 @@ rule build_wflow_site_index:
         raw = rules.build_qc_raw.output.html,
         trimmed = rules.build_qc_trimmed.output.html,
         aligned = rules.build_qc_aligned.output.html,
-        dge = rules.build_dge_analysis.output.html,
+        dge = expand(["docs/{cellline}_dge_analysis.html"], cellline = ['t47d', 'zr75']),
         rproj = rules.make_rproj.output
     output:
         html = "docs/index.html"
