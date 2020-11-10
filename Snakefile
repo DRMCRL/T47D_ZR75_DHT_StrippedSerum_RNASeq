@@ -60,7 +60,9 @@ ALL_ALN = expand(["data/aligned/bam/{run}/{sample}/{file}"],
                  file = ['Aligned.sortedByCoord.out.bam','Log.final.out'],
                  sample = sample_id)
 ALL_WORKFLOWR = expand(["docs/{step}.html"],
-                      step = ['description', 'index', 'qc_raw', 'qc_trimmed'])
+                      step = ['description', 'index', 'qc_raw', 'qc_trimmed', 'qc_aligned'])
+ALL_ANALYSIS = expand(["docs/{cell_line}_dge_analysis.html"],
+                      cell_line = ['t47d', 'zr75'])                     
 
 ## Collect them into a single object
 ALL_OUTPUTS = []
@@ -71,6 +73,7 @@ ALL_OUTPUTS.extend(ALL_FQC)
 ALL_OUTPUTS.extend(ALL_ALN)
 ALL_OUTPUTS.extend([merged_counts])
 ALL_OUTPUTS.extend(ALL_WORKFLOWR)
+ALL_OUTPUTS.extend(ALL_ANALYSIS)
 
 # And the rules
 rule all:

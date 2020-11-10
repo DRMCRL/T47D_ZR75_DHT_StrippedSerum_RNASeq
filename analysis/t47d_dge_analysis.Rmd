@@ -711,10 +711,21 @@ plot_grid(
 
 ## Data Export
 
-```{r}
+```{r writeTopTable}
 topTable %>%
   mutate(entrezid = vapply(entrezid, paste, character(1), collapse = ";")) %>%
   write_tsv(
-    here::here("output/T47D_RNASeq_topTable.tsv")
+    here::here("output/T47D_DHT_StrippedSerum_RNASeq_topTable.tsv")
+  )
+```
+
+
+```{r writeCPM}
+logCPM %>%
+  as_tibble(rownames = "gene_id") %>%
+  inner_join(dge$genes) %>%
+  dplyr::select(gene_id, gene_name, starts_with("GLL")) %>%
+  write_tsv(
+    here::here("output/T47D_DHT_StrippedSerum_RNASeq_logCPM.tsv")    
   )
 ```

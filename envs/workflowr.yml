@@ -5,16 +5,25 @@ channels:
 dependencies:
   - r-base=4.0.2
   - r-workflowr
-  - r-tidyverse
-  - r-pander
-  - r-here
-  - r-diagrammer
-  - r-plotly
-  - r-cowplot
-  - r-ggfortify
-  - r-ggrepel
+  - r-tidyverse=1.2
+  - r-pander=0.6
+  - r-here=0.1
+  - r-diagrammer=1.0
+  - r-plotly=4.9
+  - r-cowplot=1.1
+  - r-ggfortify=0.4
+  - r-ggrepel=0.8
+  - r-dt=0.5
+  - r-msigdbr=7.2
+  - r-reactable=0.2
+  - r-htmltools=0.5
+  - r-tidygraph=1.2
+  - r-ggraph=2.0
+  - r-corrplot=0.84
   - bioconductor-ngsReports=1.6
-  - bioconductor-edgeR
-  - bioconductor-AnnotationHub
+  - bioconductor-edgeR=3.32
+  - bioconductor-AnnotationHub=2.22
   - bioconductor-ensembldb
   - bioconductor-msa=1.22
+  - bioconductor-cqn=1.36
+  - bioconductor-goseq=1.42

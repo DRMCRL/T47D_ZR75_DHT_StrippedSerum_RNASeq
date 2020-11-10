@@ -15,10 +15,14 @@ navbar:
         href: qc_trimmed.html
       - text: Aligned Data
         href: qc_aligned.html
-  - text: Analysis
+  - text: T47D Cells
     menu:
       - text: Differential Gene Expression
-        href: dge_analysis.html
+        href: t47d_dge_analysis.html
+  - text: ZR-75 Cells
+    menu:
+      - text: Differential Gene Expression
+        href: zr75_dge_analysis.html        
 output:
   workflowr::wflow_html:
     toc: yes

@@ -101,10 +101,10 @@ rule build_dge_analysis:
         yaml = rules.create_site_yaml.output,
         counts = rules.merge_counts.output,
         rds = rules.build_qc_aligned.output.rds,
-        rmd = "analysis/dge_analysis.Rmd",
+        rmd = "analysis/{cell_line}_dge_analysis.Rmd",
         rproj = rules.make_rproj.output
     output:
-        html = "docs/dge_analysis.html"
+        html = "docs/{cell_line}_dge_analysis.html"
     conda:
         "../envs/workflowr.yml"
     log:
