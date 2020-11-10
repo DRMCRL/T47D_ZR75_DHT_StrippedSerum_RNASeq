@@ -728,3 +728,12 @@ logCPM %>%
   )
 ```
 
+```{r write_dge}
+write_rds(
+  dge, 
+  here::here("output/zr75_dge.rds"), 
+  compress = "gz"
+)
+```
+
+
