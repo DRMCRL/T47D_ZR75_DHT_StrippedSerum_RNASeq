@@ -306,11 +306,10 @@ ggplotly(
 ## Total Detected Genes
 
 ```{r counts}
-counts <- here::here("data/aligned/counts/counts.out") %>%
+counts <- here::here("data/aligned/counts/merged_counts.out") %>%
   read_tsv(comment = "#") %>%
-  rename_all(str_remove_all, pattern = "/Aligned.+") %>%
-  rename_all(str_replace_all, pattern = ".+(Hiseq_[12])/[0-9]+/(.+)", replacement = "\\1/\\2") %>%
-  dplyr::select(-Chr, -Start, -End, -Strand, -Length) %>%
+  rename_all(basename) %>%
+  dplyr::select(Geneid, starts_with("GLL")) %>%
   column_to_rownames("Geneid") %>%
   as.matrix()
 ```
@@ -330,17 +329,15 @@ counts %>%
   pivot_longer(
     everything(), names_to = "Filename", values_to = "Detected"
   ) %>%
-  separate(Filename, c("Run", "Filename"), sep ="/") %>%
   left_join(samples) %>%
   ggplot(aes(group, Detected, colour = group)) +
   geom_point() +
   geom_segment(
     aes(xend = group, y = 0, yend = Detected),
     data = . %>% 
-      group_by(Run, group) %>%
+      group_by(group) %>%
       summarise(Detected = min(Detected)),
     colour = "black", size = 1/4) +
-  facet_wrap(~Run) +
   scale_y_continuous(labels = comma, expand = expansion(c(0, 0.05))) +
   scale_colour_manual(values = group_cols) +
   labs(
@@ -404,19 +401,17 @@ plotly::ggplotly(
     enframe(
       name = "Filename", value = "Library Size"
     ) %>%
-    separate(Filename, c("Run", "Filename"), sep ="/") %>%
     left_join(samples) %>%
     ggplot(aes(group, `Library Size`, colour = group, label = Filename)) +
     geom_point() +
     geom_segment(
       aes(x = group, xend = group, y = 0, yend = `Library Size`),
       data = . %>% 
-        group_by(Run, group) %>%
+        group_by(group) %>%
         summarise(`Library Size` = min(`Library Size`)),
       colour = "black", size = 1/4,
       inherit.aes = FALSE
     ) +
-    facet_wrap(~Run) +
     scale_y_continuous(labels = comma, expand = expansion(c(0, 0.05))) +
     scale_colour_manual(values = group_cols) +
     labs(
@@ -443,7 +438,14 @@ A PCA was performed using logCPM values from the subset of `r comma(sum(rowSums(
 ```{r plotPCA, fig.height=6, fig.width=8, fig.cap="*PCA plot of all samples.*"}
 showLabel <- nrow(samples) <= 20
 pca %>%
-  autoplot(data = samples, colour = "group", label = showLabel, label.repel = showLabel) +
+  autoplot(
+    data = .$x %>%
+      rownames() %>%
+      enframe(value = "sample", name = c()) %>%
+      left_join(samples),
+    colour = "group",
+    label = showLabel, label.repel = showLabel, label.show.legend = FALSE
+  ) +
   labs(colour = "Group") +
   scale_colour_manual(values = group_cols)
 ```

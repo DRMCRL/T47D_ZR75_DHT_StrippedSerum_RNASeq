@@ -78,7 +78,7 @@ rule build_qc_trimmed:
 rule build_qc_aligned:
     input:
         yaml = rules.create_site_yaml.output,
-        counts = rules.count.output,
+        counts = rules.merge_counts.output,
         aln_logs = expand(["data/aligned/bam/{run}/{sample}/Log.final.out"],
                           run = runs, sample = sample_id),
         rmd = "analysis/qc_aligned.Rmd",
@@ -99,6 +99,7 @@ rule build_qc_aligned:
 rule build_dge_analysis:
     input:
         yaml = rules.create_site_yaml.output,
+        counts = rules.merge_counts.output,
         rds = rules.build_qc_aligned.output.rds,
         rmd = "analysis/dge_analysis.Rmd",
         rproj = rules.make_rproj.output
