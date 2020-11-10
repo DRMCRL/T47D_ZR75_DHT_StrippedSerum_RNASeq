@@ -2,64 +2,68 @@ digraph snakemake_dag {
     graph[bgcolor=white, margin=0];
     node[shape=box, style=rounded, fontname=sans,                 fontsize=10, penwidth=2];
     edge[penwidth=2, color=grey];
-	0[label = "all", color = "0.53 0.6 0.85", style="rounded"];
-	1[label = "star_pe", color = "0.03 0.6 0.85", style="rounded"];
-	2[label = "count", color = "0.17 0.6 0.85", style="rounded"];
-	3[label = "raw_fastqc", color = "0.30 0.6 0.85", style="rounded"];
-	4[label = "adapter_removal", color = "0.47 0.6 0.85", style="rounded"];
-	5[label = "trim_fastqc", color = "0.13 0.6 0.85", style="rounded"];
-	6[label = "get_annotation", color = "0.27 0.6 0.85", style="rounded"];
-	7[label = "build_wflow_description", color = "0.00 0.6 0.85", style="rounded"];
-	8[label = "build_qc_raw", color = "0.23 0.6 0.85", style="rounded"];
-	9[label = "build_wflow_site_index", color = "0.40 0.6 0.85", style="rounded"];
-	10[label = "make_rulegraph", color = "0.43 0.6 0.85", style="rounded"];
-	11[label = "get_genome", color = "0.63 0.6 0.85", style="rounded"];
-	12[label = "build_qc_trimmed", color = "0.57 0.6 0.85", style="rounded"];
-	13[label = "star_index", color = "0.07 0.6 0.85", style="rounded"];
-	14[label = "make_rproj", color = "0.37 0.6 0.85", style="rounded"];
-	15[label = "create_site_yaml", color = "0.10 0.6 0.85", style="rounded"];
-	16[label = "build_qc_aligned", color = "0.20 0.6 0.85", style="rounded"];
-	17[label = "build_dge_analysis", color = "0.50 0.6 0.85", style="rounded"];
-	7 -> 0
-	1 -> 0
-	13 -> 0
-	2 -> 0
-	5 -> 0
-	6 -> 0
+	0[label = "all", color = "0.17 0.6 0.85", style="rounded"];
+	1[label = "trim_fastqc", color = "0.57 0.6 0.85", style="rounded"];
+	2[label = "star_pe", color = "0.63 0.6 0.85", style="rounded"];
+	3[label = "adapter_removal", color = "0.07 0.6 0.85", style="rounded"];
+	4[label = "raw_fastqc", color = "0.53 0.6 0.85", style="rounded"];
+	5[label = "build_qc_trimmed", color = "0.60 0.6 0.85", style="rounded"];
+	6[label = "merge_counts", color = "0.10 0.6 0.85", style="rounded"];
+	7[label = "build_wflow_site_index", color = "0.43 0.6 0.85", style="rounded"];
+	8[label = "get_annotation", color = "0.37 0.6 0.85", style="rounded"];
+	9[label = "get_genome", color = "0.27 0.6 0.85", style="rounded"];
+	10[label = "make_rulegraph", color = "0.13 0.6 0.85", style="rounded"];
+	11[label = "star_index", color = "0.33 0.6 0.85", style="rounded"];
+	12[label = "build_qc_raw", color = "0.30 0.6 0.85", style="rounded"];
+	13[label = "build_wflow_description", color = "0.20 0.6 0.85", style="rounded"];
+	14[label = "create_site_yaml", color = "0.50 0.6 0.85", style="rounded"];
+	15[label = "make_rproj", color = "0.47 0.6 0.85", style="rounded"];
+	16[label = "count", color = "0.23 0.6 0.85", style="rounded"];
+	17[label = "build_qc_aligned", color = "0.03 0.6 0.85", style="rounded"];
+	18[label = "build_dge_analysis", color = "0.40 0.6 0.85", style="rounded"];
 	3 -> 0
-	9 -> 0
-	4 -> 0
+	6 -> 0
 	10 -> 0
+	13 -> 0
+	9 -> 0
 	12 -> 0
-	8 -> 0
 	11 -> 0
-	13 -> 1
-	4 -> 1
-	6 -> 2
-	1 -> 2
-	4 -> 5
-	14 -> 7
+	8 -> 0
+	7 -> 0
+	4 -> 0
+	1 -> 0
+	5 -> 0
+	2 -> 0
+	3 -> 1
+	11 -> 2
+	3 -> 2
+	15 -> 5
+	14 -> 5
+	1 -> 5
+	16 -> 6
+	17 -> 7
+	12 -> 7
+	18 -> 7
 	15 -> 7
-	10 -> 7
-	3 -> 8
-	15 -> 8
-	14 -> 8
-	7 -> 9
-	15 -> 9
-	16 -> 9
-	14 -> 9
-	17 -> 9
-	8 -> 9
-	12 -> 9
-	14 -> 12
+	14 -> 7
+	5 -> 7
+	13 -> 7
+	9 -> 11
+	8 -> 11
 	15 -> 12
-	5 -> 12
-	6 -> 13
-	11 -> 13
-	14 -> 16
-	1 -> 16
-	15 -> 16
-	16 -> 17
-	14 -> 17
+	14 -> 12
+	4 -> 12
+	15 -> 13
+	10 -> 13
+	14 -> 13
+	8 -> 16
+	2 -> 16
 	15 -> 17
+	14 -> 17
+	6 -> 17
+	2 -> 17
+	15 -> 18
+	17 -> 18
+	14 -> 18
+	6 -> 18
 }            
