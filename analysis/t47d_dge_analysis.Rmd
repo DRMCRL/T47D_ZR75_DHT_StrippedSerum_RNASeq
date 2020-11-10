@@ -1,0 +1,711 @@
+---
+title: "T-47D Cells: Differential Gene Expression"
+author: "Stephen Pederson"
+date: "`r format(Sys.Date(), '%d %B, %Y')`"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10
+)
+```
+
+```{r packages}
+library(tidyverse)
+library(yaml)
+library(scales)
+library(pander)
+library(glue)
+library(edgeR)
+library(AnnotationHub)
+library(ensembldb)
+library(magrittr)
+library(cowplot)
+library(ggfortify)
+library(cqn)
+library(ggrepel)
+library(DT)
+```
+
+```{r options}
+panderOptions("table.split.table", Inf)
+panderOptions("big.mark", ",")
+theme_set(theme_bw())
+```
+
+```{r config}
+config <- here::here("config/config.yml") %>%
+  read_yaml()
+sp <- config$ref$species %>%
+  str_replace("(^[a-z])[a-z]*_([a-z]+)", "\\1\\2") %>%
+  str_to_title()
+```
+
+```{r samples}
+samples <- config$samples %>%
+  here::here() %>%
+  read_tsv() %>%
+  dplyr::filter(cell_line == "T-47D") %>%
+  mutate(
+    cell_line = as.factor(cell_line),
+    treat = factor(treat, levels = c("Vehicle", "DHT")),
+    rep = as.factor(str_extract(sample, "GLL[0-9]+")),
+    group = treat
+  )
+```
+
+
+```{r treat_cols}
+treat_cols <- hcl.colors(
+  n = length(unique(samples$group)), 
+  palette = "Zissou 1"
+  ) %>%
+  setNames(unique(samples$group))
+```
+
+```{r rep_cols}
+rep_cols <- hcl.colors(
+  n = length(levels(samples$rep)), 
+  palette = "Spectral"
+  ) %>%
+  setNames(levels(samples$rep))
+```
+
+
+# Setup
+
+## Annotations
+
+```{r ah}
+ah <- AnnotationHub() %>%
+  subset(rdataclass == "EnsDb") %>%
+  subset(str_detect(description, as.character(config$ref$release))) %>%
+  subset(genome == config$ref$build)
+stopifnot(length(ah) == 1)
+```
+
+```{r ensDb}
+ensDb <- ah[[1]]
+genesGR <- read_rds(here::here("output/genesGR.rds"))
+```
+
+Gene annotations were again loaded from Ensembl Release `r ensemblVersion(ensDb)`.
+The [previously defined](qc_aligned.html#Annotation_Setup) `GenomicRanges` object containing GC content and Gene Length was also loaded,
+containing information for `r comma(length(genesGR))` genes.
+
+## Count Data
+
+```{r counts}
+counts <- here::here("data/aligned/counts/merged_counts.out") %>%
+  read_tsv(comment = "#") %>%
+  rename_all(basename) %>%
+  dplyr::select(Geneid, any_of(samples$sample)) %>%
+  column_to_rownames("Geneid")
+```
+
+### Removal of Undetectable Genes
+
+```{r genes2Keep}
+minCPM <- 1.5
+minSamples <- ncol(counts) / 2
+genes2Keep <- counts %>%
+  cpm() %>%
+  is_greater_than(minCPM) %>%
+  rowSums() %>%
+  is_weakly_greater_than(minSamples) 
+```
+
+The criteria for a gene to be considered as detected, $>$ `r minCPM` counts per million (CPM) were required to observed in $\geq$ `r minSamples` samples.
+This effectively ensured $\geq$ `r ceiling(min(colSums(counts))/1e6)` counts in at least `r minSamples` merged libraries.
+
+Of the `r comma(nrow(counts))` genes contained in the annotation for this release, `r comma(sum(!genes2Keep))` genes  were removed as failing this criteria for detection, leaving `r comma(sum(genes2Keep))` genes for downstream analysis.
+
+```{r plotDensities, fig.height=5, fig.cap="*Distributions of logCPM values on merged counts, A) before and B) after filtering of undetectable genes. Some differences between replicates were noted.*"}
+a <- counts %>%
+  cpm(log = TRUE) %>%
+  as.data.frame() %>%
+  rownames_to_column("gene_id") %>%
+  as_tibble() %>%
+  pivot_longer(
+    cols = contains("GLL"),
+    names_to = "sample",
+    values_to = "logCPM"
+  ) %>%
+  left_join(samples) %>%
+  ggplot(aes(logCPM, stat(density), group = sample, colour = treat)) +
+  geom_density() +
+  scale_colour_manual(values= treat_cols) +
+  labs(
+    y = "Density",
+    colour = "Treatment"
+  )
+b <- counts[genes2Keep,] %>%
+  cpm(log = TRUE) %>%
+  as.data.frame() %>%
+  rownames_to_column("gene_id") %>%
+  as_tibble() %>%
+  pivot_longer(
+    cols = contains("GLL"),
+    names_to = "sample",
+    values_to = "logCPM"
+  ) %>%
+  left_join(samples) %>%
+  ggplot(aes(logCPM, stat(density), group = sample, colour = treat)) +
+  geom_density() +
+  scale_colour_manual(values= treat_cols) +
+  labs(
+    y = "Density",
+    colour = "Treatment"
+  )
+plot_grid(
+  a + theme(legend.position = "none"), 
+  b + theme(legend.position = "none"), 
+  get_legend(a),
+  labels = c("A", "B"),
+  rel_widths = c(4, 4, 1),
+  nrow = 1
+)
+```
+
+
+```{r fullDGE}
+dge <- DGEList(
+  counts = counts,
+  samples = samples %>%
+    as.data.frame %>%
+    set_rownames(.$sample) %>%
+    .[colnames(counts),],
+  genes = mcols(genesGR[rownames(counts)])[, c("gene_id", "gene_name", "gene_biotype", "entrezid", "longest_tx", "ave_tx_len", "gc_content")]
+) %>%
+  .[genes2Keep,] %>%
+  calcNormFactors()
+```
+
+# QC
+
+## Library Sizes
+
+```{r plotLibSizes, fig.height=6, fig.cap = "*Library sizes after removal of undetectable genes. The common-use minimum library size of 10 million reads is shown as a dashed line.*"}
+dge$samples %>%
+  ggplot(aes(sample, lib.size, fill = treat)) +
+  geom_col() +
+  geom_hline(yintercept = 1e7, linetype = 2) +
+  facet_wrap(~treat, scales = "free_x") +
+  scale_y_continuous(
+    labels = comma, expand = expansion(c(0, 0.05))
+  ) +
+  scale_fill_manual(values= treat_cols) +
+  labs(x = "Sample Name", y = "Library Size") +
+  theme(legend.position = "none") 
+```
+
+The median library size was found to be `r round(median(colSums(counts[genes2Keep,] ))/1e6, 1)` million reads which is above the common-use minimum recommendation of 10 million reads/sample.
+
+## PCA: Pre Normalisation
+
+```{r pca}
+pca <- dge %>%
+  cpm(log = TRUE) %>%
+  t() %>%
+  prcomp() 
+```
+
+
+```{r plotPCA, fig.height=8, fig.width=8, fig.cap="*PCA on logCPM from counts. PC1 appears to capture the majority of the impact of DHT within each paired samples, as shown by the arrows which move from Vehicle to DHT treated samples in panel C.*"}
+a <- pca %>%
+  autoplot(
+    data = dge$samples, 
+    x = 1, y = 3,
+    colour = "rep", 
+    shape = "treat", 
+    size = 3
+  ) +
+  scale_colour_manual(values= rep_cols) +
+  labs(
+    colour = "Replicate",
+    shape = "Treatment"
+  )
+b <- pca %>%
+  autoplot(
+    data = dge$samples, 
+    x = 2, y = 3,
+    colour = "rep", 
+    shape = "treat", 
+    size = 3
+  ) +
+  scale_colour_manual(values= rep_cols) +
+  labs(
+    colour = "Replicate",
+    shape = "Treatment"
+  )
+c <- pca %>%
+  autoplot(
+    data = dge$samples, 
+    x = 1, y = 2,
+    colour = "rep", 
+    shape = "treat", 
+    size = 3
+  ) +
+  geom_segment(
+    aes(
+      x = Vehicle_PC1, xend = DHT_PC1,
+      y = Vehicle_PC2, yend = DHT_PC2,
+      colour = rep
+    ),
+    data = . %>%
+      dplyr::select(any_of(colnames(dge$samples)), PC1, PC2) %>%
+      pivot_longer(cols = starts_with("PC"), names_to = "PC", values_to = "value") %>%
+      pivot_wider(names_from = c("treat", "PC"), values_from = value, id_cols = c("rep")),
+    alpha = 0.4,
+    arrow = arrow()
+  ) +
+  scale_colour_manual(values= rep_cols) +
+  labs(
+    colour = "Replicate",
+    shape = "Treatment"
+  )
+plot_grid(
+  a + theme(legend.position = "none"), 
+  b + theme(legend.position = "none"),
+  c + theme(legend.position = "none"),
+  get_legend(a),
+  labels = LETTERS[1:3],
+  nrow = 2
+)
+```
+
+## Checks for GC and Length bias
+
+Given the observations when assessing PC2 in the [combined QC analysis](qc_aligned.html), genes were divided in 10 approximately equal sized bins based on increasing length, and 10 approximately equal sized bins based on increasing GC content, with the final GC/Length bins being the combination 100 bins using both sets.
+The contribution of each gene to PC1 and PC2 was assessed and a t-test performed on each bin.
+This tests 
+
+$$
+H_0: \mu = 0 \text{ against } H_A: \mu \neq 0
+$$
+
+where $\mu$ represents the true contribution to PC1 of all genes in that bin.
+
+If any bin makes a contribution to PC1 the mean will be clearly non-zero, whilst if there is no contribution the mean will be near zero.
+In this way, the impact of gene length and GC content on variance within the dataset can be assessed.
+As seen below, the contribution of GC content and gene length to PC1 is very clear, with a smaller contribution being evident across PC2.
+As a result, Conditional Quantile Normalisation (`CQN`) is recommended in preference to the more common TMM normalisation.
+
+```{r plotPCA_GC_Length, fig.height=6, fig.cap = "*Contribution of each GC/Length Bin to PC1 and PC2. Fill colours indicate the t-statistic, with tranparency denoting significance as -log10(p), using Bonferroni-adjusted p-values. The number of genes in each bin is indicated by the circle size. The clear pattern across PC1 is unambiguous.*"}
+dge$genes %>%
+  dplyr::select(gene_id, ave_tx_len, gc_content) %>%
+  mutate(
+    GC = cut(
+      x = gc_content,
+      labels = seq_len(10),
+      breaks = quantile(gc_content, probs = seq(0, 1, length.out = 11)),
+      include.lowest = TRUE
+    ),
+    Length = cut(
+      x = ave_tx_len,
+      labels = seq_len(10),
+      breaks = quantile(ave_tx_len, probs = seq(0, 1, length.out = 11)),
+      include.lowest = TRUE
+    ),
+    bin = paste(GC, Length, sep = "_"),
+    PC1 = pca$rotation[gene_id, "PC1"],
+    PC2 = pca$rotation[gene_id, "PC2"]
+  ) %>%
+  pivot_longer(
+    cols = c("PC1", "PC2"),
+    names_to = "PC",
+    values_to = "value"
+  ) %>%
+  group_by(PC, GC, Length, bin) %>%
+  summarise(
+    Size = n(),
+    mean = mean(value),
+    sd = sd(value),
+    t = t.test(value)$statistic,
+    p = t.test(value)$p.value,
+    adjP = p.adjust(p, method = "bonf")
+  ) %>%
+  ggplot(
+    aes(Length, GC, colour = t, alpha = -log10(adjP), size = Size)
+  ) +
+  geom_point() +
+  facet_wrap(~PC) +
+  scale_colour_gradient2() +
+  scale_size_continuous(range = c(1, 10)) +
+  labs(alpha = expression(paste(-log[10], p))) +
+  theme(
+    panel.grid = element_blank(),
+    legend.position = "bottom"
+  ) 
+```
+
+Given these results, the considered options for analysis were to use CQN normalisation and GLM-QL Fits.
+
+## Normalisation
+
+```{r cqn}
+cqNorm <- with(
+  dge,
+  cqn(
+    counts= counts,
+    x = genes$gc_content,
+    lengths = genes$ave_tx_len
+  )
+)
+dge$offset <- cqNorm$glm.offset
+logCPM <- cqNorm$y + cqNorm$offset
+```
+
+```{r plotCQN, fig.height=6, fig.cap = "*Model fits used when applying CQN. The divergent samples previously noted on the PCA are again quite divergent here. In particular, the long genes with low GC content appear to be where the primary differences are found, in keeping with the previous PCA analysis.*"}
+a <- cqNorm$func1 %>%
+  as.data.frame() %>%
+  mutate(x = cqNorm$grid1) %>%
+  pivot_longer(
+    cols = any_of(colnames(dge)),
+    names_to = "sample",
+    values_to = "QR fit"
+  ) %>%
+  left_join(dge$samples) %>%
+  ggplot(
+    aes(x, `QR fit`, colour = rep, group = sample, linetype = treat)
+  ) +
+  geom_line() +
+  labs(x = "GC content", colour = "Replicate", linetype = "Treatment")
+b <- cqNorm$func2 %>%
+  as.data.frame() %>%
+  mutate(x = cqNorm$grid2) %>%
+  pivot_longer(
+    cols = any_of(colnames(dge)),
+    names_to = "sample",
+    values_to = "QR fit"
+  ) %>%
+  left_join(dge$samples) %>%
+  ggplot(
+    aes(x, `QR fit`, colour = rep, group = sample, linetype = treat)
+  ) +
+  geom_line() +
+  labs(
+    x = expression(paste(log[10], " Gene Length (kb)")),
+    colour = "Replicate", linetype = "Treatment"
+  )
+plot_grid(
+  a + theme(legend.position = "none"), 
+  b + theme(legend.position = "none"),
+  get_legend(a),
+  nrow = 1,
+  rel_widths = c(3, 3, 1)
+)
+```
+
+```{r pcaPost}
+pcaPost <- logCPM %>%
+  t() %>%
+  prcomp() 
+```
+
+```{r plotPcaPost, fig.height=8, fig.width=8, fig.cap="*PCA on logCPM after performing CQN. PC1 and PC2 now clearly capture the biology in question, with vectors denoting the shift from vehicle to treatment shown as arrows shown in panel C.*"}
+a <- pcaPost %>%
+  autoplot(
+    data = dge$samples, 
+    x = 1, y = 3,
+    colour = "rep", 
+    shape = "treat", 
+    size = 3
+  ) +
+  scale_colour_manual(values= rep_cols) +
+  labs(
+    colour = "Replicate",
+    shape = "Treatment"
+  )
+b <- pcaPost %>%
+  autoplot(
+    data = dge$samples, 
+    x = 2, y = 3,
+    colour = "rep", 
+    shape = "treat", 
+    size = 3
+  ) +
+  scale_colour_manual(values= rep_cols) +
+  labs(
+    colour = "Replicate",
+    shape = "Treatment"
+  )
+c <- pcaPost %>%
+  autoplot(
+    data = dge$samples, 
+    x = 1, y = 2,
+    colour = "rep", 
+    shape = "treat", 
+    size = 3
+  ) +
+  geom_segment(
+    aes(
+      x = Vehicle_PC1, xend = DHT_PC1, 
+      y = Vehicle_PC2, yend = DHT_PC2,
+      colour = rep
+    ),
+    data = . %>%
+      dplyr::select(any_of(colnames(dge$samples)), PC1, PC2) %>% 
+      pivot_longer(cols = starts_with("PC"), names_to = "PC", values_to = "value") %>% 
+      pivot_wider(names_from = c("treat", "PC"), values_from = value, id_cols = c("rep")),
+    alpha = 0.4,
+    arrow = arrow()
+  ) +
+  scale_colour_manual(values= rep_cols) +
+  labs(
+    colour = "Replicate",
+    shape = "Treatment"
+  )
+plot_grid(
+  a + theme(legend.position = "none"), 
+  b + theme(legend.position = "none"),
+  c + theme(legend.position = "none"),
+  get_legend(a),
+  labels = LETTERS[1:3],
+  nrow = 2
+)
+```
+
+# Differential Expression Analysis
+
+## Main Results
+
+A design matrix was formed giving each replicate it's own baseline and the common DHT response was then specified as the final column.
+Following this, dispersions were estimated for the main `DGEList` object and the model fitted using the Quasi-likelihood GLM.
+
+```{r fit}
+X <- model.matrix(~0 + rep + treat, data = dge$samples) %>%
+  set_colnames(str_remove(colnames(.), "treat"))
+dge <- estimateDisp(dge, design = X, robust = TRUE)
+fit <- glmQLFit(dge)
+```
+
+```{r topTable}
+alpha <- 0.05
+lambda <- log2(1.2)
+topTable <- glmTreat(fit, coef = "DHT", lfc = lambda) %>%
+  topTags(n = Inf) %>%
+  .[["table"]] %>%
+  as_tibble() %>%
+  mutate(
+    rankingStat = -sign(logFC)*log10(PValue),
+    signedRank = rank(rankingStat),
+    DE = FDR < alpha
+  ) %>%
+  dplyr::select(
+    gene_id, gene_name, logCPM, logFC, PValue, FDR, 
+    gene_biotype, entrezid, ave_tx_len, gc_content, 
+    rankingStat, signedRank, DE
+  )
+de <- dplyr::filter(topTable, DE)$gene_id
+up <- dplyr::filter(topTable, DE, logFC > 0)$gene_id
+down <- dplyr::filter(topTable, DE, logFC < 0)$gene_id
+```
+
+In order to detect genes which respond to DHT the Null Hypothesis ($H_0$) was specified to be a range around zero, instead of the conventional point-value.
+
+$$
+H_0: -\lambda \leq \mu \leq \lambda \\
+\text{Vs.} \\
+H_A: |\mu| > \lambda
+$$
+
+This characterises $H_0$ as being a range instead of being the singularity 0, with $\mu$ representing the true mean logFC.
+The default value of $\lambda = \log_2 `r 2^lambda` = `r round(lambda, 3)`$ was chosen.
+This removes any requirement for *post hoc* filtering based on logFC.
+Using this approach, `r length(de)` genes were considered as DE to an FDR of `r alpha`.
+Of these, `r length(up)` were up-regulated with the remaining `r length(down)` being down-regulated.
+
+```{r plotMA, fig.height=6, fig.cap = "*MA plot with blue curve through the data showing the GAM fit. The curve for low-expressed genes indicated a potential bias remains in the data, whilst this is not evident for highly expressed genes. DE genes are highlighted in red.*"}
+topTable %>%
+  ggplot(aes(logCPM, logFC)) +
+  geom_point(
+    aes(colour = DE),
+    alpha = 0.5
+  ) +
+  geom_text_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>%
+      dplyr::filter(logFC > 1.4 | (logFC < -1 & logCPM > 5)),
+    show.legend = FALSE
+  ) +
+  geom_smooth(se = FALSE) +
+  scale_colour_manual(
+    values = c("grey50", "red")
+  ) +
+  theme(
+    legend.position = "none"
+  )
+```
+
+```{r plotVolcano, fig.height=8, fig.cap = glue("*Volcano plot showing significance against log fold-change. The common-use cutoff values for considering a gene as DE (|logFC| > 1) are shown in blue as a guide only as these were not used for this analysis.*")}
+topTable %>%
+  ggplot(aes(logFC, -log10(PValue))) +
+  geom_point(
+    aes(colour = DE),
+    alpha = 0.5
+  ) +
+  geom_text_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>%
+      dplyr::filter(
+        logFC > 1.4 | 
+          PValue < 5e-8 |
+          logFC < 0 & PValue < 1e-4
+      ),
+    show.legend = FALSE
+  ) +
+  geom_vline(xintercept = c(-1,1), colour = "blue", linetype = 2) +
+  labs(
+    y = expression(paste(-log[10], "p"))
+  ) +
+  scale_colour_manual(
+    values = c("grey50", "red")
+  ) +
+  theme(
+    legend.position = "none"
+  )
+```
+
+```{r printTopTable}
+topTable %>%
+  dplyr::filter(DE) %>%
+  dplyr::select(-DE, -gc_content, -ave_tx_len, -contains("rank")) %>%
+  mutate(
+    across(c("logFC", "logCPM"), round, digits = 2)
+  ) %>%
+  datatable(
+    rownames = FALSE, 
+    caption = glue("All genes were considered as DE using the criteria of an FDR-adjusted p-value < {alpha}.")
+  ) %>%
+  formatSignif(
+    columns = c("PValue", "FDR"),
+    digits = 3
+  )
+```
+
+
+### Top DE Genes
+
+logCPM values for the most up and down-regulated genes were also inspected using simple boxplots.
+
+```{r plotTopUp, fig.height=8, echo=FALSE, fig.cap="*Top ranked up-regulated genes*"}
+topTable %>%
+  dplyr::filter(DE & logFC > 0) %>%
+  dplyr::slice(1:12) %>%
+  dplyr::select(gene_id, gene_name) %>%
+  mutate(gene_name = fct_inorder(gene_name)) %>%
+  cbind(
+    logCPM[.$gene_id,]
+  ) %>%
+  pivot_longer(
+    any_of(colnames(dge)),
+    names_to = "sample",
+    values_to = "logCPM"
+  ) %>%
+  left_join(dge$samples) %>%
+  ggplot(
+    aes(treat, logCPM, fill = treat)
+  ) +
+  geom_boxplot(size = 1/2) +
+  facet_wrap(~gene_name) +
+  scale_y_continuous(breaks = seq(-4, 8, by = 4)) +
+  scale_fill_manual(values = treat_cols)
+```
+
+```{r plotTopDown, fig.height=8, echo=FALSE, fig.cap = "*Top ranked down-regulated genes*"}
+topTable %>%
+  dplyr::filter(DE & logFC < 0) %>%
+  dplyr::slice(1:12) %>%
+  dplyr::select(gene_id, gene_name) %>%
+  mutate(gene_name = fct_inorder(gene_name)) %>%
+  cbind(
+    logCPM[.$gene_id,]
+  ) %>%
+  pivot_longer(
+    any_of(colnames(dge)),
+    names_to = "sample",
+    values_to = "logCPM"
+  ) %>%
+  left_join(dge$samples) %>%
+  ggplot(
+    aes(treat, logCPM, fill = treat)
+  ) +
+  geom_boxplot(size = 1/2) +
+  facet_wrap(~gene_name) +
+  scale_y_continuous(breaks = seq(-4, 8, by = 4)) +
+  coord_cartesian(ylim = c(0, 10)) +
+  scale_fill_manual(values = treat_cols)
+```
+
+## Checks For Bias
+
+Using the sign of logFC to indicate direction, and -$\log_{10} p$ as the ranking statistic, bias was also checked within the set of results, using GC content and gene length as potential sources of bias amongst the set of DE genes.
+
+```{r plotBias, fig.height = 8, fig.cap = "*Genes ranked for signed differential expression shown against A) GC Content, and B) Gene Length. Ranks were assigned based on the ranking statistic R = -sign(logFC)*log~10~p, such that genes at the left are most down-regulated, whilst those at the right are the most up-regulated. Horizontal black lines indicate the overall average value, whilst blue curves indicate the localised GAM fit. A small positive bias was noted at both extremes for GC content indicating any ranked-list approaches should be treated with caution.*"}
+a <- topTable %>%
+  ggplot(aes(signedRank, gc_content)) +
+  geom_point(aes(colour = DE), alpha = 0.4) +
+  geom_smooth(se = FALSE) +
+  geom_hline(yintercept = mean(topTable$gc_content)) +
+  labs(
+    x = "Rank", y = "% GC Content"
+  ) +
+  scale_colour_manual(values = c("grey50", "red")) + 
+  theme(legend.position = "none")
+b <- topTable %>%
+    ggplot(aes(gc_content, stat(density))) +
+    geom_density(colour = "grey50") +
+    geom_vline(xintercept = mean(topTable$gc_content)) +
+    coord_flip() + 
+    theme(
+      axis.text = element_blank(),
+      axis.title = element_blank(),
+      axis.ticks = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.x = element_blank()
+    )
+c <- topTable %>%
+  ggplot(aes(signedRank, ave_tx_len)) +
+  geom_point(aes(colour = DE), alpha = 0.4) +
+  geom_smooth(se = FALSE) +
+  geom_hline(yintercept = 10^mean(log10(topTable$ave_tx_len))) +
+  labs(
+    x = "Rank", y = "Gene Length (nt)"
+  ) +
+  scale_y_log10(label = comma) +
+  scale_colour_manual(values = c("grey50", "red")) + 
+  theme(legend.position = "none")
+d <- topTable %>%
+  ggplot(aes(ave_tx_len, stat(density))) +
+  geom_density(colour = "grey50") +
+  geom_vline(xintercept = 10^mean(log10(topTable$ave_tx_len))) +
+  coord_flip() + 
+  scale_x_log10() +
+  theme(
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank()
+  )
+plot_grid(
+  plot_grid(ngsReports:::.emptyPlot(""), a, b, rel_widths = c(0.35, 9, 1), align = "h", nrow = 1),
+  plot_grid(c, d, rel_widths = c(9, 1), align = "h"),
+  nrow = 2,
+  rel_heights = c(1, 1),
+  labels = c("A", "B"),
+  align = "v",
+  axis = "l"
+)
+```
+
+
