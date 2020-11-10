@@ -413,6 +413,9 @@ div.tocify {
     <li>
       <a href="t47d_dge_analysis.html">Differential Gene Expression</a>
     </li>
+    <li>
+      <a href="t47d_enrichment.html">Enrichment Analysis</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -424,6 +427,9 @@ div.tocify {
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="zr75_dge_analysis.html">Differential Gene Expression</a>
+    </li>
+    <li>
+      <a href="zr75_enrichment.html">Enrichment Analysis</a>
     </li>
   </ul>
 </li>
@@ -565,16 +571,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDRMCRLT47DZR75DHTStrippedSerumRNASeqtreefc4cd07f5a1982b7c0b157b9875ac0ba06b5ec6btargetblankfc4cd07a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/tree/fc4cd07f5a1982b7c0b157b9875ac0ba06b5ec6b" target="_blank">fc4cd07</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDRMCRLT47DZR75DHTStrippedSerumRNASeqtree6765a588017a1daf4a417e343d5a6154a7c7fdb7targetblank6765a58a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/tree/6765a588017a1daf4a417e343d5a6154a7c7fdb7" target="_blank">6765a58</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDRMCRLT47DZR75DHTStrippedSerumRNASeqtreefc4cd07f5a1982b7c0b157b9875ac0ba06b5ec6btargetblankfc4cd07a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDRMCRLT47DZR75DHTStrippedSerumRNASeqtree6765a588017a1daf4a417e343d5a6154a7c7fdb7targetblank6765a58a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/tree/fc4cd07f5a1982b7c0b157b9875ac0ba06b5ec6b" target="_blank">fc4cd07</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/tree/6765a588017a1daf4a417e343d5a6154a7c7fdb7" target="_blank">6765a58</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -585,9 +591,15 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    .snakemake/
 
+Untracked files:
+    Untracked:  analysis/t47d_enrichment.Rmd
+    Untracked:  output/t47d_DHT_StrippedSerum_RNASeq_logCPM.tsv
+    Untracked:  output/t47d_DHT_StrippedSerum_RNASeq_topTable.tsv
+
 Unstaged changes:
     Modified:   analysis/_site.yml
-    Deleted:    analysis/dge_analysis.Rmd
+    Modified:   analysis/zr75_dge_analysis.Rmd
+    Modified:   rules/workflowr.smk
 
 </code></pre>
 <p>
@@ -626,6 +638,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/6765a588017a1daf4a417e343d5a6154a7c7fdb7/analysis/t47d_dge_analysis.Rmd" target="_blank">6765a58</a>
+</td>
+<td>
+Steve Ped
+</td>
+<td>
+2020-11-10
+</td>
+<td>
+Added DGE export
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/4bf6815a84e0ae4f3226a49848be0cb1c993f64f/analysis/t47d_dge_analysis.Rmd" target="_blank">4bf6815</a>
+</td>
+<td>
+Steve Ped
+</td>
+<td>
+2020-11-10
+</td>
+<td>
+Added output files from DGE Analysis
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/3e9ac3fd4637f047271bfcf9d199ed13d63d3d3c/analysis/t47d_dge_analysis.Rmd" target="_blank">3e9ac3f</a>
+</td>
+<td>
+Steve Ped
+</td>
+<td>
+2020-11-10
+</td>
+<td>
+Added DGE analysis to Snakefile
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/726336764ae9f11af70f4cb8dea3076a62346bed/docs/t47d_dge_analysis.html" target="_blank">7263367</a>
+</td>
+<td>
+Steve Ped
+</td>
+<td>
+2020-11-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1706,8 +1786,20 @@ Steve Ped
 <pre class="r"><code>topTable %&gt;%
   mutate(entrezid = vapply(entrezid, paste, character(1), collapse = &quot;;&quot;)) %&gt;%
   write_tsv(
-    here::here(&quot;output/T47D_RNASeq_topTable.tsv&quot;)
+    here::here(&quot;output/t47d_DHT_StrippedSerum_RNASeq_topTable.tsv&quot;)
   )</code></pre>
+<pre class="r"><code>logCPM %&gt;%
+  as_tibble(rownames = &quot;gene_id&quot;) %&gt;%
+  inner_join(dge$genes) %&gt;%
+  dplyr::select(gene_id, gene_name, starts_with(&quot;GLL&quot;)) %&gt;%
+  write_tsv(
+    here::here(&quot;output/t47d_DHT_StrippedSerum_RNASeq_logCPM.tsv&quot;)    
+  )</code></pre>
+<pre class="r"><code>write_rds(
+  dge, 
+  here::here(&quot;output/t47d_dge.rds&quot;), 
+  compress = &quot;gz&quot;
+)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1750,70 +1842,69 @@ other attached packages:
 [31] forcats_0.5.0           stringr_1.4.0           dplyr_1.0.2            
 [34] purrr_0.3.4             readr_1.4.0             tidyr_1.1.2            
 [37] tibble_3.0.4            ggplot2_3.3.2           tidyverse_1.3.0        
-[40] workflowr_1.6.2        
 
 loaded via a namespace (and not attached):
   [1] readxl_1.3.1                  backports_1.2.0              
-  [3] plyr_1.8.6                    lazyeval_0.2.2               
-  [5] crosstalk_1.1.0.1             BiocParallel_1.24.0          
-  [7] digest_0.6.27                 htmltools_0.5.0              
-  [9] fansi_0.4.1                   memoise_1.1.0                
- [11] cluster_2.1.0                 Biostrings_2.58.0            
- [13] modelr_0.1.8                  matrixStats_0.57.0           
- [15] askpass_1.1                   prettyunits_1.1.1            
- [17] jpeg_0.1-8.1                  colorspace_1.4-1             
- [19] blob_1.2.1                    rvest_0.3.6                  
- [21] rappdirs_0.3.1                haven_2.3.1                  
- [23] xfun_0.19                     crayon_1.3.4                 
- [25] RCurl_1.98-1.2                jsonlite_1.7.1               
- [27] zoo_1.8-8                     gtable_0.3.0                 
- [29] zlibbioc_1.36.0               XVector_0.30.0               
- [31] MatrixModels_0.4-1            DelayedArray_0.16.0          
- [33] DBI_1.1.0                     Rcpp_1.0.5                   
- [35] viridisLite_0.3.0             xtable_1.8-4                 
- [37] progress_1.2.2                flashClust_1.01-2            
- [39] bit_4.0.4                     htmlwidgets_1.5.2            
- [41] httr_1.4.2                    RColorBrewer_1.1-2           
- [43] ellipsis_0.3.1                pkgconfig_2.0.3              
- [45] XML_3.99-0.5                  farver_2.0.3                 
- [47] locfit_1.5-9.4                here_0.1                     
- [49] reshape2_1.4.4                tidyselect_1.1.0             
- [51] labeling_0.4.2                rlang_0.4.8                  
- [53] later_1.1.0.1                 munsell_0.5.0                
- [55] BiocVersion_3.12.0            cellranger_1.1.0             
- [57] tools_4.0.3                   cli_2.1.0                    
- [59] generics_0.1.0                RSQLite_2.2.1                
- [61] broom_0.7.2                   ggdendro_0.1.22              
- [63] evaluate_0.14                 fastmap_1.0.1                
- [65] knitr_1.30                    bit64_4.0.5                  
- [67] fs_1.5.0                      nlme_3.1-149                 
- [69] whisker_0.4                   mime_0.9                     
- [71] leaps_3.1                     xml2_1.3.2                   
- [73] biomaRt_2.46.0                compiler_4.0.3               
- [75] rstudioapi_0.11               png_0.1-7                    
- [77] plotly_4.9.2.1                curl_4.3                     
- [79] interactiveDisplayBase_1.28.0 reprex_0.3.0                 
- [81] statmod_1.4.35                stringi_1.5.3                
- [83] highr_0.8                     lattice_0.20-41              
- [85] ProtGenerics_1.22.0           Matrix_1.2-18                
- [87] vctrs_0.3.4                   pillar_1.4.6                 
- [89] lifecycle_0.2.0               BiocManager_1.30.10          
- [91] data.table_1.13.2             bitops_1.0-6                 
- [93] conquer_1.0.2                 httpuv_1.5.4                 
- [95] rtracklayer_1.50.0            latticeExtra_0.6-29          
- [97] hwriter_1.3.2                 R6_2.5.0                     
- [99] ShortRead_1.48.0              promises_1.1.1               
-[101] gridExtra_2.3                 MASS_7.3-53                  
-[103] ngsReports_1.6.0              assertthat_0.2.1             
-[105] SummarizedExperiment_1.20.0   openssl_1.4.3                
-[107] rprojroot_1.3-2               withr_2.3.0                  
-[109] GenomicAlignments_1.26.0      Rsamtools_2.6.0              
-[111] GenomeInfoDbData_1.2.4        mgcv_1.8-33                  
-[113] hms_0.5.3                     grid_4.0.3                   
-[115] rmarkdown_2.5                 MatrixGenerics_1.2.0         
-[117] git2r_0.27.1                  scatterplot3d_0.3-41         
-[119] shiny_1.5.0                   lubridate_1.7.9              
-[121] FactoMineR_2.3               </code></pre>
+  [3] workflowr_1.6.2               plyr_1.8.6                   
+  [5] lazyeval_0.2.2                crosstalk_1.1.0.1            
+  [7] BiocParallel_1.24.0           digest_0.6.27                
+  [9] htmltools_0.5.0               fansi_0.4.1                  
+ [11] memoise_1.1.0                 cluster_2.1.0                
+ [13] Biostrings_2.58.0             modelr_0.1.8                 
+ [15] matrixStats_0.57.0            askpass_1.1                  
+ [17] prettyunits_1.1.1             jpeg_0.1-8.1                 
+ [19] colorspace_1.4-1              blob_1.2.1                   
+ [21] rvest_0.3.6                   rappdirs_0.3.1               
+ [23] haven_2.3.1                   xfun_0.19                    
+ [25] crayon_1.3.4                  RCurl_1.98-1.2               
+ [27] jsonlite_1.7.1                zoo_1.8-8                    
+ [29] gtable_0.3.0                  zlibbioc_1.36.0              
+ [31] XVector_0.30.0                MatrixModels_0.4-1           
+ [33] DelayedArray_0.16.0           DBI_1.1.0                    
+ [35] Rcpp_1.0.5                    viridisLite_0.3.0            
+ [37] xtable_1.8-4                  progress_1.2.2               
+ [39] flashClust_1.01-2             bit_4.0.4                    
+ [41] htmlwidgets_1.5.2             httr_1.4.2                   
+ [43] RColorBrewer_1.1-2            ellipsis_0.3.1               
+ [45] pkgconfig_2.0.3               XML_3.99-0.5                 
+ [47] farver_2.0.3                  locfit_1.5-9.4               
+ [49] here_0.1                      reshape2_1.4.4               
+ [51] tidyselect_1.1.0              labeling_0.4.2               
+ [53] rlang_0.4.8                   later_1.1.0.1                
+ [55] munsell_0.5.0                 BiocVersion_3.12.0           
+ [57] cellranger_1.1.0              tools_4.0.3                  
+ [59] cli_2.1.0                     generics_0.1.0               
+ [61] RSQLite_2.2.1                 broom_0.7.2                  
+ [63] ggdendro_0.1.22               evaluate_0.14                
+ [65] fastmap_1.0.1                 knitr_1.30                   
+ [67] bit64_4.0.5                   fs_1.5.0                     
+ [69] nlme_3.1-149                  whisker_0.4                  
+ [71] mime_0.9                      leaps_3.1                    
+ [73] xml2_1.3.2                    biomaRt_2.46.0               
+ [75] compiler_4.0.3                rstudioapi_0.11              
+ [77] png_0.1-7                     plotly_4.9.2.1               
+ [79] curl_4.3                      interactiveDisplayBase_1.28.0
+ [81] reprex_0.3.0                  statmod_1.4.35               
+ [83] stringi_1.5.3                 highr_0.8                    
+ [85] lattice_0.20-41               ProtGenerics_1.22.0          
+ [87] Matrix_1.2-18                 vctrs_0.3.4                  
+ [89] pillar_1.4.6                  lifecycle_0.2.0              
+ [91] BiocManager_1.30.10           data.table_1.13.2            
+ [93] bitops_1.0-6                  conquer_1.0.2                
+ [95] httpuv_1.5.4                  rtracklayer_1.50.0           
+ [97] latticeExtra_0.6-29           hwriter_1.3.2                
+ [99] R6_2.5.0                      ShortRead_1.48.0             
+[101] promises_1.1.1                gridExtra_2.3                
+[103] MASS_7.3-53                   ngsReports_1.6.0             
+[105] assertthat_0.2.1              SummarizedExperiment_1.20.0  
+[107] openssl_1.4.3                 rprojroot_1.3-2              
+[109] withr_2.3.0                   GenomicAlignments_1.26.0     
+[111] Rsamtools_2.6.0               GenomeInfoDbData_1.2.4       
+[113] mgcv_1.8-33                   hms_0.5.3                    
+[115] grid_4.0.3                    rmarkdown_2.5                
+[117] MatrixGenerics_1.2.0          git2r_0.27.1                 
+[119] scatterplot3d_0.3-41          shiny_1.5.0                  
+[121] lubridate_1.7.9               FactoMineR_2.3               </code></pre>
 </div>
 </div>
 </div>
