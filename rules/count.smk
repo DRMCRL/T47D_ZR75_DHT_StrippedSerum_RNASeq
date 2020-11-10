@@ -26,3 +26,10 @@ rule count:
          -o {output} \
          {input.bams}
        """
+
+rule merge_counts:
+    input: counts_file
+    output: "data/aligned/counts/merged_counts.out"
+    conda: "../envs/workflowr.yml"
+    threads: 4
+    script: "scripts/mergeCounts.R"

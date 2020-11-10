@@ -13,7 +13,8 @@ dependencies:
   - r-cowplot
   - r-ggfortify
   - r-ggrepel
-  - bioconductor-ngsReports
+  - bioconductor-ngsReports=1.6
   - bioconductor-edgeR
   - bioconductor-AnnotationHub
   - bioconductor-ensembldb
+  - bioconductor-msa=1.22

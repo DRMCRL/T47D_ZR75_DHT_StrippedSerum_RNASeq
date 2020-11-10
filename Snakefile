@@ -35,7 +35,7 @@ samples = pd.read_table(config["samples"])
 samples['id'] = samples['id'].apply(str)
 sample_id = samples['id'] + "/" + samples['sample']
 runs = re.split(r" ", config['runs'])
-counts_file = "data/aligned/counts/counts.out"
+counts_file = "data/aligned/counts/merged_counts.out"
 
 ########################
 ## Define all outputs ##

@@ -46,6 +46,7 @@ config <- here::here("config/config.yml") %>%
 sp <- config$ref$species %>%
   str_replace("(^[a-z])[a-z]*_([a-z]+)", "\\1\\2") %>%
   str_to_title()
+runRegEx <- paste(str_split(config$runs, " ")[[1]], collapse = "|")
 ```
 
 ```{r samples}
@@ -102,7 +103,7 @@ alnStats <- alnFiles %>%
   }) %>%
   bind_rows() %>%
   mutate(
-    Run = str_extract(Filename, "Hiseq_[12]"),
+    Run = str_extract(Filename, runRegEx),
     Filename = basename(dirname(Filename))
   ) %>%
   left_join(samples, by = "Filename") %>%
@@ -140,9 +141,10 @@ ggplotly(
       Category = relevel(Category, ref = "Uniquely Mapped Reads"),
       Category = fct_rev(Category)
     ) %>%
+    separate(Filename, c("Run", "Filename"), sep = "/") %>%
     ggplot(aes(Filename, Percent, fill = Category)) +
     geom_col(colour = "black", size = 0.1) +
-    facet_wrap(~group, scales = "free_x") +
+    facet_grid(Run~group, scales = "free_x") +
     scale_y_continuous(expand = expansion(c(0, 0.05))) +
     scale_fill_viridis_d(option = "E", direction = -1) +
     theme(
@@ -238,7 +240,7 @@ write_rds(genesGR, here::here("output/genesGR.rds"), compress = "gz")
 countSummary <- here::here("data/aligned/counts/counts.out.summary") %>%
   importNgsLogs(type = "featureCounts") %>%
   mutate(
-    Run = str_extract(Sample, "Hiseq_[12]"),
+    Run = str_extract(Sample, runRegEx),
     Total = rowSums(
       dplyr::select_if(., is.numeric)
     ),

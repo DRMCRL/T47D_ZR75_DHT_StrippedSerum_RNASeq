@@ -42,6 +42,7 @@ suffix <- paste0(config$tags$tag, config$ext)
 sp <- config$ref$species %>%
   str_replace("(^[a-z])[a-z]*_([a-z]+)", "\\1\\2") %>%
   str_to_title()
+runRegEx <- paste(str_split(config$runs, " ")[[1]], collapse = "|")
 ```
 
 ```{r samples}
@@ -107,7 +108,7 @@ rawFqc <- here::here("data/raw/FastQC") %>%
 
 ```{r changeRawFqcPath}
 for (i in seq_along(rawFqc)){
-  run <- str_extract(path(rawFqc[[i]]), "Hiseq_[12]")
+  run <- str_extract(path(rawFqc[[i]]), runRegEx)
   rawFqc[[i]]@Summary$Filename <- paste(run, rawFqc[[i]]@Summary$Filename, sep = "/")
 } 
 ```
@@ -232,8 +233,9 @@ os %>%
   arrange(desc(Total)) %>%
   dplyr::filter(Total > 5e5) %>%
   mutate(Rank = seq_along(Total)) %>%
+  dplyr::select(Rank, everything()) %>%
   pander(
-    caption = "*Summary of over-represented sequences within the raw data.*"
+    caption = "*Summary of most abundant over-represented sequences within the raw data.*"
   )
 ```
 
@@ -241,21 +243,16 @@ os %>%
 os %>%
   group_by(Sequence, Possible_Source) %>%
   summarise(
-    `Found in` = n(),
-    Total = sum(Count),
-    `Largest Percent` = glue("{round(max(Percentage), 2)}%")
+    Total = sum(Count), .groups = "drop"
   ) %>%
-  ungroup() %>%
   arrange(desc(Total)) %>%
   pull("Sequence") %>%
   setNames(paste0("os", seq_along(.))) %>%
-  .[c(1:3, 7, 8, 10, 11, 12, 18, 19)] %>%
+  str_subset("TGGTCCCCCGCTCCCGGGAGG") %>%
   as("DNAStringSet") %>%
   msa() %>%
-  print(show = 'complete')
+  as("DNAStringSet")
 ```
-
-
 
 A BLAST search of 10 manually selected sequences (which are clearly the same sequence) revealed this to be a perfect match to multiple genomic locations such as [RPS29](https://www.ncbi.nlm.nih.gov/nucleotide/NG_050638.2), [RN7SL3](https://www.ncbi.nlm.nih.gov/nucleotide/NR_145670.1), [NEMF](https://www.ncbi.nlm.nih.gov/nucleotide/NG_051075.1) and [RN7SL396P](https://www.ncbi.nlm.nih.gov/nucleotide/NG_042962.1).
 It is clear that this is likely to have some association with rRNA.
@@ -265,18 +262,16 @@ It is clear that this is likely to have some association with rRNA.
 os %>%
   group_by(Sequence, Possible_Source) %>%
   summarise(
-    `Found in` = n(),
-    Total = sum(Count),
-    `Largest Percent` = glue("{round(max(Percentage), 2)}%")
+    Total = sum(Count), .groups = "drop"
   ) %>%
   ungroup() %>%
   arrange(desc(Total)) %>%
   pull("Sequence") %>%
   setNames(paste0("os", seq_along(.))) %>%
-  .[(c(9, 13, 17))] %>%
+  str_subset("TATTTCTCTTGTCCTTTCGTA") %>%
   as("DNAStringSet") %>%
   msa() %>%
-  print(show = 'complete')
+  as("DNAStringSet")
 ```
 
 A manual search using additional over-represented sequences which did not align to the above consensus, revealed matches to additional SRP RNAs and [7S RNA](https://www.ncbi.nlm.nih.gov/nucleotide/V00477.1)

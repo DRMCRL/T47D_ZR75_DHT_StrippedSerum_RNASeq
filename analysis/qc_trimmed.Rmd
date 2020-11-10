@@ -42,6 +42,7 @@ suffix <- paste0(config$tags$tag, config$ext)
 sp <- config$ref$species %>%
   str_replace("(^[a-z])[a-z]*_([a-z]+)", "\\1\\2") %>%
   str_to_title()
+runRegEx <- paste(str_split(config$runs, " ")[[1]], collapse = "|")
 ```
 
 ```{r samples}
@@ -120,9 +121,9 @@ trimFqc <- here::here("data/trimmed/FastQC") %>%
 ```{r}
 for (i in seq_along(rawFqc)){
   # Perform separately for raw & trimming, in case any orders change
-  run <- str_extract(path(rawFqc[[i]]), "Hiseq_[12]")
+  run <- str_extract(path(rawFqc[[i]]), runRegEx)
   rawFqc[[i]]@Summary$Filename <- paste(run, rawFqc[[i]]@Summary$Filename, sep = "/")
-  run <- str_extract(path(trimFqc[[i]]), "Hiseq_[12]")
+  run <- str_extract(path(trimFqc[[i]]), runRegEx)
   trimFqc[[i]]@Summary$Filename <- paste(run, trimFqc[[i]]@Summary$Filename, sep = "/")
 } 
 ```
