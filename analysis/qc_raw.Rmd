@@ -251,11 +251,11 @@ os %>%
   str_subset("TGGTCCCCCGCTCCCGGGAGG") %>%
   as("DNAStringSet") %>%
   msa() %>%
-  as("DNAStringSet")
+  print(show = "complete")
 ```
 
-A BLAST search of 10 manually selected sequences (which are clearly the same sequence) revealed this to be a perfect match to multiple genomic locations such as [RPS29](https://www.ncbi.nlm.nih.gov/nucleotide/NG_050638.2), [RN7SL3](https://www.ncbi.nlm.nih.gov/nucleotide/NR_145670.1), [NEMF](https://www.ncbi.nlm.nih.gov/nucleotide/NG_051075.1) and [RN7SL396P](https://www.ncbi.nlm.nih.gov/nucleotide/NG_042962.1).
-It is clear that this is likely to have some association with rRNA.
+A BLAST search of the above manually selected sequences (which are clearly the same sequence) revealed this to be a perfect match to 39 genomic locations such as [RPS29](https://www.ncbi.nlm.nih.gov/nucleotide/NG_050638.2), [RN7SL2](https://www.ncbi.nlm.nih.gov/nucleotide/NR_027260.1)  and [RN7SL396P](https://www.ncbi.nlm.nih.gov/nucleotide/NG_042962.1).
+This RNA is likely to have some association with rRNA.
 
 
 ```{r}
@@ -271,7 +271,7 @@ os %>%
   str_subset("TATTTCTCTTGTCCTTTCGTA") %>%
   as("DNAStringSet") %>%
   msa() %>%
-  as("DNAStringSet")
+  print(show = "complete")
 ```
 
 A manual search using additional over-represented sequences which did not align to the above consensus, revealed matches to additional SRP RNAs and [7S RNA](https://www.ncbi.nlm.nih.gov/nucleotide/V00477.1)

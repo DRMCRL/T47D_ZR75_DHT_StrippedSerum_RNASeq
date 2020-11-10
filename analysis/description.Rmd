@@ -38,7 +38,7 @@ rm_dot_node <- function(x, node = "all"){
   pat <- paste(c("(", node, "| ", id, "$)"), collapse = "")
   x[!grepl(pat, x)]
 }
-add_input_node <- function(x, node = "raw_data", ignore = "(get|build|make)", col = "0.00 0.00 0.00", style = "rectangle"){
+add_input_node <- function(x, node = "raw_data", ignore = "(get|build|make|create)", col = "0.00 0.00 0.00", style = "rectangle"){
   # Find the nodes with no input
   all_id <- x %>% 
     str_subset("label") %>% 
