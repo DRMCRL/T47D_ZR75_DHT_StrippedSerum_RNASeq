@@ -145,6 +145,7 @@ rule build_wflow_site_index:
         trimmed = rules.build_qc_trimmed.output.html,
         aligned = rules.build_qc_aligned.output.html,
         dge = expand(["docs/{cellline}_dge_analysis.html"], cellline = ['t47d', 'zr75']),
+        enrich = expand(["docs/{cellline}_enrichment.html"], cellline = ['t47d', 'zr75']),
         rproj = rules.make_rproj.output
     output:
         html = "docs/index.html"
