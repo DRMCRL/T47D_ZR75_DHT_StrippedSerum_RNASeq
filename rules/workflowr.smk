@@ -104,12 +104,14 @@ rule build_dge_analysis:
         rmd = "analysis/{cellline}_dge_analysis.Rmd",
         rproj = rules.make_rproj.output
     output:
-        html = "docs/{cellline}_dge_analysis.html"
+        html = "docs/{cellline}_dge_analysis.html",
+        toptab = "output/{cellline}_DHT_StrippedSerum_RNASeq_topTable.tsv",
+        cpm =  "output/{cellline}_DHT_StrippedSerum_RNASeq_logCPM.tsv"
     conda:
         "../envs/workflowr.yml"
     log:
         "logs/workflowr/{cellline}_dge_analysis.log"
-    threads: 1
+    threads: 2
     shell:
        """
        R -e "workflowr::wflow_build('{input.rmd}')" 2>&1 > {log}
