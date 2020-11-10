@@ -19,10 +19,14 @@ navbar:
     menu:
       - text: Differential Gene Expression
         href: t47d_dge_analysis.html
+      - text: Enrichment Analysis
+        href: t47d_enrichment.html
   - text: ZR-75 Cells
     menu:
       - text: Differential Gene Expression
-        href: zr75_dge_analysis.html        
+        href: zr75_dge_analysis.html   
+      - text: Enrichment Analysis
+        href: zr75_enrichment.html        
 output:
   workflowr::wflow_html:
     toc: yes

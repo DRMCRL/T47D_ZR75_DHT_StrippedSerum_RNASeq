@@ -106,7 +106,8 @@ rule build_dge_analysis:
     output:
         html = "docs/{cellline}_dge_analysis.html",
         toptab = "output/{cellline}_DHT_StrippedSerum_RNASeq_topTable.tsv",
-        cpm =  "output/{cellline}_DHT_StrippedSerum_RNASeq_logCPM.tsv"
+        cpm =  "output/{cellline}_DHT_StrippedSerum_RNASeq_logCPM.tsv",
+        rds = "ouput/{cellline}_dge.rds"
     conda:
         "../envs/workflowr.yml"
     log:
@@ -116,6 +117,24 @@ rule build_dge_analysis:
        """
        R -e "workflowr::wflow_build('{input.rmd}')" 2>&1 > {log}
        """
+       
+
+rule build_enrichment_analysis:
+    input:
+        toptab = rules.build_dge_analysis.output.toptab,
+        rds = rules.build_dge_analysis.output.rds,
+        rmd = "analysis/{cellline}_enrichment.Rmd"
+    output:
+        html = "docs/{cellline}_enrichment.html"
+    conda:
+        "../envs/workflowr.yml"
+    log:
+        "logs/workflowr/{cellline}_enrichment.log"
+    threads: 2
+    shell:
+       """
+       R -e "workflowr::wflow_build('{input.rmd}')" 2>&1 > {log}
+       """       
 
 rule build_wflow_site_index:
     input:

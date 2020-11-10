@@ -61,8 +61,8 @@ ALL_ALN = expand(["data/aligned/bam/{run}/{sample}/{file}"],
                  sample = sample_id)
 ALL_WORKFLOWR = expand(["docs/{step}.html"],
                       step = ['description', 'index', 'qc_raw', 'qc_trimmed', 'qc_aligned'])
-ALL_ANALYSIS = expand(["docs/{cellline}_dge_analysis.html"],
-                      cellline = ['t47d', 'zr75'])  
+ALL_ANALYSIS = expand(["docs/{cellline}_{file}.html"],
+                      cellline = ['t47d', 'zr75'], file = ['dge_analysis', 'enrichment'])  
 ALL_TSV = expand(["output/{cellline}_DHT_StrippedSerum_RNASeq_{file}.tsv"],
                  file = ['logCPM', 'topTable'], cellline = ['t47d', 'zr75'])
 

@@ -19,7 +19,7 @@ dependencies:
   - r-htmltools=0.5
   - r-tidygraph=1.2
   - r-ggraph=2.0
-  - r-corrplot=0.84
+  - r-rcolorbrewer=1.1
   - bioconductor-ngsReports=1.6
   - bioconductor-edgeR=3.32
   - bioconductor-AnnotationHub=2.22
