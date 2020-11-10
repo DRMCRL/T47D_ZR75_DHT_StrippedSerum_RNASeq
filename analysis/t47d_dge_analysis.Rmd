@@ -729,3 +729,12 @@ logCPM %>%
     here::here("output/t47d_DHT_StrippedSerum_RNASeq_logCPM.tsv")    
   )
 ```
+
+```{r write_dge}
+write_rds(
+  dge, 
+  here::here("output/t47d_dge.rds"), 
+  compress = "gz"
+)
+```
+
