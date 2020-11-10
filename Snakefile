@@ -35,7 +35,8 @@ samples = pd.read_table(config["samples"])
 samples['id'] = samples['id'].apply(str)
 sample_id = samples['id'] + "/" + samples['sample']
 runs = re.split(r" ", config['runs'])
-counts_file = "data/aligned/counts/merged_counts.out"
+counts_file = "data/aligned/counts/counts.out"
+merged_counts = "data/aligned/counts/merged_counts.out"
 
 ########################
 ## Define all outputs ##
@@ -68,7 +69,7 @@ ALL_OUTPUTS.extend(ALL_REFS)
 ALL_OUTPUTS.extend(ALL_TRIMMED)
 ALL_OUTPUTS.extend(ALL_FQC)
 ALL_OUTPUTS.extend(ALL_ALN)
-ALL_OUTPUTS.extend([counts_file])
+ALL_OUTPUTS.extend([merged_counts])
 ALL_OUTPUTS.extend(ALL_WORKFLOWR)
 
 # And the rules

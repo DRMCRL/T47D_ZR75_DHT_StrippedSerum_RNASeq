@@ -29,7 +29,7 @@ rule count:
 
 rule merge_counts:
     input: counts_file
-    output: "data/aligned/counts/merged_counts.out"
+    output: merged_counts
     conda: "../envs/workflowr.yml"
     threads: 4
     script: "scripts/mergeCounts.R"
