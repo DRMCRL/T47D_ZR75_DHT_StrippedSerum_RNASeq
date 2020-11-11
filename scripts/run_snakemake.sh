@@ -36,6 +36,7 @@ cd ${PROJ}
 snakemake \
   --cores ${CORES} \
   --use-conda \
+  --notemp \
   --wrapper-prefix 'https://raw.githubusercontent.com/snakemake/snakemake-wrappers/'
 
 ## Add files to git
