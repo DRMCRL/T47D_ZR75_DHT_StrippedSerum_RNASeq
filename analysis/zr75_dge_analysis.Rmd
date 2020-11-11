@@ -710,30 +710,44 @@ plot_grid(
 
 ## Data Export
 
+```{r}
+dr <- here::here() %>%
+  basename() %>%
+  str_extract("DHT.+")
+ct <- "zr75"
+```
+
+
 ```{r writeTopTable}
 topTable %>%
   mutate(entrezid = vapply(entrezid, paste, character(1), collapse = ";")) %>%
   write_tsv(
-    here::here("output/zr75_DHT_StrippedSerum_RNASeq_topTable.tsv")
+    here::here(
+      glue("output/{ct}_{dr}_topTable.tsv")
+    )
   )
 ```
+
 
 ```{r writeCPM}
 logCPM %>%
   as_tibble(rownames = "gene_id") %>%
   inner_join(dge$genes) %>%
-  dplyr::select(gene_id, gene_name, starts_with("GLL")) %>%
+  dplyr::select(gene_id, gene_name, starts_with("MD-")) %>%
   write_tsv(
-    here::here("output/zr75_DHT_StrippedSerum_RNASeq_logCPM.tsv")    
+    here::here(
+      glue("output/{ct}_{dr}_logCPM.tsv")
+      )    
   )
 ```
 
 ```{r write_dge}
 write_rds(
   dge, 
-  here::here("output/zr75_dge.rds"), 
+  here::here(
+    glue("output/{ct}_dge.rds")
+  ), 
   compress = "gz"
 )
 ```
-
 
