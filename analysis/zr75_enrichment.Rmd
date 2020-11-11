@@ -423,7 +423,7 @@ upPathGoseqRes <- goseq(upPwf, gene2cat = pathByGene) %>%
     `Enrichment p` = over_represented_pvalue,
     FDR
   ) 
-alpha <- 0.05
+alpha <- 0.1
 ```
 
 Given the reduced power of the smaller gene-sets used when investigating up & down-regulated genes separately, an FDR of `r alpha` was chosen for this section.
@@ -475,7 +475,6 @@ htmltools::div(
 ```
 
 ```{r defineUpPathNetwork}
-alpha <- 0.05
 minSize <- 5
 sigPath <- genesByPath %>%
   .[dplyr::filter(upPathGoseqRes, FDR < alpha)$Category] %>%

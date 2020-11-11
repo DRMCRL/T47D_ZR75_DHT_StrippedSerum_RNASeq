@@ -534,7 +534,7 @@ topTable %>%
   geom_text_repel(
     aes(label = gene_name, colour = DE),
     data = . %>%
-      dplyr::filter(logFC > 1.4 | (logFC < -1 & logCPM > 5)),
+      dplyr::filter(DE, logFC > 1.4 | (logFC < -1 & logCPM > 5)),
     show.legend = FALSE
   ) +
   geom_smooth(se = FALSE) +
@@ -557,9 +557,10 @@ topTable %>%
     aes(label = gene_name, colour = DE),
     data = . %>%
       dplyr::filter(
-        logFC > 1.4 | 
+        DE,
+        logFC > 1.2 | 
           PValue < 5e-8 |
-          logFC < 0 & PValue < 1e-4
+          logFC < 0
       ),
     show.legend = FALSE
   ) +

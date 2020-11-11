@@ -241,8 +241,8 @@ pwf <- list(
 
 ```{r plotPWF, fig.height=5, fig.width=8, fig.cap = "*Comparison of gene length and GC content on the probability of a gene being considered as DE*"}
 par(mfrow = c(1, 2))
-plotPWF(pwf$length, xlab = "Gene Length", ylim = c(0, 0.015), log = "x")
-plotPWF(pwf$gc, xlab = "GC content", ylim = c(0, 0.015))
+plotPWF(pwf$length, xlab = "Gene Length", ylim = c(0, 0.01), log = "x")
+plotPWF(pwf$gc, xlab = "GC content", ylim = c(0, 0.01))
 par(mfrow = c(1, 1))
 ```
 
@@ -299,7 +299,7 @@ pathGoseqRes <- goseq(pwf$length, gene2cat = pathByGene) %>%
     `Enrichment p` = over_represented_pvalue,
     FDR
   ) 
-alpha <- 0.01
+alpha <- 0.05
 ```
 
 Using an FDR threshold of $\alpha =$ `r alpha`, `r nrow(dplyr::filter(pathGoseqRes, FDR < alpha))` pathway & process-related gene sets were considered as enriched within the set of `r length(de)` previously-defined DE genes.
@@ -345,27 +345,6 @@ htmltools::div(
     ) 
 )
 ```
-
-```{r definePathNetwork}
-alpha <- 0.01
-sigPath <- genesByPath %>%
-  .[dplyr::filter(pathGoseqRes, FDR < alpha)$Category] %>%
-  lapply(intersect, de) %>%
-  lapply(function(x){dge$genes[x,]$gene_name}) %>%
-  setNames(
-    names(.) %>%
-      str_replace_all("(HALLMARK|GO|KEGG|WP)_(.+)", "\\2 (\\1)") %>%
-      str_replace_all("_", " ") %>%
-      str_wrap(16)
-  )
-pathGraph <- make_gs_network(sigPath, topTable)
-```
-
-```{r plotPathNetwork, echo = FALSE, fig.height=10, fig.cap = glue("*Pathway & process-related gene-sets enriched within the DE genes to an FDR of {alpha}. Up-regulated genes are shown in red, with down-regulated in blue. For genes, node and label size are proportional to the extent of the estimated fold-change.*")}
-set.seed(22)
-plot_gs_network(pathGraph) 
-```
-
 
 
 ## Up-Regulated Genes
@@ -436,29 +415,6 @@ htmltools::div(
 )
 ```
 
-```{r defineUpPathNetwork}
-alpha <- 0.05
-minSize <- 5
-sigPath <- genesByPath %>%
-  .[dplyr::filter(upPathGoseqRes, FDR < alpha)$Category] %>%
-  lapply(intersect, up) %>%
-  lapply(function(x){dge$genes[x,]$gene_name}) %>%
-  setNames(
-    names(.) %>%
-      str_replace_all("(HALLMARK|GO|KEGG|WP)_(.+)", "\\2 (\\1)") %>%
-      str_replace_all("_", " ") %>%
-      str_wrap(16)
-  ) %>%
-  .[vapply(., length, integer(1)) >= minSize]
-pathGraph <- make_gs_network(sigPath, topTable)
-```
-
-```{r plotUpPathNetwork, echo = FALSE, fig.height=10, fig.cap = glue("*Pathway & process-related gene-sets enriched within the set of **up-regulated** genes to an FDR of {alpha}. For genes, node and label size are proportional to the extent of the estimated fold-change. Gene-sets are only included if they contain at least {minSize} up-regulated genes*")}
-set.seed(22)
-plot_gs_network(pathGraph) 
-```
-
-
 
 ## Down-Regulated Genes
 
@@ -503,13 +459,12 @@ tfGoseqRes <- goseq(pwf$length, gene2cat = tfByGene) %>%
     `Enrichment p` = over_represented_pvalue,
     FDR
   ) 
-alpha <- 0.01
+alpha <- 0.1
 ```
 
 Using an FDR threshold of $\alpha =$ `r alpha`, `r nrow(dplyr::filter(tfGoseqRes, FDR < alpha))` transcriptional regulation gene sets were considered as enriched within the set of `r length(de)` previously defined DE genes.
 
 ```{r tabTfGoSeq, echo = FALSE}
-alpha <- 0.01
 cp <- glue(
   "Regulatory gene-sets to an FDR of {alpha}. DE Genes associated with each gene-set are shown in the final column. 'Expected' indicates how many genes would have been expected if there was no enrichment."
 ) %>%
@@ -553,7 +508,6 @@ htmltools::div(
 
 
 ```{r defineTFNetwork}
-alpha <- 0.01
 sigTF <- genesByTF %>%
   .[dplyr::filter(tfGoseqRes, FDR < alpha)$Category] %>%
   # .[dplyr::slice(tfGoseqRes, 1:15)$Category] %>%
@@ -593,7 +547,7 @@ upTfGoseqRes <- goseq(upPwf, gene2cat = tfByGene) %>%
     `Enrichment p` = over_represented_pvalue,
     FDR
   ) 
-alpha <- 0.05
+alpha <- 0.12
 ```
 
 Given the reduced power of the smaller gene-sets used when investigating up & down-regulated genes separately, an FDR of `r alpha` was again chosen for this section.

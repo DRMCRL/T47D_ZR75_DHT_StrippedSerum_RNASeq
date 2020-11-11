@@ -219,7 +219,7 @@ pca <- dge %>%
 ```
 
 
-```{r plotPCA, fig.height=8, fig.width=8, fig.cap="*PCA on logCPM from counts. PC1 appears to capture the majority of the impact of DHT within each paired samples, as shown by the arrows which move from Vehicle to DHT treated samples in panel C.*"}
+```{r plotPCA, fig.height=8, fig.width=8, fig.cap="*PCA on logCPM from counts. PC1 and PC2 appear to capture the majority of the impact of DHT within each paired samples, as shown by the arrows which move from Vehicle to DHT treated samples in panel C.*"}
 a <- pca %>%
   autoplot(
     data = dge$samples, 
