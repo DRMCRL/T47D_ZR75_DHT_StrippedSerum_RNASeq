@@ -32,7 +32,7 @@ STAR   --runThreadN 8   --genomeDir /hpcfs/users/a1018048/refs/ensembl-release-1
 Number of fastq files for each mate = 1
 
    Input read files for mate 1 :
--rw-rw-r-- 1 a1018048 a1018048 319760014 Nov  9 11:17 data/trimmed/fastq/Hiseq_1/15/GLL67_D_S22_R1_001.fastq.gz
+-rw-rw-r-- 1 a1018048 a1018048 319760014 Nov 11 12:29 data/trimmed/fastq/Hiseq_1/15/GLL67_D_S22_R1_001.fastq.gz
 
    readsCommandsFile:
 exec > "data/aligned/bam/Hiseq_1/15/GLL67_D_S22/_STARtmp/tmp.fifo.read1"
@@ -41,7 +41,7 @@ zcat      "data/trimmed/fastq/Hiseq_1/15/GLL67_D_S22_R1_001.fastq.gz"
 
 
    Input read files for mate 2 :
--rw-rw-r-- 1 a1018048 a1018048 317969623 Nov  9 11:17 data/trimmed/fastq/Hiseq_1/15/GLL67_D_S22_R2_001.fastq.gz
+-rw-rw-r-- 1 a1018048 a1018048 317969623 Nov 11 12:29 data/trimmed/fastq/Hiseq_1/15/GLL67_D_S22_R2_001.fastq.gz
 
    readsCommandsFile:
 exec > "data/aligned/bam/Hiseq_1/15/GLL67_D_S22/_STARtmp/tmp.fifo.read2"
@@ -267,7 +267,7 @@ Number of real (reference) chromosomes= 194
 193	KI270392.1	971	3137863680
 194	KI270394.1	970	3138125824
 --sjdbOverhang = 100 taken from the generated genome
-Started loading the genome: Mon Nov  9 13:05:31 2020
+Started loading the genome: Wed Nov 11 13:00:29 2020
 
 Genome: size given as a parameter = 3215810555
 SA: size given as a parameter = 24938805931
@@ -281,7 +281,7 @@ Loading Genome ... done! state: good=1 eof=0 fail=0 bad=0; loaded 3215810555 byt
 SA file size: 24938805931 bytes; state: good=1 eof=0 fail=0 bad=0
 Loading SA ... done! state: good=1 eof=0 fail=0 bad=0; loaded 24938805931 bytes
 Loading SAindex ... done: 1565873619 bytes
-Finished loading the genome: Mon Nov  9 13:05:50 2020
+Finished loading the genome: Wed Nov 11 13:00:49 2020
 
 Processing splice junctions database sjdbN=385187,   pGe.sjdbOverhang=100 
 alignIntronMax=alignMatesGapMax=0, the max intron size will be approximately determined by (2^winBinNbits)*winAnchorDistNbins=589824
@@ -289,70 +289,70 @@ Created thread # 1
 Created thread # 2
 Created thread # 3
 Created thread # 4
-Starting to map file # 0
-mate 1:   data/trimmed/fastq/Hiseq_1/15/GLL67_D_S22_R1_001.fastq.gz
-mate 2:   data/trimmed/fastq/Hiseq_1/15/GLL67_D_S22_R2_001.fastq.gz
 Created thread # 5
 Created thread # 6
 Created thread # 7
-BAM sorting: 239986 mapped reads
+Starting to map file # 0
+mate 1:   data/trimmed/fastq/Hiseq_1/15/GLL67_D_S22_R1_001.fastq.gz
+mate 2:   data/trimmed/fastq/Hiseq_1/15/GLL67_D_S22_R2_001.fastq.gz
+BAM sorting: 239428 mapped reads
 BAM sorting bins genomic start loci:
-1	0	65592843
-2	0	154944151
-3	0	223800708
-4	1	73379341
-5	2	28342324
-6	2	72293371
-7	3	6748252
-8	3	66057593
-9	3	131067240
-10	5	31113283
-11	5	49586656
-12	5	49862636
-13	5	55140299
-14	6	44651786
-15	7	22432815
-16	8	28640600
-17	8	69319089
-18	10	22179437
-19	11	78935928
-20	11	231713209
-21	13	8214870
-22	14	24099682
-23	15	15738591
-24	15	101592756
-25	15	184710546
-26	16	106251992
-27	17	58455568
-28	17	149505476
-29	18	34417517
-30	18	52995805
-31	18	168932380
-32	19	77013977
-33	20	69690129
-34	21	5067217
-35	21	26628644
-36	21	137039493
-37	22	1682
-38	22	1777
-39	22	1901
-40	22	2068
-41	22	2228
-42	22	2327
-43	22	2450
-44	22	2735
-45	22	2924
-46	22	3059
-47	22	7126
-48	23	77902641
-Thread #0 end of input stream, nextChar=-1
-Completed: thread #3
-Completed: thread #0
+1	0	68040940
+2	0	154625474
+3	0	224158141
+4	1	74152156
+5	2	33751535
+6	2	76351906
+7	3	18424028
+8	3	76053269
+9	4	29587197
+10	5	35308154
+11	5	49586659
+12	5	49862645
+13	5	61046139
+14	6	59116816
+15	7	30067233
+16	8	31940453
+17	8	78214777
+18	10	44977349
+19	11	110407678
+20	12	17607940
+21	13	8397222
+22	14	41515438
+23	15	25008719
+24	15	130992994
+25	15	197043042
+26	16	182601152
+27	17	82277704
+28	17	179659050
+29	18	52995675
+30	18	73519896
+31	19	37496708
+32	20	9011640
+33	20	115578334
+34	21	9442137
+35	21	118310785
+36	22	962
+37	22	1716
+38	22	1820
+39	22	1999
+40	22	2123
+41	22	2260
+42	22	2352
+43	22	2497
+44	22	2778
+45	22	2955
+46	22	3067
+47	22	7198
+48	23	102915696
+Thread #5 end of input stream, nextChar=-1
 Completed: thread #2
-Completed: thread #7
-Completed: thread #4
 Completed: thread #5
 Completed: thread #6
+Completed: thread #4
+Completed: thread #3
+Completed: thread #0
+Completed: thread #7
 Completed: thread #1
 Joined thread # 1
 Joined thread # 2
@@ -361,6 +361,6 @@ Joined thread # 4
 Joined thread # 5
 Joined thread # 6
 Joined thread # 7
-Nov 09 13:06:53 ..... started sorting BAM
-Max memory needed for sorting = 76367239
+Nov 11 13:01:55 ..... started sorting BAM
+Max memory needed for sorting = 77481558
 ALL DONE!

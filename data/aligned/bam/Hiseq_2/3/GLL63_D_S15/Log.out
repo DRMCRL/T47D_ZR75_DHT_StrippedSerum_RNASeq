@@ -32,7 +32,7 @@ STAR   --runThreadN 8   --genomeDir /hpcfs/users/a1018048/refs/ensembl-release-1
 Number of fastq files for each mate = 1
 
    Input read files for mate 1 :
--rw-rw-r-- 1 a1018048 a1018048 553267779 Nov  9 11:07 data/trimmed/fastq/Hiseq_2/3/GLL63_D_S15_R1_001.fastq.gz
+-rw-rw-r-- 1 a1018048 a1018048 553267779 Nov 11 12:33 data/trimmed/fastq/Hiseq_2/3/GLL63_D_S15_R1_001.fastq.gz
 
    readsCommandsFile:
 exec > "data/aligned/bam/Hiseq_2/3/GLL63_D_S15/_STARtmp/tmp.fifo.read1"
@@ -41,7 +41,7 @@ zcat      "data/trimmed/fastq/Hiseq_2/3/GLL63_D_S15_R1_001.fastq.gz"
 
 
    Input read files for mate 2 :
--rw-rw-r-- 1 a1018048 a1018048 558010558 Nov  9 11:07 data/trimmed/fastq/Hiseq_2/3/GLL63_D_S15_R2_001.fastq.gz
+-rw-rw-r-- 1 a1018048 a1018048 558010558 Nov 11 12:33 data/trimmed/fastq/Hiseq_2/3/GLL63_D_S15_R2_001.fastq.gz
 
    readsCommandsFile:
 exec > "data/aligned/bam/Hiseq_2/3/GLL63_D_S15/_STARtmp/tmp.fifo.read2"
@@ -267,7 +267,7 @@ Number of real (reference) chromosomes= 194
 193	KI270392.1	971	3137863680
 194	KI270394.1	970	3138125824
 --sjdbOverhang = 100 taken from the generated genome
-Started loading the genome: Mon Nov  9 13:01:13 2020
+Started loading the genome: Wed Nov 11 12:56:00 2020
 
 Genome: size given as a parameter = 3215810555
 SA: size given as a parameter = 24938805931
@@ -281,7 +281,7 @@ Loading Genome ... done! state: good=1 eof=0 fail=0 bad=0; loaded 3215810555 byt
 SA file size: 24938805931 bytes; state: good=1 eof=0 fail=0 bad=0
 Loading SA ... done! state: good=1 eof=0 fail=0 bad=0; loaded 24938805931 bytes
 Loading SAindex ... done: 1565873619 bytes
-Finished loading the genome: Mon Nov  9 13:01:25 2020
+Finished loading the genome: Wed Nov 11 12:56:21 2020
 
 Processing splice junctions database sjdbN=385187,   pGe.sjdbOverhang=100 
 alignIntronMax=alignMatesGapMax=0, the max intron size will be approximately determined by (2^winBinNbits)*winAnchorDistNbins=589824
@@ -290,11 +290,11 @@ Created thread # 2
 Created thread # 3
 Created thread # 4
 Created thread # 5
-Created thread # 6
-Created thread # 7
 Starting to map file # 0
 mate 1:   data/trimmed/fastq/Hiseq_2/3/GLL63_D_S15_R1_001.fastq.gz
 mate 2:   data/trimmed/fastq/Hiseq_2/3/GLL63_D_S15_R2_001.fastq.gz
+Created thread # 6
+Created thread # 7
 BAM sorting: 238749 mapped reads
 BAM sorting bins genomic start loci:
 1	0	58576460
@@ -345,22 +345,22 @@ BAM sorting bins genomic start loci:
 46	22	3048
 47	22	7215
 48	23	153700811
-Thread #2 end of input stream, nextChar=-1
-Completed: thread #7
-Completed: thread #2
-Completed: thread #3
+Thread #5 end of input stream, nextChar=-1
+Completed: thread #6
 Completed: thread #0
+Completed: thread #2
+Completed: thread #7
 Completed: thread #5
+Completed: thread #4
 Completed: thread #1
 Joined thread # 1
 Joined thread # 2
+Completed: thread #3
 Joined thread # 3
-Completed: thread #6
-Completed: thread #4
 Joined thread # 4
 Joined thread # 5
 Joined thread # 6
 Joined thread # 7
-Nov 09 13:03:00 ..... started sorting BAM
+Nov 11 12:57:59 ..... started sorting BAM
 Max memory needed for sorting = 161103475
 ALL DONE!

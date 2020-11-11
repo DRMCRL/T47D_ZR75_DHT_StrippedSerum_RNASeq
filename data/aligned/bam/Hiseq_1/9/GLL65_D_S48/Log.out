@@ -1,13 +1,13 @@
 STAR version=2.7.5c
 STAR compilation time,server,dir=Sun Aug 16 18:27:20 EDT 2020 vega:/home/dobin/data/STAR/STARcode/STAR.master/source
 ##### Command Line:
-STAR --outSAMtype BAM SortedByCoordinate --runThreadN 4 --genomeDir /hpcfs/users/a1018048/refs/ensembl-release-101/homo_sapiens/dna/star --readFilesIn data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R1_001.fastq.gz data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R2_001.fastq.gz --readFilesCommand zcat --outFileNamePrefix data/aligned/bam/Hiseq_1/9/GLL65_D_S48/ --outStd Log
+STAR --outSAMtype BAM SortedByCoordinate --runThreadN 8 --genomeDir /hpcfs/users/a1018048/refs/ensembl-release-101/homo_sapiens/dna/star --readFilesIn data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R1_001.fastq.gz data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R2_001.fastq.gz --readFilesCommand zcat --outFileNamePrefix data/aligned/bam/Hiseq_1/9/GLL65_D_S48/ --outStd Log
 ##### Initial USER parameters from Command Line:
 outFileNamePrefix                 data/aligned/bam/Hiseq_1/9/GLL65_D_S48/
 outStd                            Log
 ###### All USER parameters from Command Line:
 outSAMtype                    BAM   SortedByCoordinate        ~RE-DEFINED
-runThreadN                    4     ~RE-DEFINED
+runThreadN                    8     ~RE-DEFINED
 genomeDir                     /hpcfs/users/a1018048/refs/ensembl-release-101/homo_sapiens/dna/star     ~RE-DEFINED
 readFilesIn                   data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R1_001.fastq.gz   data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R2_001.fastq.gz        ~RE-DEFINED
 readFilesCommand              zcat        ~RE-DEFINED
@@ -16,7 +16,7 @@ outStd                        Log     ~RE-DEFINED
 ##### Finished reading parameters from all sources
 
 ##### Final user re-defined parameters-----------------:
-runThreadN                        4
+runThreadN                        8
 genomeDir                         /hpcfs/users/a1018048/refs/ensembl-release-101/homo_sapiens/dna/star
 readFilesIn                       data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R1_001.fastq.gz   data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R2_001.fastq.gz   
 readFilesCommand                  zcat   
@@ -26,13 +26,13 @@ outSAMtype                        BAM   SortedByCoordinate
 
 -------------------------------
 ##### Final effective command line:
-STAR   --runThreadN 4   --genomeDir /hpcfs/users/a1018048/refs/ensembl-release-101/homo_sapiens/dna/star   --readFilesIn data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R1_001.fastq.gz   data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R2_001.fastq.gz      --readFilesCommand zcat      --outFileNamePrefix data/aligned/bam/Hiseq_1/9/GLL65_D_S48/   --outStd Log   --outSAMtype BAM   SortedByCoordinate   
+STAR   --runThreadN 8   --genomeDir /hpcfs/users/a1018048/refs/ensembl-release-101/homo_sapiens/dna/star   --readFilesIn data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R1_001.fastq.gz   data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R2_001.fastq.gz      --readFilesCommand zcat      --outFileNamePrefix data/aligned/bam/Hiseq_1/9/GLL65_D_S48/   --outStd Log   --outSAMtype BAM   SortedByCoordinate   
 ----------------------------------------
 
 Number of fastq files for each mate = 1
 
    Input read files for mate 1 :
--rw-rw-r-- 1 a1018048 a1018048 1063777757 Nov  9 11:15 data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R1_001.fastq.gz
+-rw-rw-r-- 1 a1018048 a1018048 1063777757 Nov 11 12:41 data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R1_001.fastq.gz
 
    readsCommandsFile:
 exec > "data/aligned/bam/Hiseq_1/9/GLL65_D_S48/_STARtmp/tmp.fifo.read1"
@@ -41,7 +41,7 @@ zcat      "data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R1_001.fastq.gz"
 
 
    Input read files for mate 2 :
--rw-rw-r-- 1 a1018048 a1018048 1052553753 Nov  9 11:15 data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R2_001.fastq.gz
+-rw-rw-r-- 1 a1018048 a1018048 1052553753 Nov 11 12:41 data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R2_001.fastq.gz
 
    readsCommandsFile:
 exec > "data/aligned/bam/Hiseq_1/9/GLL65_D_S48/_STARtmp/tmp.fifo.read2"
@@ -267,7 +267,7 @@ Number of real (reference) chromosomes= 194
 193	KI270392.1	971	3137863680
 194	KI270394.1	970	3138125824
 --sjdbOverhang = 100 taken from the generated genome
-Started loading the genome: Mon Nov  9 11:15:15 2020
+Started loading the genome: Wed Nov 11 12:44:41 2020
 
 Genome: size given as a parameter = 3215810555
 SA: size given as a parameter = 24938805931
@@ -281,74 +281,86 @@ Loading Genome ... done! state: good=1 eof=0 fail=0 bad=0; loaded 3215810555 byt
 SA file size: 24938805931 bytes; state: good=1 eof=0 fail=0 bad=0
 Loading SA ... done! state: good=1 eof=0 fail=0 bad=0; loaded 24938805931 bytes
 Loading SAindex ... done: 1565873619 bytes
-Finished loading the genome: Mon Nov  9 11:16:13 2020
+Finished loading the genome: Wed Nov 11 12:44:53 2020
 
 Processing splice junctions database sjdbN=385187,   pGe.sjdbOverhang=100 
 alignIntronMax=alignMatesGapMax=0, the max intron size will be approximately determined by (2^winBinNbits)*winAnchorDistNbins=589824
 Created thread # 1
 Created thread # 2
 Created thread # 3
+Created thread # 4
+Created thread # 5
+Created thread # 6
 Starting to map file # 0
 mate 1:   data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R1_001.fastq.gz
 mate 2:   data/trimmed/fastq/Hiseq_1/9/GLL65_D_S48_R2_001.fastq.gz
-BAM sorting: 239703 mapped reads
+Created thread # 7
+BAM sorting: 239625 mapped reads
 BAM sorting bins genomic start loci:
-1	0	67864733
-2	0	155237475
-3	0	232978271
-4	1	97432596
-5	2	62523431
-6	2	117288615
-7	3	52949358
-8	3	116227332
-9	5	20343230
-10	5	49586651
-11	5	49586751
-12	5	49862619
-13	5	49862723
-14	6	42542790
-15	7	21891563
-16	8	19188035
-17	8	61943149
-18	10	12939431
-19	11	74526940
-20	12	5100338
-21	13	8218477
-22	13	8446509
-23	15	15738528
-24	15	50648980
-25	15	172769127
-26	16	102797053
-27	17	73128087
-28	17	179708984
-29	18	52995677
-30	18	106972036
-31	19	74187695
-32	20	79973892
-33	21	9442119
-34	21	83970180
-35	22	733
-36	22	1689
-37	22	1803
-38	22	1920
-39	22	2075
-40	22	2205
-41	22	2324
-42	22	2430
-43	22	2663
-44	22	2821
-45	22	2971
-46	22	3086
-47	22	10887
-48	40	134629
-Thread #1 end of input stream, nextChar=-1
+1	0	71008286
+2	0	156114896
+3	0	236899265
+4	1	100361846
+5	2	62571606
+6	2	119023372
+7	3	53625876
+8	3	120199189
+9	5	20343286
+10	5	49586653
+11	5	49586753
+12	5	49862637
+13	5	49862737
+14	6	44563462
+15	7	23634944
+16	8	19446158
+17	8	66449449
+18	10	18573705
+19	11	76445265
+20	12	16297728
+21	13	8219124
+22	13	21264316
+23	15	15738552
+24	15	78497467
+25	15	184181146
+26	16	127812810
+27	17	83054651
+28	18	12299839
+29	18	52995726
+30	18	136275606
+31	19	76515799
+32	20	91540190
+33	21	9442130
+34	21	105356258
+35	22	807
+36	22	1697
+37	22	1811
+38	22	1945
+39	22	2087
+40	22	2228
+41	22	2333
+42	22	2442
+43	22	2672
+44	22	2831
+45	22	2976
+46	22	3085
+47	22	11295
+48	40	134464
+Thread #5 end of input stream, nextChar=-1
+Completed: thread #2
+Completed: thread #4
 Completed: thread #3
 Completed: thread #0
-Completed: thread #2
 Completed: thread #1
 Joined thread # 1
 Joined thread # 2
 Joined thread # 3
-Nov 09 11:22:47 ..... started sorting BAM
-Max memory needed for sorting = 264417928
+Joined thread # 4
+Completed: thread #6
+Completed: thread #7
+Completed: thread #5
+Joined thread # 5
+Joined thread # 6
+Joined thread # 7
+Nov 11 12:47:38 ..... started sorting BAM
+Max memory needed for sorting = 262574314
 ALL DONE!

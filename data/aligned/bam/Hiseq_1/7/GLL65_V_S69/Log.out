@@ -32,7 +32,7 @@ STAR   --runThreadN 8   --genomeDir /hpcfs/users/a1018048/refs/ensembl-release-1
 Number of fastq files for each mate = 1
 
    Input read files for mate 1 :
--rw-rw-r-- 1 a1018048 a1018048 630200283 Nov  9 11:07 data/trimmed/fastq/Hiseq_1/7/GLL65_V_S69_R1_001.fastq.gz
+-rw-rw-r-- 1 a1018048 a1018048 630200283 Nov 11 12:34 data/trimmed/fastq/Hiseq_1/7/GLL65_V_S69_R1_001.fastq.gz
 
    readsCommandsFile:
 exec > "data/aligned/bam/Hiseq_1/7/GLL65_V_S69/_STARtmp/tmp.fifo.read1"
@@ -41,7 +41,7 @@ zcat      "data/trimmed/fastq/Hiseq_1/7/GLL65_V_S69_R1_001.fastq.gz"
 
 
    Input read files for mate 2 :
--rw-rw-r-- 1 a1018048 a1018048 604009155 Nov  9 11:07 data/trimmed/fastq/Hiseq_1/7/GLL65_V_S69_R2_001.fastq.gz
+-rw-rw-r-- 1 a1018048 a1018048 604009155 Nov 11 12:34 data/trimmed/fastq/Hiseq_1/7/GLL65_V_S69_R2_001.fastq.gz
 
    readsCommandsFile:
 exec > "data/aligned/bam/Hiseq_1/7/GLL65_V_S69/_STARtmp/tmp.fifo.read2"
@@ -267,7 +267,7 @@ Number of real (reference) chromosomes= 194
 193	KI270392.1	971	3137863680
 194	KI270394.1	970	3138125824
 --sjdbOverhang = 100 taken from the generated genome
-Started loading the genome: Mon Nov  9 12:58:20 2020
+Started loading the genome: Wed Nov 11 12:53:45 2020
 
 Genome: size given as a parameter = 3215810555
 SA: size given as a parameter = 24938805931
@@ -281,7 +281,7 @@ Loading Genome ... done! state: good=1 eof=0 fail=0 bad=0; loaded 3215810555 byt
 SA file size: 24938805931 bytes; state: good=1 eof=0 fail=0 bad=0
 Loading SA ... done! state: good=1 eof=0 fail=0 bad=0; loaded 24938805931 bytes
 Loading SAindex ... done: 1565873619 bytes
-Finished loading the genome: Mon Nov  9 12:59:07 2020
+Finished loading the genome: Wed Nov 11 12:53:57 2020
 
 Processing splice junctions database sjdbN=385187,   pGe.sjdbOverhang=100 
 alignIntronMax=alignMatesGapMax=0, the max intron size will be approximately determined by (2^winBinNbits)*winAnchorDistNbins=589824
@@ -295,72 +295,72 @@ Starting to map file # 0
 mate 1:   data/trimmed/fastq/Hiseq_1/7/GLL65_V_S69_R1_001.fastq.gz
 mate 2:   data/trimmed/fastq/Hiseq_1/7/GLL65_V_S69_R2_001.fastq.gz
 Created thread # 7
-BAM sorting: 238645 mapped reads
+BAM sorting: 239122 mapped reads
 BAM sorting bins genomic start loci:
-1	0	86976787
-2	0	155963091
-3	1	1040223
-4	2	498571
-5	2	66063459
-6	3	21469728
-7	3	103934194
-8	4	109424252
-9	5	49586649
-10	5	49586739
-11	5	49862598
-12	5	49862711
-13	6	43792344
-14	7	29913479
-15	8	19188128
-16	8	73242284
-17	10	44661302
-18	11	163606268
-19	12	49941776
-20	13	8218315
-21	13	8398347
-22	13	8441913
-23	13	34517816
-24	15	15738591
-25	15	134126020
-26	16	39823163
-27	17	69922910
-28	17	181191638
-29	18	52995706
-30	18	116278858
-31	19	80918969
-32	20	106696895
-33	21	9442139
-34	21	127937223
-35	22	1127
-36	22	1780
-37	22	1931
-38	22	2135
-39	22	2303
-40	22	2448
-41	22	2696
-42	22	2861
-43	22	3028
-44	22	3125
-45	23	101022017
-46	40	134512
-47	40	179402
-48	51	117933
-Thread #2 end of input stream, nextChar=-1
+1	0	85571653
+2	0	156239739
+3	1	9063350
+4	2	10508892
+5	2	70383693
+6	3	46185485
+7	3	112267163
+8	5	20343280
+9	5	49586657
+10	5	49586766
+11	5	49862646
+12	5	71303121
+13	6	78547074
+14	7	89451214
+15	8	40300724
+16	9	36160981
+17	11	27384761
+18	11	232320335
+19	13	8214201
+20	13	8258419
+21	13	8400782
+22	13	8443868
+23	14	30419781
+24	15	32167585
+25	15	167220238
+26	16	108622514
+27	17	97006163
+28	18	26094751
+29	18	52995800
+30	19	13622500
+31	20	16463802
+32	20	144516055
+33	21	35400177
+34	22	704
+35	22	1686
+36	22	1821
+37	22	2004
+38	22	2174
+39	22	2327
+40	22	2462
+41	22	2716
+42	22	2887
+43	22	3033
+44	22	3127
+45	23	150700763
+46	40	134706
+47	40	179629
+48	51	118297
+Thread #1 end of input stream, nextChar=-1
+Completed: thread #4
+Completed: thread #6
+Completed: thread #3
 Completed: thread #5
 Completed: thread #7
-Completed: thread #3
 Completed: thread #0
-Completed: thread #6
-Completed: thread #2
-Completed: thread #4
 Completed: thread #1
 Joined thread # 1
+Completed: thread #2
 Joined thread # 2
 Joined thread # 3
 Joined thread # 4
 Joined thread # 5
 Joined thread # 6
 Joined thread # 7
-Nov 09 13:00:48 ..... started sorting BAM
-Max memory needed for sorting = 178062362
+Nov 11 12:55:36 ..... started sorting BAM
+Max memory needed for sorting = 179908761
 ALL DONE!

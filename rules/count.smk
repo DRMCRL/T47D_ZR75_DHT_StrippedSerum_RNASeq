@@ -32,4 +32,4 @@ rule merge_counts:
     output: merged_counts
     conda: "../envs/workflowr.yml"
     threads: 4
-    script: "scripts/mergeCounts.R"
+    script: "../scripts/mergeCounts.R"

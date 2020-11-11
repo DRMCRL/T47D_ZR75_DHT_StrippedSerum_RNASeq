@@ -14,6 +14,7 @@
 
 <title>Description of Workflow</title>
 
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -41,6 +42,8 @@ div.section {
   padding-top: 12px;
 }
 </style>
+
+
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -409,6 +412,9 @@ div.tocify {
     <li>
       <a href="t47d_dge_analysis.html">Differential Gene Expression</a>
     </li>
+    <li>
+      <a href="t47d_enrichment.html">Enrichment Analysis</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -420,6 +426,9 @@ div.tocify {
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="zr75_dge_analysis.html">Differential Gene Expression</a>
+    </li>
+    <li>
+      <a href="zr75_enrichment.html">Enrichment Analysis</a>
     </li>
   </ul>
 </li>
@@ -445,7 +454,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Description of Workflow</h1>
 <h4 class="author">Stephen Pederson</h4>
-<h4 class="date">10 November, 2020</h4>
+<h4 class="date">11 November, 2020</h4>
 
 </div>
 
@@ -470,7 +479,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-11-10
+<strong>Last updated:</strong> 2020-11-11
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -561,29 +570,76 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDRMCRLT47DZR75DHTStrippedSerumRNASeqtreefc4cd07f5a1982b7c0b157b9875ac0ba06b5ec6btargetblankfc4cd07a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/tree/fc4cd07f5a1982b7c0b157b9875ac0ba06b5ec6b" target="_blank">fc4cd07</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDRMCRLT47DZR75DHTStrippedSerumRNASeqtree5002d11728b2d0f8a6340c3829e6437b7a5650c6targetblank5002d11a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/tree/5002d11728b2d0f8a6340c3829e6437b7a5650c6" target="_blank">5002d11</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDRMCRLT47DZR75DHTStrippedSerumRNASeqtreefc4cd07f5a1982b7c0b157b9875ac0ba06b5ec6btargetblankfc4cd07a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDRMCRLT47DZR75DHTStrippedSerumRNASeqtree5002d11728b2d0f8a6340c3829e6437b7a5650c6targetblank5002d11a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/tree/fc4cd07f5a1982b7c0b157b9875ac0ba06b5ec6b" target="_blank">fc4cd07</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/tree/5002d11728b2d0f8a6340c3829e6437b7a5650c6" target="_blank">5002d11</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    .Rhistory
-    Ignored:    .Rproj.user/
     Ignored:    .snakemake/
+    Ignored:    data/raw/fastq/
+    Ignored:    data/trimmed/fastq/
+    Ignored:    logs/
+
+Untracked files:
+    Untracked:  rules/rulegraph.dot
+    Untracked:  rules/rulegraph.pdf
 
 Unstaged changes:
-    Modified:   analysis/_site.yml
-    Deleted:    analysis/dge_analysis.Rmd
+    Modified:   data/trimmed/FastQC/Hiseq_1/15/GLL67_D_S22_R1_001_fastqc.html
+    Modified:   data/trimmed/FastQC/Hiseq_1/15/GLL67_D_S22_R1_001_fastqc.zip
+    Modified:   data/trimmed/FastQC/Hiseq_1/15/GLL67_D_S22_R2_001_fastqc.html
+    Modified:   data/trimmed/FastQC/Hiseq_1/15/GLL67_D_S22_R2_001_fastqc.zip
+    Modified:   data/trimmed/FastQC/Hiseq_1/21/GLL69_D_S11_R1_001_fastqc.html
+    Modified:   data/trimmed/FastQC/Hiseq_1/21/GLL69_D_S11_R1_001_fastqc.zip
+    Modified:   data/trimmed/FastQC/Hiseq_1/21/GLL69_D_S11_R2_001_fastqc.html
+    Modified:   data/trimmed/FastQC/Hiseq_1/21/GLL69_D_S11_R2_001_fastqc.zip
+    Modified:   data/trimmed/FastQC/Hiseq_1/31/GLL53_V_S52_R1_001_fastqc.html
+    Modified:   data/trimmed/FastQC/Hiseq_1/31/GLL53_V_S52_R1_001_fastqc.zip
+    Modified:   data/trimmed/FastQC/Hiseq_1/31/GLL53_V_S52_R2_001_fastqc.html
+    Modified:   data/trimmed/FastQC/Hiseq_1/31/GLL53_V_S52_R2_001_fastqc.zip
+    Deleted:    data/trimmed/logs/Hiseq_1/1/GLL63_V_S8.settings
+    Deleted:    data/trimmed/logs/Hiseq_1/13/GLL67_V_S74.settings
+    Modified:   data/trimmed/logs/Hiseq_1/15/GLL67_D_S22.settings
+    Deleted:    data/trimmed/logs/Hiseq_1/19/GLL69_V_S39.settings
+    Modified:   data/trimmed/logs/Hiseq_1/21/GLL69_D_S11.settings
+    Deleted:    data/trimmed/logs/Hiseq_1/25/GLL50_V_S38.settings
+    Deleted:    data/trimmed/logs/Hiseq_1/27/GLL50_D_S13.settings
+    Deleted:    data/trimmed/logs/Hiseq_1/3/GLL63_D_S15.settings
+    Modified:   data/trimmed/logs/Hiseq_1/31/GLL53_V_S52.settings
+    Deleted:    data/trimmed/logs/Hiseq_1/33/GLL53_D_S42.settings
+    Deleted:    data/trimmed/logs/Hiseq_1/37/GLL56_V_S7.settings
+    Deleted:    data/trimmed/logs/Hiseq_1/39/GLL56_D_S25.settings
+    Deleted:    data/trimmed/logs/Hiseq_1/43/GLL59_V_S72.settings
+    Deleted:    data/trimmed/logs/Hiseq_1/45/GLL59_D_S19.settings
+    Deleted:    data/trimmed/logs/Hiseq_1/7/GLL65_V_S69.settings
+    Deleted:    data/trimmed/logs/Hiseq_1/9/GLL65_D_S48.settings
+    Deleted:    data/trimmed/logs/Hiseq_2/1/GLL63_V_S8.settings
+    Deleted:    data/trimmed/logs/Hiseq_2/13/GLL67_V_S74.settings
+    Deleted:    data/trimmed/logs/Hiseq_2/15/GLL67_D_S22.settings
+    Deleted:    data/trimmed/logs/Hiseq_2/19/GLL69_V_S39.settings
+    Deleted:    data/trimmed/logs/Hiseq_2/21/GLL69_D_S11.settings
+    Deleted:    data/trimmed/logs/Hiseq_2/25/GLL50_V_S38.settings
+    Deleted:    data/trimmed/logs/Hiseq_2/27/GLL50_D_S13.settings
+    Deleted:    data/trimmed/logs/Hiseq_2/3/GLL63_D_S15.settings
+    Deleted:    data/trimmed/logs/Hiseq_2/31/GLL53_V_S52.settings
+    Deleted:    data/trimmed/logs/Hiseq_2/33/GLL53_D_S42.settings
+    Deleted:    data/trimmed/logs/Hiseq_2/37/GLL56_V_S7.settings
+    Deleted:    data/trimmed/logs/Hiseq_2/39/GLL56_D_S25.settings
+    Deleted:    data/trimmed/logs/Hiseq_2/43/GLL59_V_S72.settings
+    Deleted:    data/trimmed/logs/Hiseq_2/45/GLL59_D_S19.settings
+    Deleted:    data/trimmed/logs/Hiseq_2/7/GLL65_V_S69.settings
+    Deleted:    data/trimmed/logs/Hiseq_2/9/GLL65_D_S48.settings
 
 </code></pre>
 <p>
@@ -622,6 +678,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/726336764ae9f11af70f4cb8dea3076a62346bed/docs/description.html" target="_blank">7263367</a>
+</td>
+<td>
+Steve Ped
+</td>
+<td>
+2020-11-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -775,7 +848,7 @@ add_input_node &lt;- function(x, node = &quot;raw_data&quot;, ignore = &quot;(ge
   grViz()</code></pre>
 <div class="figure" style="text-align: center">
 <div id="htmlwidget-8d32cfd9db97395c4a5f" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8d32cfd9db97395c4a5f">{"x":{"diagram":"digraph snakemake_dag {\n    graph[bgcolor=white, margin=0];\n    node[shape=box, style=rounded, fontname=sans,                 fontsize=10, penwidth=2];\n    edge[penwidth=2, color=grey];\n\t1[label = \"trim_fastqc\", color = \"0.57 0.6 0.85\", style=\"rounded\"];\n\t2[label = \"star_pe\", color = \"0.63 0.6 0.85\", style=\"rounded\"];\n\t3[label = \"adapter_removal\", color = \"0.07 0.6 0.85\", style=\"rounded\"];\n\t4[label = \"raw_fastqc\", color = \"0.53 0.6 0.85\", style=\"rounded\"];\n\t5[label = \"build_qc_trimmed\", color = \"0.60 0.6 0.85\", style=\"rounded\"];\n\t6[label = \"merge_counts\", color = \"0.10 0.6 0.85\", style=\"rounded\"];\n\t7[label = \"build_wflow_site_index\", color = \"0.43 0.6 0.85\", style=\"rounded\"];\n\t8[label = \"get_annotation\", color = \"0.37 0.6 0.85\", style=\"rounded\"];\n\t9[label = \"get_genome\", color = \"0.27 0.6 0.85\", style=\"rounded\"];\n\t10[label = \"make_rulegraph\", color = \"0.13 0.6 0.85\", style=\"rounded\"];\n\t11[label = \"star_index\", color = \"0.33 0.6 0.85\", style=\"rounded\"];\n\t12[label = \"build_qc_raw\", color = \"0.30 0.6 0.85\", style=\"rounded\"];\n\t13[label = \"build_wflow_description\", color = \"0.20 0.6 0.85\", style=\"rounded\"];\n\t14[label = \"create_site_yaml\", color = \"0.50 0.6 0.85\", style=\"rounded\"];\n\t15[label = \"make_rproj\", color = \"0.47 0.6 0.85\", style=\"rounded\"];\n\t16[label = \"count\", color = \"0.23 0.6 0.85\", style=\"rounded\"];\n\t17[label = \"build_qc_aligned\", color = \"0.03 0.6 0.85\", style=\"rounded\"];\n\t18[label = \"build_dge_analysis\", color = \"0.40 0.6 0.85\", style=\"rounded\"];\n\t19[label = \"RAW DATA\", color = \"0.00 0.00 0.00\", style=\"rectangle\"];\n\t3 -> 1\n\t11 -> 2\n\t3 -> 2\n\t15 -> 5\n\t14 -> 5\n\t1 -> 5\n\t16 -> 6\n\t17 -> 7\n\t12 -> 7\n\t18 -> 7\n\t15 -> 7\n\t14 -> 7\n\t5 -> 7\n\t13 -> 7\n\t9 -> 11\n\t8 -> 11\n\t15 -> 12\n\t14 -> 12\n\t4 -> 12\n\t15 -> 13\n\t10 -> 13\n\t14 -> 13\n\t8 -> 16\n\t2 -> 16\n\t15 -> 17\n\t14 -> 17\n\t6 -> 17\n\t2 -> 17\n\t15 -> 18\n\t17 -> 18\n\t14 -> 18\n\t6 -> 18\n\t19 -> 3\n\t19 -> 4\n}            ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-8d32cfd9db97395c4a5f">{"x":{"diagram":"digraph snakemake_dag {\n    graph[bgcolor=white, margin=0];\n    node[shape=box, style=rounded, fontname=sans,                 fontsize=10, penwidth=2];\n    edge[penwidth=2, color=grey];\n\t1[label = \"adapter_removal\", color = \"0.06 0.6 0.85\", style=\"rounded\"];\n\t2[label = \"trim_fastqc\", color = \"0.19 0.6 0.85\", style=\"rounded\"];\n\t3[label = \"raw_fastqc\", color = \"0.22 0.6 0.85\", style=\"rounded\"];\n\t4[label = \"star_pe\", color = \"0.48 0.6 0.85\", style=\"rounded\"];\n\t5[label = \"build_enrichment_analysis\", color = \"0.44 0.6 0.85\", style=\"rounded\"];\n\t6[label = \"get_annotation\", color = \"0.38 0.6 0.85\", style=\"rounded\"];\n\t7[label = \"build_dge_analysis\", color = \"0.03 0.6 0.85\", style=\"rounded\"];\n\t8[label = \"star_index\", color = \"0.29 0.6 0.85\", style=\"rounded\"];\n\t9[label = \"build_wflow_site_index\", color = \"0.60 0.6 0.85\", style=\"rounded\"];\n\t10[label = \"build_qc_raw\", color = \"0.57 0.6 0.85\", style=\"rounded\"];\n\t11[label = \"merge_counts\", color = \"0.35 0.6 0.85\", style=\"rounded\"];\n\t12[label = \"build_wflow_description\", color = \"0.00 0.6 0.85\", style=\"rounded\"];\n\t13[label = \"get_genome\", color = \"0.16 0.6 0.85\", style=\"rounded\"];\n\t14[label = \"build_qc_trimmed\", color = \"0.54 0.6 0.85\", style=\"rounded\"];\n\t15[label = \"make_rulegraph\", color = \"0.10 0.6 0.85\", style=\"rounded\"];\n\t16[label = \"build_qc_aligned\", color = \"0.63 0.6 0.85\", style=\"rounded\"];\n\t17[label = \"make_rproj\", color = \"0.41 0.6 0.85\", style=\"rounded\"];\n\t18[label = \"create_site_yaml\", color = \"0.51 0.6 0.85\", style=\"rounded\"];\n\t19[label = \"count\", color = \"0.32 0.6 0.85\", style=\"rounded\"];\n\t20[label = \"RAW DATA\", color = \"0.00 0.00 0.00\", style=\"rectangle\"];\n\t1 -> 2\n\t8 -> 4\n\t1 -> 4\n\t7 -> 5\n\t18 -> 7\n\t11 -> 7\n\t17 -> 7\n\t16 -> 7\n\t13 -> 8\n\t6 -> 8\n\t18 -> 9\n\t14 -> 9\n\t12 -> 9\n\t17 -> 9\n\t5 -> 9\n\t7 -> 9\n\t10 -> 9\n\t16 -> 9\n\t3 -> 10\n\t18 -> 10\n\t17 -> 10\n\t19 -> 11\n\t18 -> 12\n\t17 -> 12\n\t15 -> 12\n\t18 -> 14\n\t2 -> 14\n\t17 -> 14\n\t4 -> 16\n\t11 -> 16\n\t18 -> 16\n\t17 -> 16\n\t4 -> 19\n\t6 -> 19\n\t20 -> 1\n\t20 -> 3\n}            ","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 <em>Summary of workflow. Node names indicate snakemake rules</em>
 </p>
@@ -862,13 +935,12 @@ n_fact &lt;- sum(vapply(samples, is.factor, logical(1)))</code></pre>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.0.3 (2020-10-10)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 18.04.5 LTS
+<pre><code>R version 4.0.2 (2020-06-22)
+Platform: x86_64-conda_cos6-linux-gnu (64-bit)
+Running under: Red Hat Enterprise Linux Server 7.7 (Maipo)
 
 Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.7.1
-LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.7.1
+BLAS/LAPACK: /hpcfs/users/a1018048/T47D_ZR75_DHT_StrippedSerum_RNASeq/.snakemake/conda/090a90df/lib/libopenblasp-r0.3.10.so
 
 locale:
  [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C              
@@ -888,21 +960,21 @@ other attached packages:
 [13] workflowr_1.6.2   
 
 loaded via a namespace (and not attached):
- [1] tidyselect_1.1.0   xfun_0.19          haven_2.3.1        colorspace_1.4-1  
- [5] vctrs_0.3.4        generics_0.1.0     htmltools_0.5.0    rlang_0.4.8       
- [9] later_1.1.0.1      pillar_1.4.6       withr_2.3.0        glue_1.4.2        
-[13] DBI_1.1.0          RColorBrewer_1.1-2 dbplyr_2.0.0       modelr_0.1.8      
-[17] readxl_1.3.1       lifecycle_0.2.0    munsell_0.5.0      gtable_0.3.0      
-[21] cellranger_1.1.0   rvest_0.3.6        visNetwork_2.0.9   htmlwidgets_1.5.2 
-[25] evaluate_0.14      knitr_1.30         httpuv_1.5.4       fansi_0.4.1       
-[29] broom_0.7.2        Rcpp_1.0.5         promises_1.1.1     backports_1.2.0   
-[33] scales_1.1.1       jsonlite_1.7.1     fs_1.5.0           hms_0.5.3         
-[37] digest_0.6.27      stringi_1.5.3      rprojroot_1.3-2    grid_4.0.3        
-[41] here_0.1           cli_2.1.0          tools_4.0.3        magrittr_1.5      
-[45] crayon_1.3.4       whisker_0.4        pkgconfig_2.0.3    ellipsis_0.3.1    
-[49] xml2_1.3.2         reprex_0.3.0       lubridate_1.7.9    assertthat_0.2.1  
-[53] rmarkdown_2.5      httr_1.4.2         rstudioapi_0.11    R6_2.5.0          
-[57] git2r_0.27.1       compiler_4.0.3    </code></pre>
+ [1] Rcpp_1.0.4.6       here_0.1           lubridate_1.7.9    ps_1.4.0          
+ [5] visNetwork_2.0.9   assertthat_0.2.1   rprojroot_1.3-2    digest_0.6.27     
+ [9] R6_2.5.0           cellranger_1.1.0   backports_1.2.0    reprex_0.3.0      
+[13] evaluate_0.14      httr_1.4.2         pillar_1.4.6       rlang_0.4.8       
+[17] readxl_1.3.1       rstudioapi_0.11    whisker_0.4        rmarkdown_2.5     
+[21] htmlwidgets_1.5.2  munsell_0.5.0      broom_0.7.2        compiler_4.0.2    
+[25] httpuv_1.5.4       modelr_0.1.8       xfun_0.19          pkgconfig_2.0.3   
+[29] htmltools_0.5.0    tidyselect_1.1.0   fansi_0.4.1        crayon_1.3.4      
+[33] dbplyr_2.0.0       withr_2.3.0        later_1.1.0.1      grid_4.0.2        
+[37] jsonlite_1.7.1     gtable_0.3.0       lifecycle_0.2.0    DBI_1.1.0         
+[41] git2r_0.27.1       magrittr_1.5       scales_1.1.1       cli_2.1.0         
+[45] stringi_1.5.3      fs_1.5.0           promises_1.1.1     xml2_1.3.2        
+[49] ellipsis_0.3.1     generics_0.1.0     vctrs_0.3.4        RColorBrewer_1.1-2
+[53] tools_4.0.2        glue_1.4.2         hms_0.5.3          colorspace_1.4-1  
+[57] rvest_0.3.6        knitr_1.30         haven_2.3.1       </code></pre>
 </div>
 </div>
 
@@ -918,6 +990,8 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
+
+
 
 
 </div>

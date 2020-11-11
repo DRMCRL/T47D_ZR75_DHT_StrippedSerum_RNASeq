@@ -1,0 +1,75 @@
+digraph snakemake_dag {
+    graph[bgcolor=white, margin=0];
+    node[shape=box, style=rounded, fontname=sans,                 fontsize=10, penwidth=2];
+    edge[penwidth=2, color=grey];
+	0[label = "all", color = "0.13 0.6 0.85", style="rounded"];
+	1[label = "adapter_removal", color = "0.06 0.6 0.85", style="rounded"];
+	2[label = "trim_fastqc", color = "0.19 0.6 0.85", style="rounded"];
+	3[label = "raw_fastqc", color = "0.22 0.6 0.85", style="rounded"];
+	4[label = "star_pe", color = "0.48 0.6 0.85", style="rounded"];
+	5[label = "build_enrichment_analysis", color = "0.44 0.6 0.85", style="rounded"];
+	6[label = "get_annotation", color = "0.38 0.6 0.85", style="rounded"];
+	7[label = "build_dge_analysis", color = "0.03 0.6 0.85", style="rounded"];
+	8[label = "star_index", color = "0.29 0.6 0.85", style="rounded"];
+	9[label = "build_wflow_site_index", color = "0.60 0.6 0.85", style="rounded"];
+	10[label = "build_qc_raw", color = "0.57 0.6 0.85", style="rounded"];
+	11[label = "merge_counts", color = "0.35 0.6 0.85", style="rounded"];
+	12[label = "build_wflow_description", color = "0.00 0.6 0.85", style="rounded"];
+	13[label = "get_genome", color = "0.16 0.6 0.85", style="rounded"];
+	14[label = "build_qc_trimmed", color = "0.54 0.6 0.85", style="rounded"];
+	15[label = "make_rulegraph", color = "0.10 0.6 0.85", style="rounded"];
+	16[label = "build_qc_aligned", color = "0.63 0.6 0.85", style="rounded"];
+	17[label = "make_rproj", color = "0.41 0.6 0.85", style="rounded"];
+	18[label = "create_site_yaml", color = "0.51 0.6 0.85", style="rounded"];
+	19[label = "count", color = "0.32 0.6 0.85", style="rounded"];
+	11 -> 0
+	14 -> 0
+	6 -> 0
+	12 -> 0
+	13 -> 0
+	5 -> 0
+	7 -> 0
+	4 -> 0
+	10 -> 0
+	1 -> 0
+	2 -> 0
+	9 -> 0
+	15 -> 0
+	3 -> 0
+	16 -> 0
+	8 -> 0
+	1 -> 2
+	8 -> 4
+	1 -> 4
+	7 -> 5
+	18 -> 7
+	11 -> 7
+	17 -> 7
+	16 -> 7
+	13 -> 8
+	6 -> 8
+	18 -> 9
+	14 -> 9
+	12 -> 9
+	17 -> 9
+	5 -> 9
+	7 -> 9
+	10 -> 9
+	16 -> 9
+	3 -> 10
+	18 -> 10
+	17 -> 10
+	19 -> 11
+	18 -> 12
+	17 -> 12
+	15 -> 12
+	18 -> 14
+	2 -> 14
+	17 -> 14
+	4 -> 16
+	11 -> 16
+	18 -> 16
+	17 -> 16
+	4 -> 19
+	6 -> 19
+}            

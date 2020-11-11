@@ -8,7 +8,7 @@ Adapter2[1]: AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
 
 
 [Adapter trimming]
-RNG seed: 3519533622
+RNG seed: 1172483145
 Alignment shift value: 2
 Global mismatch threshold: 0.333333
 Quality format (input): Phred+33
