@@ -733,7 +733,7 @@ topTable %>%
 logCPM %>%
   as_tibble(rownames = "gene_id") %>%
   inner_join(dge$genes) %>%
-  dplyr::select(gene_id, gene_name, starts_with("MD-")) %>%
+  dplyr::select(gene_id, gene_name, starts_with("GLL")) %>%
   write_tsv(
     here::here(
       glue("output/{ct}_{dr}_logCPM.tsv")
