@@ -14,12 +14,22 @@
 
 <title>T-47D Cells: Differential Gene Expression</title>
 
-<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
@@ -27,16 +37,14 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
-<script src="site_libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<script src="site_libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="site_libs/datatables-binding-0.16/datatables.js"></script>
+<script src="site_libs/datatables-binding-0.18/datatables.js"></script>
 <link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
-<link href="site_libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-<script src="site_libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="site_libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -45,6 +53,8 @@ div.section {
   padding-top: 12px;
 }
 </style>
+
+
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -56,11 +66,6 @@ div.section {
     </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -73,32 +78,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -108,10 +88,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -128,40 +104,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -189,7 +138,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -201,7 +150,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -212,10 +161,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -227,7 +189,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -356,13 +317,13 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -441,11 +402,11 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 </ul>
@@ -455,7 +416,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">T-47D Cells: Differential Gene Expression</h1>
 <h4 class="author">Stephen Pederson</h4>
-<h4 class="date">12 November, 2020</h4>
+<h4 class="date">10 May, 2021</h4>
 
 </div>
 
@@ -480,7 +441,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-11-12
+<strong>Last updated:</strong> 2021-05-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -571,16 +532,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDRMCRLT47DZR75DHTStrippedSerumRNASeqtree820fd33f05551174e53fe1f3c8e16cb030caac6atargetblank820fd33a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/tree/820fd33f05551174e53fe1f3c8e16cb030caac6a" target="_blank">820fd33</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDRMCRLT47DZR75DHTStrippedSerumRNASeqtree53612f5cd8d630d4071da8e118ee6004d8927e14targetblank53612f5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/tree/53612f5cd8d630d4071da8e118ee6004d8927e14" target="_blank">53612f5</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDRMCRLT47DZR75DHTStrippedSerumRNASeqtree820fd33f05551174e53fe1f3c8e16cb030caac6atargetblank820fd33a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDRMCRLT47DZR75DHTStrippedSerumRNASeqtree53612f5cd8d630d4071da8e118ee6004d8927e14targetblank53612f5a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/tree/820fd33f05551174e53fe1f3c8e16cb030caac6a" target="_blank">820fd33</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/tree/53612f5cd8d630d4071da8e118ee6004d8927e14" target="_blank">53612f5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -590,6 +551,9 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    .snakemake/
+
+Untracked files:
+    Untracked:  output/T47D_StrippedSerum_nonZero.txt
 
 </code></pre>
 <p>
@@ -628,6 +592,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/53612f5cd8d630d4071da8e118ee6004d8927e14/analysis/t47d_dge_analysis.Rmd" target="_blank">53612f5</a>
+</td>
+<td>
+Steve Ped
+</td>
+<td>
+2021-05-10
+</td>
+<td>
+Added export of nonZero genes
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/db9e3ea855e828c9185671ed84f596d87504593a/docs/t47d_dge_analysis.html" target="_blank">db9e3ea</a>
+</td>
+<td>
+Steve Ped
+</td>
+<td>
+2020-11-12
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1048,6 +1046,15 @@ Steve Ped
 ) %&gt;%
   .[genes2Keep,] %&gt;%
   calcNormFactors()</code></pre>
+<pre class="r"><code>nonZero &lt;- rowSums(counts &gt; 0) %&gt;%
+  is_greater_than(0) %&gt;%
+  which() %&gt;%
+  names() 
+write_lines(
+  nonZero,
+  here::here(&quot;output/T47D_StrippedSerum_nonZero.txt&quot;)
+)</code></pre>
+<p>For the purposes of data integration, the 39,421 genes with one or more count anywhere were also identified as a set of the most inclusive genes for expression.</p>
 </div>
 </div>
 </div>
@@ -2121,7 +2128,7 @@ Steve Ped
 <pre class="r"><code>dr &lt;- here::here() %&gt;%
   basename() %&gt;%
   str_extract(&quot;DHT.+&quot;)
-ct &lt;- &quot;t47d&quot;</code></pre>
+ct &lt;- &quot;T47D&quot;</code></pre>
 <pre class="r"><code>topTable %&gt;%
   mutate(entrezid = vapply(entrezid, paste, character(1), collapse = &quot;;&quot;)) %&gt;%
   write_tsv(
@@ -2174,83 +2181,85 @@ attached base packages:
  [8] datasets  methods   base     
 
 other attached packages:
- [1] DT_0.16                 ggrepel_0.8.2           cqn_1.36.0             
- [4] quantreg_5.75           SparseM_1.78            preprocessCore_1.52.0  
- [7] nor1mix_1.3-0           mclust_5.4.6            ggfortify_0.4.11       
-[10] cowplot_1.1.0           magrittr_1.5            ensembldb_2.14.0       
-[13] AnnotationFilter_1.14.0 GenomicFeatures_1.42.0  AnnotationDbi_1.52.0   
-[16] Biobase_2.50.0          GenomicRanges_1.42.0    GenomeInfoDb_1.26.0    
-[19] IRanges_2.24.0          S4Vectors_0.28.0        AnnotationHub_2.22.0   
-[22] BiocFileCache_1.14.0    dbplyr_2.0.0            BiocGenerics_0.36.0    
-[25] edgeR_3.32.0            limma_3.46.0            glue_1.4.2             
+ [1] DT_0.18                 ggrepel_0.9.1           cqn_1.36.0             
+ [4] quantreg_5.85           SparseM_1.81            preprocessCore_1.52.1  
+ [7] nor1mix_1.3-0           mclust_5.4.7            ggfortify_0.4.11       
+[10] cowplot_1.1.1           magrittr_2.0.1          ensembldb_2.14.1       
+[13] AnnotationFilter_1.14.0 GenomicFeatures_1.42.3  AnnotationDbi_1.52.0   
+[16] Biobase_2.50.0          GenomicRanges_1.42.0    GenomeInfoDb_1.26.7    
+[19] IRanges_2.24.1          S4Vectors_0.28.1        AnnotationHub_2.22.1   
+[22] BiocFileCache_1.14.0    dbplyr_2.1.1            BiocGenerics_0.36.1    
+[25] edgeR_3.32.1            limma_3.46.0            glue_1.4.2             
 [28] pander_0.6.3            scales_1.1.1            yaml_2.2.1             
-[31] forcats_0.5.0           stringr_1.4.0           dplyr_1.0.2            
-[34] purrr_0.3.4             readr_1.4.0             tidyr_1.1.2            
-[37] tibble_3.0.4            ggplot2_3.3.2           tidyverse_1.3.0        
+[31] forcats_0.5.1           stringr_1.4.0           dplyr_1.0.5            
+[34] purrr_0.3.4             readr_1.4.0             tidyr_1.1.3            
+[37] tibble_3.1.1            ggplot2_3.3.3           tidyverse_1.3.1        
 [40] workflowr_1.6.2        
 
 loaded via a namespace (and not attached):
-  [1] readxl_1.3.1                  backports_1.2.0              
-  [3] plyr_1.8.6                    lazyeval_0.2.2               
-  [5] crosstalk_1.1.0.1             BiocParallel_1.24.0          
-  [7] digest_0.6.27                 htmltools_0.5.0              
-  [9] fansi_0.4.1                   memoise_1.1.0                
- [11] cluster_2.1.0                 Biostrings_2.58.0            
- [13] modelr_0.1.8                  matrixStats_0.57.0           
- [15] askpass_1.1                   prettyunits_1.1.1            
- [17] jpeg_0.1-8.1                  colorspace_1.4-1             
- [19] blob_1.2.1                    rvest_0.3.6                  
- [21] rappdirs_0.3.1                haven_2.3.1                  
- [23] xfun_0.19                     crayon_1.3.4                 
- [25] RCurl_1.98-1.2                jsonlite_1.7.1               
- [27] zoo_1.8-8                     gtable_0.3.0                 
- [29] zlibbioc_1.36.0               XVector_0.30.0               
- [31] MatrixModels_0.4-1            DelayedArray_0.16.0          
- [33] DBI_1.1.0                     Rcpp_1.0.5                   
- [35] viridisLite_0.3.0             xtable_1.8-4                 
- [37] progress_1.2.2                flashClust_1.01-2            
- [39] bit_4.0.4                     htmlwidgets_1.5.2            
- [41] httr_1.4.2                    RColorBrewer_1.1-2           
- [43] ellipsis_0.3.1                pkgconfig_2.0.3              
- [45] XML_3.99-0.5                  farver_2.0.3                 
- [47] locfit_1.5-9.4                here_0.1                     
- [49] reshape2_1.4.4                tidyselect_1.1.0             
- [51] labeling_0.4.2                rlang_0.4.8                  
- [53] later_1.1.0.1                 munsell_0.5.0                
- [55] BiocVersion_3.12.0            cellranger_1.1.0             
- [57] tools_4.0.3                   cli_2.1.0                    
- [59] generics_0.1.0                RSQLite_2.2.1                
- [61] broom_0.7.2                   ggdendro_0.1.22              
- [63] evaluate_0.14                 fastmap_1.0.1                
- [65] knitr_1.30                    bit64_4.0.5                  
- [67] fs_1.5.0                      nlme_3.1-149                 
- [69] whisker_0.4                   mime_0.9                     
- [71] leaps_3.1                     xml2_1.3.2                   
- [73] biomaRt_2.46.0                compiler_4.0.3               
- [75] rstudioapi_0.11               png_0.1-7                    
- [77] plotly_4.9.2.1                curl_4.3                     
- [79] interactiveDisplayBase_1.28.0 reprex_0.3.0                 
- [81] statmod_1.4.35                stringi_1.5.3                
- [83] highr_0.8                     lattice_0.20-41              
- [85] ProtGenerics_1.22.0           Matrix_1.2-18                
- [87] vctrs_0.3.4                   pillar_1.4.6                 
- [89] lifecycle_0.2.0               BiocManager_1.30.10          
- [91] data.table_1.13.2             bitops_1.0-6                 
- [93] conquer_1.0.2                 httpuv_1.5.4                 
- [95] rtracklayer_1.50.0            latticeExtra_0.6-29          
- [97] hwriter_1.3.2                 R6_2.5.0                     
- [99] ShortRead_1.48.0              promises_1.1.1               
-[101] gridExtra_2.3                 MASS_7.3-53                  
-[103] ngsReports_1.6.0              assertthat_0.2.1             
-[105] SummarizedExperiment_1.20.0   openssl_1.4.3                
-[107] rprojroot_1.3-2               withr_2.3.0                  
-[109] GenomicAlignments_1.26.0      Rsamtools_2.6.0              
-[111] GenomeInfoDbData_1.2.4        mgcv_1.8-33                  
-[113] hms_0.5.3                     grid_4.0.3                   
-[115] rmarkdown_2.5                 MatrixGenerics_1.2.0         
-[117] git2r_0.27.1                  scatterplot3d_0.3-41         
-[119] shiny_1.5.0                   lubridate_1.7.9              
-[121] FactoMineR_2.3               </code></pre>
+  [1] utf8_1.2.1                    tidyselect_1.1.0             
+  [3] RSQLite_2.2.7                 htmlwidgets_1.5.3            
+  [5] FactoMineR_2.4                grid_4.0.3                   
+  [7] BiocParallel_1.24.1           munsell_0.5.0                
+  [9] statmod_1.4.35                withr_2.4.2                  
+ [11] colorspace_2.0-0              highr_0.9                    
+ [13] knitr_1.33                    rstudioapi_0.13              
+ [15] leaps_3.1                     MatrixGenerics_1.2.1         
+ [17] labeling_0.4.2                git2r_0.28.0                 
+ [19] GenomeInfoDbData_1.2.4        hwriter_1.3.2                
+ [21] bit64_4.0.5                   farver_2.1.0                 
+ [23] rprojroot_2.0.2               vctrs_0.3.7                  
+ [25] generics_0.1.0                xfun_0.22                    
+ [27] R6_2.5.0                      ngsReports_1.6.1             
+ [29] locfit_1.5-9.4                bitops_1.0-7                 
+ [31] cachem_1.0.4                  DelayedArray_0.16.3          
+ [33] assertthat_0.2.1              promises_1.2.0.1             
+ [35] gtable_0.3.0                  conquer_1.0.2                
+ [37] rlang_0.4.10                  MatrixModels_0.5-0           
+ [39] scatterplot3d_0.3-41          rtracklayer_1.50.0           
+ [41] lazyeval_0.2.2                broom_0.7.6                  
+ [43] BiocManager_1.30.12           reshape2_1.4.4               
+ [45] modelr_0.1.8                  crosstalk_1.1.1              
+ [47] backports_1.2.1               httpuv_1.6.0                 
+ [49] tools_4.0.3                   ellipsis_0.3.1               
+ [51] RColorBrewer_1.1-2            jquerylib_0.1.4              
+ [53] ggdendro_0.1.22               Rcpp_1.0.6                   
+ [55] plyr_1.8.6                    progress_1.2.2               
+ [57] zlibbioc_1.36.0               RCurl_1.98-1.3               
+ [59] prettyunits_1.1.1             openssl_1.4.3                
+ [61] zoo_1.8-9                     SummarizedExperiment_1.20.0  
+ [63] haven_2.4.1                   cluster_2.1.0                
+ [65] fs_1.5.0                      here_1.0.1                   
+ [67] data.table_1.14.0             reprex_2.0.0                 
+ [69] whisker_0.4                   ProtGenerics_1.22.0          
+ [71] matrixStats_0.58.0            hms_1.0.0                    
+ [73] mime_0.10                     evaluate_0.14                
+ [75] xtable_1.8-4                  XML_3.99-0.6                 
+ [77] jpeg_0.1-8.1                  readxl_1.3.1                 
+ [79] gridExtra_2.3                 compiler_4.0.3               
+ [81] biomaRt_2.46.3                crayon_1.4.1                 
+ [83] htmltools_0.5.1.1             mgcv_1.8-35                  
+ [85] later_1.2.0                   lubridate_1.7.10             
+ [87] DBI_1.1.1                     MASS_7.3-53                  
+ [89] rappdirs_0.3.3                ShortRead_1.48.0             
+ [91] Matrix_1.2-18                 cli_2.5.0                    
+ [93] pkgconfig_2.0.3               flashClust_1.01-2            
+ [95] GenomicAlignments_1.26.0      plotly_4.9.3                 
+ [97] xml2_1.3.2                    bslib_0.2.4                  
+ [99] XVector_0.30.0                rvest_1.0.0                  
+[101] digest_0.6.27                 Biostrings_2.58.0            
+[103] rmarkdown_2.7                 cellranger_1.1.0             
+[105] curl_4.3                      shiny_1.6.0                  
+[107] Rsamtools_2.6.0               lifecycle_1.0.0              
+[109] nlme_3.1-149                  jsonlite_1.7.2               
+[111] viridisLite_0.4.0             askpass_1.1                  
+[113] fansi_0.4.2                   pillar_1.6.0                 
+[115] lattice_0.20-41               fastmap_1.1.0                
+[117] httr_1.4.2                    interactiveDisplayBase_1.28.0
+[119] png_0.1-7                     BiocVersion_3.12.0           
+[121] bit_4.0.4                     stringi_1.5.3                
+[123] sass_0.3.1                    blob_1.2.1                   
+[125] latticeExtra_0.6-29           memoise_2.0.0                </code></pre>
 </div>
 </div>
 </div>
@@ -2267,6 +2276,8 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
+
+
 
 
 </div>
@@ -2296,7 +2307,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
