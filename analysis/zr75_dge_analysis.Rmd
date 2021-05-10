@@ -714,7 +714,7 @@ plot_grid(
 dr <- here::here() %>%
   basename() %>%
   str_extract("DHT.+")
-ct <- "zr75"
+ct <- "ZR75"
 ```
 
 

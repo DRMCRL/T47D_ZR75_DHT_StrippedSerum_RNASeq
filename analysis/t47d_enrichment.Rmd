@@ -69,12 +69,12 @@ sp <- config$ref$species %>%
 ```
 
 ```{r importData}
-topTable <- here::here("output/t47d_DHT_StrippedSerum_RNASeq_topTable.tsv") %>%
+topTable <- here::here("output/T47D_DHT_StrippedSerum_RNASeq_topTable.tsv") %>%
   read_tsv()
 de <- dplyr::filter(topTable, DE)$gene_id
 up <- dplyr::filter(topTable, DE, logFC > 0)$gene_id
 down <- dplyr::filter(topTable, DE, logFC < 0)$gene_id
-dge <- here::here("output/t47d_dge.rds") %>%
+dge <- here::here("output/T47D_dge.rds") %>%
   read_rds()
 ```
 
