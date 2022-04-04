@@ -21,12 +21,16 @@ navbar:
         href: t47d_dge_analysis.html
       - text: Enrichment Analysis
         href: t47d_enrichment.html
+      - text: sSNAPPY
+        href: t47d_sSNAPPY.html
   - text: ZR-75 Cells
     menu:
       - text: Differential Gene Expression
         href: zr75_dge_analysis.html   
       - text: Enrichment Analysis
-        href: zr75_enrichment.html        
+        href: zr75_enrichment.html
+      - text: sSNAPPY
+        href: zr75_sSNAPPY.html
 output:
   workflowr::wflow_html:
     toc: yes

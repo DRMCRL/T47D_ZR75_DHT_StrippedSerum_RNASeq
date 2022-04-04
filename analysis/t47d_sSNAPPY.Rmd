@@ -1,0 +1,185 @@
+---
+title: "t47d_sSNAPPY"
+author: "Wenjun Nora Liu<br>Dame Roma Mitchell Cancer Research Laboratories<br>Adelaide Medical School<br>University of Adelaide"
+date: "`r format(Sys.Date(), '%d %B, %Y')`"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10
+)
+```
+
+```{r packages}
+library(tidyverse)
+library(yaml)
+library(scales)
+library(pander)
+library(glue)
+library(cowplot)
+library(ggfortify)
+library(magrittr)
+library(ggrepel)
+library(DT)
+library(cqn)
+library(BSDA)
+library(AnnotationHub)
+library(ensembldb)
+library(sSNAPPY)
+```
+
+```{r options}
+panderOptions("table.split.table", Inf)
+panderOptions("big.mark", ",")
+panderOptions("missing", "")
+theme_set(theme_bw())
+```
+
+```{r extraFuns}
+as_sci <- function(p, d = 2, min = 0.01){
+  fmt <- glue("%.{d}e")
+  new <- character(length(p))
+  new[p > min] <- sprintf(glue("%.{d + 1}f"), p[p > min])
+  new[p <= min] <- sprintf(fmt, p[p <= min])
+  new
+}
+```
+
+# Setup
+
+```{r config}
+config <- here::here("config/config.yml") %>%
+  read_yaml()
+suffix <- paste0(config$tag)
+sp <- config$ref$species %>%
+  str_replace("(^[a-z])[a-z]*_([a-z]+)", "\\1\\2") %>%
+  str_to_title()
+```
+
+Post-normalisation `DGEList` was loaded in. 
+```{r importData}
+dge <- here::here("output/T47D_dge.rds") %>%
+  read_rds()
+logCPM <- read_tsv(here::here("output/T47D_DHT_StrippedSerum_RNASeq_logCPM.tsv"))
+logCPM <- logCPM %>%
+    dplyr::select(starts_with("GLL"), "gene_id")
+```
+
+## Gene Annotations
+
+```{r ah}
+ah <- AnnotationHub() %>%
+  subset(rdataclass == "EnsDb") %>%
+  subset(str_detect(description, as.character(config$ref$release))) %>%
+  subset(genome == config$ref$build)
+stopifnot(length(ah) == 1)
+ensDb <- ah[[1]]
+genesGR <- read_rds(here::here("output/genesGR.rds"))
+```
+
+
+## Convert gene id
+
+```{r entrezId}
+logCPM$gene_id <- mapIds(ensDb, logCPM$gene_id , "ENTREZID", keytype = "GENEID")
+# Remove genes that couldn't be matched to entrez IDs
+logCPM <- logCPM[!is.na(logCPM$gene_id),]
+logCPM <- logCPM[!duplicated(logCPM$gene_id),]
+ logCPM <- logCPM %>%
+    column_to_rownames("gene_id")
+```
+
+# sSNAPPY
+
+Weighted single sample logFCs were computed from the logCPM matrix.
+
+```{r weightedFC}
+metadata <- dge$samples %>%
+    dplyr::rename(treatment = treat)
+weightedFC <- weight_ssFC(logCPM, metadata, factor = "rep", control = "Vehicle")
+```
+
+Pathway topologies of KEGG pathways were retrieved. 
+
+```{r gsTopology}
+#weightedAdjMatrix(database = "kegg", outputDir = ("data/gsTopology.rda"))
+load(here::here("data/gsTopology.rda"))
+```
+
+`r length(gsTopology)` KEGG pathways were retrieved. 
+
+Raw single sample perturbation scores for each treated sample each KEGG pathway were calculated. 
+```{r ssPertScore}
+ssPertScore <- perturbationScore(weightedFC$logFC, gsTopology)
+```
+
+Null distribution of perturbation scores were generated through 1000 rounds of sample label permutations. 
+
+```{r permutedScore}
+# permutedScore <- generate_PermutedScore(
+#     logCPM = logCPM, 
+#     numOfTreat = 2, NB = 1000, 
+#     gsTopology = gsTopology, 
+#    weight = weightedFC$weight
+# )
+# write_rds(permutedScore, here::here("output/t47d_permutedscore.rds"))
+permutedScore <- read_rds(here::here("output/t47d_permutedscore.rds"))
+```
+
+Becusae the samll number of samples, the null distributions are close to but not exactly normally distribution. 
+
+```{r hist_pl, fig.width=10, fig.height=5}
+pl <- permutedScore %>%
+    keep(~all(.!=0)) %>%
+    .[sample(seq_along(.), 6)] %>%
+    lapply(
+      function(x){
+        ggplot(mapping = aes(x)) + 
+          geom_histogram() +
+          xlab("Perturbation Score")
+      }
+    ) 
+plot_grid(plotlist = pl, nrow = 2)
+
+```
+
+Raw perturbation scores were converted to robust z-scores based on the median and MAD derived from the null distributions. 
+A two-side p-value was computed for each z-score and corrected for multiple testings. None of the indiviudal-sample pathway perturbation score had a `FDR` < 0.05. 
+
+```{r}
+normalisedScores <- normaliseByPermutation(permutedScore, ssPertScore)
+normalisedScores %>%
+    dplyr::filter(adjPvalue < 0.05)
+```
+
+Average treatment effect on each pathway was modelled using a `z test`. There wasn't any pathway that passed the statistical threshold (ie. FDR < 0.05). 
+
+```{r fit}
+fit <- normalisedScores %>%
+    left_join(metadata %>%
+                  dplyr::select(
+                      sample = rep, 
+                      cell_line
+                  )) %>%
+    unique() %>%
+    split(f = .$gs_name) %>%
+    #.["Estrogen signaling pathway"] %>%
+    lapply(function(x)z.test(x$robustZ, sigma.x = 1)) 
+sapply(names(fit), function(x){
+  fit[[x]][c("estimate", "p.value")] %>%
+    as.data.frame() %>%
+    set_rownames(x)
+}, simplify = FALSE) %>%
+  bind_rows() %>%
+  mutate(FDR  = p.adjust(p.value, "fdr")) %>%
+    dplyr::filter(FDR < 0.05)
+```
+

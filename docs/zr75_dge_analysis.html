@@ -14,8 +14,8 @@
 
 <title>ZR75 Cells: Differential Gene Expression</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -37,16 +37,16 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="site_libs/datatables-binding-0.18/datatables.js"></script>
-<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
-<link href="site_libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
-<script src="site_libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<script src="site_libs/datatables-binding-0.22/datatables.js"></script>
+<link href="site_libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
 <style type="text/css">
 div.section {
@@ -83,6 +83,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -103,6 +104,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -318,12 +322,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -331,7 +335,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -347,7 +351,7 @@ div.tocify {
   <a href="description.html">Description</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     QC
      
     <span class="caret"></span>
@@ -365,7 +369,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     T47D Cells
      
     <span class="caret"></span>
@@ -377,10 +381,13 @@ div.tocify {
     <li>
       <a href="t47d_enrichment.html">Enrichment Analysis</a>
     </li>
+    <li>
+      <a href="t47d_sSNAPPY.html">sSNAPPY</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     ZR-75 Cells
      
     <span class="caret"></span>
@@ -391,6 +398,9 @@ div.tocify {
     </li>
     <li>
       <a href="zr75_enrichment.html">Enrichment Analysis</a>
+    </li>
+    <li>
+      <a href="zr75_sSNAPPY.html">sSNAPPY</a>
     </li>
   </ul>
 </li>
@@ -405,7 +415,7 @@ div.tocify {
 <div id="header">
 
 <div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
@@ -414,16 +424,19 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">ZR75 Cells: Differential Gene Expression</h1>
+<h1 class="title toc-ignore">ZR75 Cells: Differential Gene
+Expression</h1>
 <h4 class="author">Stephen Pederson</h4>
-<h4 class="date">10 May, 2021</h4>
+<h4 class="date">04 April, 2022</h4>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -432,7 +445,9 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -441,17 +456,28 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-05-10
+<strong>Last updated:</strong> 2022-04-04
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>T47D_ZR75_DHT_StrippedSerum_RNASeq/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong>
+<code>T47D_ZR75_DHT_StrippedSerum_RNASeq/analysis/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -460,115 +486,166 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed12345code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(12345)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed12345code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(12345)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed12345code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed12345code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(12345)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(12345)</code> was run prior to running the
+code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDRMCRLT47DZR75DHTStrippedSerumRNASeqtree1ad793ff43dabf5142d50b6076908de1d180209btargetblank1ad793fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/tree/1ad793ff43dabf5142d50b6076908de1d180209b" target="_blank">1ad793f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomWenjunLiuT47DZR75DHTStrippedSerumRNASeqtree429b67ad42c419b5f38460eb157f1c6182b4d3f0targetblank429b67aa">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/tree/429b67ad42c419b5f38460eb157f1c6182b4d3f0" target="_blank">429b67a</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDRMCRLT47DZR75DHTStrippedSerumRNASeqtree1ad793ff43dabf5142d50b6076908de1d180209btargetblank1ad793fa" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomWenjunLiuT47DZR75DHTStrippedSerumRNASeqtree429b67ad42c419b5f38460eb157f1c6182b4d3f0targetblank429b67aa"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/tree/1ad793ff43dabf5142d50b6076908de1d180209b" target="_blank">1ad793f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/tree/429b67ad42c419b5f38460eb157f1c6182b4d3f0" target="_blank">429b67a</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    .snakemake/
 
 Untracked files:
-    Untracked:  output/T47D_DHT_StrippedSerum_RNASeq_logCPM.tsv
-    Untracked:  output/T47D_DHT_StrippedSerum_RNASeq_topTable.tsv
-    Untracked:  output/T47D_StrippedSerum_nonZero.txt
-    Untracked:  output/T47D_dge.rds
+    Untracked:  analysis/t47d_sSNAPPY.Rmd
+    Untracked:  analysis/zr75_sSNAPPY.Rmd
+    Untracked:  data/gsTopology.rda
+    Untracked:  output/t47d_permutedscore.rds
+    Untracked:  output/zr75_permutedscore.rds
 
 Unstaged changes:
-    Deleted:    output/t47d_DHT_StrippedSerum_RNASeq_logCPM.tsv
-    Deleted:    output/t47d_DHT_StrippedSerum_RNASeq_topTable.tsv
-    Deleted:    output/t47d_dge.rds
-    Deleted:    output/zr75_DHT_StrippedSerum_RNASeq_logCPM.tsv
-    Deleted:    output/zr75_DHT_StrippedSerum_RNASeq_topTable.tsv
-    Deleted:    output/zr75_dge.rds
+    Modified:   analysis/_site.yml
+    Modified:   output/T47D_DHT_StrippedSerum_RNASeq_logCPM.tsv
+    Modified:   output/T47D_DHT_StrippedSerum_RNASeq_topTable.tsv
+    Modified:   output/T47D_dge.rds
+    Modified:   output/ZR75_DHT_StrippedSerum_RNASeq_logCPM.tsv
+    Modified:   output/ZR75_DHT_StrippedSerum_RNASeq_topTable.tsv
+    Modified:   output/ZR75_dge.rds
+    Modified:   output/genesGR.rds
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -579,7 +656,12 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/zr75_dge_analysis.Rmd</code>) and HTML (<code>docs/zr75_dge_analysis.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/zr75_dge_analysis.Rmd</code>) and
+HTML (<code>docs/zr75_dge_analysis.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -605,10 +687,27 @@ Message
 <tbody>
 <tr>
 <td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/429b67ad42c419b5f38460eb157f1c6182b4d3f0/docs/zr75_dge_analysis.html" target="_blank">429b67a</a>
+</td>
+<td>
+Steve Ped
+</td>
+<td>
+2021-05-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
 Rmd
 </td>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/1ad793ff43dabf5142d50b6076908de1d180209b/analysis/zr75_dge_analysis.Rmd" target="_blank">1ad793f</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/1ad793ff43dabf5142d50b6076908de1d180209b/analysis/zr75_dge_analysis.Rmd" target="_blank">1ad793f</a>
 </td>
 <td>
 Steve Ped
@@ -625,7 +724,7 @@ Changed cell types to upper case in output
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/db9e3ea855e828c9185671ed84f596d87504593a/docs/zr75_dge_analysis.html" target="_blank">db9e3ea</a>
+<a href="https://rawcdn.githack.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/db9e3ea855e828c9185671ed84f596d87504593a/docs/zr75_dge_analysis.html" target="_blank">db9e3ea</a>
 </td>
 <td>
 Steve Ped
@@ -642,7 +741,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/820fd33f05551174e53fe1f3c8e16cb030caac6a/analysis/zr75_dge_analysis.Rmd" target="_blank">820fd33</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/820fd33f05551174e53fe1f3c8e16cb030caac6a/analysis/zr75_dge_analysis.Rmd" target="_blank">820fd33</a>
 </td>
 <td>
 Steve Ped
@@ -659,7 +758,7 @@ Corrected logCPM outputs
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/27a360bd6d714b0b50ea7c366bd76d5bc18b9b91/docs/zr75_dge_analysis.html" target="_blank">27a360b</a>
+<a href="https://rawcdn.githack.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/27a360bd6d714b0b50ea7c366bd76d5bc18b9b91/docs/zr75_dge_analysis.html" target="_blank">27a360b</a>
 </td>
 <td>
 Steve Ped
@@ -676,7 +775,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/1ac4b0ecbf35a958e4b4ca9e66f920ee6dc0bbf9/analysis/zr75_dge_analysis.Rmd" target="_blank">1ac4b0e</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/1ac4b0ecbf35a958e4b4ca9e66f920ee6dc0bbf9/analysis/zr75_dge_analysis.Rmd" target="_blank">1ac4b0e</a>
 </td>
 <td>
 Steve Ped
@@ -693,7 +792,7 @@ Built site
 Rmd
 </td>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/bcedb6befdcf31a60edef96e869880d5e283d969/analysis/zr75_dge_analysis.Rmd" target="_blank">bcedb6b</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/bcedb6befdcf31a60edef96e869880d5e283d969/analysis/zr75_dge_analysis.Rmd" target="_blank">bcedb6b</a>
 </td>
 <td>
 Steve Ped
@@ -710,7 +809,7 @@ Started manual checks of DGE analyses
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/e17d11182444ca452ea83ebae6b2404683324e5c/docs/zr75_dge_analysis.html" target="_blank">e17d111</a>
+<a href="https://rawcdn.githack.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/e17d11182444ca452ea83ebae6b2404683324e5c/docs/zr75_dge_analysis.html" target="_blank">e17d111</a>
 </td>
 <td>
 Steve Pederson
@@ -727,7 +826,7 @@ Ran up until DGE analysis
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/0efa8579c96edfef00efe338a2735c5e0bb84ac0/docs/zr75_dge_analysis.html" target="_blank">0efa857</a>
+<a href="https://rawcdn.githack.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/0efa8579c96edfef00efe338a2735c5e0bb84ac0/docs/zr75_dge_analysis.html" target="_blank">0efa857</a>
 </td>
 <td>
 Steve Ped
@@ -744,7 +843,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/36a89bdecbdeee403ad92aad2158cc49b0ab6f6c/analysis/zr75_dge_analysis.Rmd" target="_blank">36a89bd</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/36a89bdecbdeee403ad92aad2158cc49b0ab6f6c/analysis/zr75_dge_analysis.Rmd" target="_blank">36a89bd</a>
 </td>
 <td>
 Steve Ped
@@ -761,7 +860,7 @@ Exported ZR75 output
 Rmd
 </td>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/4bf6815a84e0ae4f3226a49848be0cb1c993f64f/analysis/zr75_dge_analysis.Rmd" target="_blank">4bf6815</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/4bf6815a84e0ae4f3226a49848be0cb1c993f64f/analysis/zr75_dge_analysis.Rmd" target="_blank">4bf6815</a>
 </td>
 <td>
 Steve Ped
@@ -778,7 +877,7 @@ Added output files from DGE Analysis
 Rmd
 </td>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/3e9ac3fd4637f047271bfcf9d199ed13d63d3d3c/analysis/zr75_dge_analysis.Rmd" target="_blank">3e9ac3f</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/3e9ac3fd4637f047271bfcf9d199ed13d63d3d3c/analysis/zr75_dge_analysis.Rmd" target="_blank">3e9ac3f</a>
 </td>
 <td>
 Steve Ped
@@ -795,7 +894,7 @@ Added DGE analysis to Snakefile
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/726336764ae9f11af70f4cb8dea3076a62346bed/docs/zr75_dge_analysis.html" target="_blank">7263367</a>
+<a href="https://rawcdn.githack.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/726336764ae9f11af70f4cb8dea3076a62346bed/docs/zr75_dge_analysis.html" target="_blank">7263367</a>
 </td>
 <td>
 Steve Ped
@@ -812,7 +911,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/fc4cd07f5a1982b7c0b157b9875ac0ba06b5ec6b/analysis/zr75_dge_analysis.Rmd" target="_blank">fc4cd07</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/fc4cd07f5a1982b7c0b157b9875ac0ba06b5ec6b/analysis/zr75_dge_analysis.Rmd" target="_blank">fc4cd07</a>
 </td>
 <td>
 Steve Ped
@@ -884,7 +983,10 @@ sp &lt;- config$ref$species %&gt;%
 stopifnot(length(ah) == 1)</code></pre>
 <pre class="r"><code>ensDb &lt;- ah[[1]]
 genesGR &lt;- read_rds(here::here(&quot;output/genesGR.rds&quot;))</code></pre>
-<p>Gene annotations were again loaded from Ensembl Release 101. The <a href="qc_aligned.html#Annotation_Setup">previously defined</a> <code>GenomicRanges</code> object containing GC content and Gene Length was also loaded, containing information for 67,990 genes.</p>
+<p>Gene annotations were again loaded from Ensembl Release 101. The <a
+href="qc_aligned.html#Annotation_Setup">previously defined</a>
+<code>GenomicRanges</code> object containing GC content and Gene Length
+was also loaded, containing information for 67,990 genes.</p>
 </div>
 <div id="count-data" class="section level2">
 <h2>Count Data</h2>
@@ -902,8 +1004,15 @@ genes2Keep &lt;- counts %&gt;%
   is_greater_than(minCPM) %&gt;%
   rowSums() %&gt;%
   is_weakly_greater_than(minSamples) </code></pre>
-<p>The criteria for a gene to be considered as detected, <span class="math inline">\(&gt;\)</span> 1.5 counts per million (CPM) were required to observed in <span class="math inline">\(\geq\)</span> 4 samples. This effectively ensured <span class="math inline">\(\geq\)</span> 14 counts in at least 4 merged libraries.</p>
-<p>Of the 60,671 genes contained in the annotation for this release, 47,628 genes were removed as failing this criteria for detection, leaving 13,043 genes for downstream analysis.</p>
+<p>The criteria for a gene to be considered as detected, <span
+class="math inline">\(&gt;\)</span> 1.5 counts per million (CPM) were
+required to observed in <span class="math inline">\(\geq\)</span> 4
+samples. This effectively ensured <span
+class="math inline">\(\geq\)</span> 14 counts in at least 4 merged
+libraries.</p>
+<p>Of the 60,671 genes contained in the annotation for this release,
+47,628 genes were removed as failing this criteria for detection,
+leaving 13,043 genes for downstream analysis.</p>
 <pre class="r"><code>a &lt;- counts %&gt;%
   cpm(log = TRUE) %&gt;%
   as.data.frame() %&gt;%
@@ -951,7 +1060,9 @@ plot_grid(
 <div class="figure" style="text-align: center">
 <img src="figure/zr75_dge_analysis.Rmd/plotDensities-1.png" alt="*Distributions of logCPM values on merged counts, A) before and B) after filtering of undetectable genes. Some differences between replicates were noted.*" width="960" />
 <p class="caption">
-<em>Distributions of logCPM values on merged counts, A) before and B) after filtering of undetectable genes. Some differences between replicates were noted.</em>
+<em>Distributions of logCPM values on merged counts, A) before and B)
+after filtering of undetectable genes. Some differences between
+replicates were noted.</em>
 </p>
 </div>
 <p>
@@ -978,7 +1089,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotDensities-1.png" target="_blank">7263367</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotDensities-1.png" target="_blank">7263367</a>
 </td>
 <td>
 Steve Ped
@@ -1022,7 +1133,8 @@ Steve Ped
 <div class="figure" style="text-align: center">
 <img src="figure/zr75_dge_analysis.Rmd/plotLibSizes-1.png" alt="*Library sizes after removal of undetectable genes. The common-use minimum library size of 10 million reads is shown as a dashed line.*" width="960" />
 <p class="caption">
-<em>Library sizes after removal of undetectable genes. The common-use minimum library size of 10 million reads is shown as a dashed line.</em>
+<em>Library sizes after removal of undetectable genes. The common-use
+minimum library size of 10 million reads is shown as a dashed line.</em>
 </p>
 </div>
 <p>
@@ -1049,7 +1161,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotLibSizes-1.png" target="_blank">7263367</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotLibSizes-1.png" target="_blank">7263367</a>
 </td>
 <td>
 Steve Ped
@@ -1062,7 +1174,9 @@ Steve Ped
 </table>
 </div>
 </div>
-<p>The median library size was found to be 17.2 million reads which is above the common-use minimum recommendation of 10 million reads/sample.</p>
+<p>The median library size was found to be 17.2 million reads which is
+above the common-use minimum recommendation of 10 million
+reads/sample.</p>
 </div>
 <div id="pca-pre-normalisation" class="section level2">
 <h2>PCA: Pre Normalisation</h2>
@@ -1133,7 +1247,10 @@ plot_grid(
 <div class="figure" style="text-align: center">
 <img src="figure/zr75_dge_analysis.Rmd/plotPCA-1.png" alt="*PCA on logCPM from counts. PC1 and PC2 appear to capture the majority of the impact of DHT within each paired samples, as shown by the arrows which move from Vehicle to DHT treated samples in panel C.*" width="768" />
 <p class="caption">
-<em>PCA on logCPM from counts. PC1 and PC2 appear to capture the majority of the impact of DHT within each paired samples, as shown by the arrows which move from Vehicle to DHT treated samples in panel C.</em>
+<em>PCA on logCPM from counts. PC1 and PC2 appear to capture the
+majority of the impact of DHT within each paired samples, as shown by
+the arrows which move from Vehicle to DHT treated samples in panel
+C.</em>
 </p>
 </div>
 <p>
@@ -1160,7 +1277,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotPCA-1.png" target="_blank">7263367</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotPCA-1.png" target="_blank">7263367</a>
 </td>
 <td>
 Steve Ped
@@ -1176,12 +1293,26 @@ Steve Ped
 </div>
 <div id="checks-for-gc-and-length-bias" class="section level2">
 <h2>Checks for GC and Length bias</h2>
-<p>Given the observations when assessing PC2 in the <a href="qc_aligned.html">combined QC analysis</a>, genes were divided in 10 approximately equal sized bins based on increasing length, and 10 approximately equal sized bins based on increasing GC content, with the final GC/Length bins being the combination 100 bins using both sets. The contribution of each gene to PC1 and PC2 was assessed and a t-test performed on each bin. This tests</p>
+<p>Given the observations when assessing PC2 in the <a
+href="qc_aligned.html">combined QC analysis</a>, genes were divided in
+10 approximately equal sized bins based on increasing length, and 10
+approximately equal sized bins based on increasing GC content, with the
+final GC/Length bins being the combination 100 bins using both sets. The
+contribution of each gene to PC1 and PC2 was assessed and a t-test
+performed on each bin. This tests</p>
 <p><span class="math display">\[
 H_0: \mu = 0 \text{ against } H_A: \mu \neq 0
 \]</span></p>
-<p>where <span class="math inline">\(\mu\)</span> represents the true contribution to PC1 of all genes in that bin.</p>
-<p>If any bin makes a contribution to PC1 the mean will be clearly non-zero, whilst if there is no contribution the mean will be near zero. In this way, the impact of gene length and GC content on variance within the dataset can be assessed. As seen below, the contribution of GC content and gene length to PC1 is very clear, with a smaller contribution being evident across PC2. As a result, Conditional Quantile Normalisation (<code>CQN</code>) is recommended in preference to the more common TMM normalisation.</p>
+<p>where <span class="math inline">\(\mu\)</span> represents the true
+contribution to PC1 of all genes in that bin.</p>
+<p>If any bin makes a contribution to PC1 the mean will be clearly
+non-zero, whilst if there is no contribution the mean will be near zero.
+In this way, the impact of gene length and GC content on variance within
+the dataset can be assessed. As seen below, the contribution of GC
+content and gene length to PC1 is very clear, with a smaller
+contribution being evident across PC2. As a result, Conditional Quantile
+Normalisation (<code>CQN</code>) is recommended in preference to the
+more common TMM normalisation.</p>
 <pre class="r"><code>dge$genes %&gt;%
   dplyr::select(gene_id, ave_tx_len, gc_content) %&gt;%
   mutate(
@@ -1230,7 +1361,11 @@ H_0: \mu = 0 \text{ against } H_A: \mu \neq 0
 <div class="figure" style="text-align: center">
 <img src="figure/zr75_dge_analysis.Rmd/plotPCA_GC_Length-1.png" alt="*Contribution of each GC/Length Bin to PC1 and PC2. Fill colours indicate the t-statistic, with tranparency denoting significance as -log10(p), using Bonferroni-adjusted p-values. The number of genes in each bin is indicated by the circle size. The clear pattern across PC1 is unambiguous.*" width="960" />
 <p class="caption">
-<em>Contribution of each GC/Length Bin to PC1 and PC2. Fill colours indicate the t-statistic, with tranparency denoting significance as -log10(p), using Bonferroni-adjusted p-values. The number of genes in each bin is indicated by the circle size. The clear pattern across PC1 is unambiguous.</em>
+<em>Contribution of each GC/Length Bin to PC1 and PC2. Fill colours
+indicate the t-statistic, with tranparency denoting significance as
+-log10(p), using Bonferroni-adjusted p-values. The number of genes in
+each bin is indicated by the circle size. The clear pattern across PC1
+is unambiguous.</em>
 </p>
 </div>
 <p>
@@ -1257,7 +1392,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotPCA_GC_Length-1.png" target="_blank">7263367</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotPCA_GC_Length-1.png" target="_blank">7263367</a>
 </td>
 <td>
 Steve Ped
@@ -1270,7 +1405,8 @@ Steve Ped
 </table>
 </div>
 </div>
-<p>Given these results, the considered options for analysis were to use CQN normalisation and GLM-QL Fits.</p>
+<p>Given these results, the considered options for analysis were to use
+CQN normalisation and GLM-QL Fits.</p>
 </div>
 <div id="normalisation" class="section level2">
 <h2>Normalisation</h2>
@@ -1325,7 +1461,10 @@ plot_grid(
 <div class="figure" style="text-align: center">
 <img src="figure/zr75_dge_analysis.Rmd/plotCQN-1.png" alt="*Model fits used when applying CQN. The divergent samples previously noted on the PCA are again quite divergent here. In particular, the long genes with low GC content appear to be where the primary differences are found, in keeping with the previous PCA analysis.*" width="960" />
 <p class="caption">
-<em>Model fits used when applying CQN. The divergent samples previously noted on the PCA are again quite divergent here. In particular, the long genes with low GC content appear to be where the primary differences are found, in keeping with the previous PCA analysis.</em>
+<em>Model fits used when applying CQN. The divergent samples previously
+noted on the PCA are again quite divergent here. In particular, the long
+genes with low GC content appear to be where the primary differences are
+found, in keeping with the previous PCA analysis.</em>
 </p>
 </div>
 <p>
@@ -1352,7 +1491,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotCQN-1.png" target="_blank">7263367</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotCQN-1.png" target="_blank">7263367</a>
 </td>
 <td>
 Steve Ped
@@ -1431,7 +1570,9 @@ plot_grid(
 <div class="figure" style="text-align: center">
 <img src="figure/zr75_dge_analysis.Rmd/plotPcaPost-1.png" alt="*PCA on logCPM after performing CQN. PC1 and PC2 now clearly capture the biology in question, with vectors denoting the shift from vehicle to treatment shown as arrows shown in panel C.*" width="768" />
 <p class="caption">
-<em>PCA on logCPM after performing CQN. PC1 and PC2 now clearly capture the biology in question, with vectors denoting the shift from vehicle to treatment shown as arrows shown in panel C.</em>
+<em>PCA on logCPM after performing CQN. PC1 and PC2 now clearly capture
+the biology in question, with vectors denoting the shift from vehicle to
+treatment shown as arrows shown in panel C.</em>
 </p>
 </div>
 <p>
@@ -1458,7 +1599,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotPcaPost-1.png" target="_blank">7263367</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotPcaPost-1.png" target="_blank">7263367</a>
 </td>
 <td>
 Steve Ped
@@ -1477,7 +1618,11 @@ Steve Ped
 <h1>Differential Expression Analysis</h1>
 <div id="main-results" class="section level2">
 <h2>Main Results</h2>
-<p>A design matrix was formed giving each replicate it’s own baseline and the common DHT response was then specified as the final column. Following this, dispersions were estimated for the main <code>DGEList</code> object and the model fitted using the Quasi-likelihood GLM.</p>
+<p>A design matrix was formed giving each replicate it’s own baseline
+and the common DHT response was then specified as the final column.
+Following this, dispersions were estimated for the main
+<code>DGEList</code> object and the model fitted using the
+Quasi-likelihood GLM.</p>
 <pre class="r"><code>X &lt;- model.matrix(~0 + rep + treat, data = dge$samples) %&gt;%
   set_colnames(str_remove(colnames(.), &quot;treat&quot;))
 dge &lt;- estimateDisp(dge, design = X, robust = TRUE)
@@ -1501,13 +1646,22 @@ topTable &lt;- glmTreat(fit, coef = &quot;DHT&quot;, lfc = lambda) %&gt;%
 de &lt;- dplyr::filter(topTable, DE)$gene_id
 up &lt;- dplyr::filter(topTable, DE, logFC &gt; 0)$gene_id
 down &lt;- dplyr::filter(topTable, DE, logFC &lt; 0)$gene_id</code></pre>
-<p>In order to detect genes which respond to DHT the Null Hypothesis (<span class="math inline">\(H_0\)</span>) was specified to be a range around zero, instead of the conventional point-value.</p>
+<p>In order to detect genes which respond to DHT the Null Hypothesis
+(<span class="math inline">\(H_0\)</span>) was specified to be a range
+around zero, instead of the conventional point-value.</p>
 <p><span class="math display">\[
 H_0: -\lambda \leq \mu \leq \lambda \\
 \text{Vs.} \\
 H_A: |\mu| &gt; \lambda
 \]</span></p>
-<p>This characterises <span class="math inline">\(H_0\)</span> as being a range instead of being the singularity 0, with <span class="math inline">\(\mu\)</span> representing the true mean logFC. The default value of <span class="math inline">\(\lambda = \log_2 1.2 = 0.263\)</span> was chosen. This removes any requirement for <em>post hoc</em> filtering based on logFC. Using this approach, 118 genes were considered as DE to an FDR of 0.05. Of these, 100 were up-regulated with the remaining 18 being down-regulated.</p>
+<p>This characterises <span class="math inline">\(H_0\)</span> as being
+a range instead of being the singularity 0, with <span
+class="math inline">\(\mu\)</span> representing the true mean logFC. The
+default value of <span class="math inline">\(\lambda = \log_2 1.2 =
+0.263\)</span> was chosen. This removes any requirement for <em>post
+hoc</em> filtering based on logFC. Using this approach, 118 genes were
+considered as DE to an FDR of 0.05. Of these, 100 were up-regulated with
+the remaining 18 being down-regulated.</p>
 <pre class="r"><code>topTable %&gt;%
   ggplot(aes(logCPM, logFC)) +
   geom_point(
@@ -1530,7 +1684,10 @@ H_A: |\mu| &gt; \lambda
 <div class="figure" style="text-align: center">
 <img src="figure/zr75_dge_analysis.Rmd/plotMA-1.png" alt="*MA plot with blue curve through the data showing the GAM fit. The curve for low-expressed genes indicated a potential bias remains in the data, whilst this is not evident for highly expressed genes. DE genes are highlighted in red.*" width="960" />
 <p class="caption">
-<em>MA plot with blue curve through the data showing the GAM fit. The curve for low-expressed genes indicated a potential bias remains in the data, whilst this is not evident for highly expressed genes. DE genes are highlighted in red.</em>
+<em>MA plot with blue curve through the data showing the GAM fit. The
+curve for low-expressed genes indicated a potential bias remains in the
+data, whilst this is not evident for highly expressed genes. DE genes
+are highlighted in red.</em>
 </p>
 </div>
 <p>
@@ -1557,7 +1714,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotMA-1.png" target="_blank">7263367</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/429b67ad42c419b5f38460eb157f1c6182b4d3f0/docs/figure/zr75_dge_analysis.Rmd/plotMA-1.png" target="_blank">429b67a</a>
+</td>
+<td>
+Steve Ped
+</td>
+<td>
+2021-05-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotMA-1.png" target="_blank">7263367</a>
 </td>
 <td>
 Steve Ped
@@ -1600,7 +1768,10 @@ Steve Ped
 <div class="figure" style="text-align: center">
 <img src="figure/zr75_dge_analysis.Rmd/plotVolcano-1.png" alt="*Volcano plot showing significance against log fold-change. The common-use cutoff values for considering a gene as DE (|logFC| &gt; 1) are shown in blue as a guide only as these were not used for this analysis.*" width="960" />
 <p class="caption">
-<em>Volcano plot showing significance against log fold-change. The common-use cutoff values for considering a gene as DE (|logFC| &gt; 1) are shown in blue as a guide only as these were not used for this analysis.</em>
+<em>Volcano plot showing significance against log fold-change. The
+common-use cutoff values for considering a gene as DE (|logFC| &gt; 1)
+are shown in blue as a guide only as these were not used for this
+analysis.</em>
 </p>
 </div>
 <p>
@@ -1627,7 +1798,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotVolcano-1.png" target="_blank">7263367</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/429b67ad42c419b5f38460eb157f1c6182b4d3f0/docs/figure/zr75_dge_analysis.Rmd/plotVolcano-1.png" target="_blank">429b67a</a>
+</td>
+<td>
+Steve Ped
+</td>
+<td>
+2021-05-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotVolcano-1.png" target="_blank">7263367</a>
 </td>
 <td>
 Steve Ped
@@ -1654,11 +1836,12 @@ Steve Ped
     columns = c(&quot;PValue&quot;, &quot;FDR&quot;),
     digits = 3
   )</code></pre>
-<div id="htmlwidget-68c7f9b89eba5f651e5f" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-68c7f9b89eba5f651e5f">{"x":{"filter":"none","caption":"<caption>All genes were considered as DE using the criteria of an FDR-adjusted p-value &lt; 0.05.<\/caption>","data":[["ENSG00000182795","ENSG00000165272","ENSG00000109814","ENSG00000096060","ENSG00000100003","ENSG00000156284","ENSG00000145088","ENSG00000157214","ENSG00000164188","ENSG00000176387","ENSG00000287262","ENSG00000241878","ENSG00000154734","ENSG00000198740","ENSG00000156853","ENSG00000145569","ENSG00000152766","ENSG00000114790","ENSG00000196139","ENSG00000173391","ENSG00000135373","ENSG00000170477","ENSG00000139211","ENSG00000169116","ENSG00000183111","ENSG00000183569","ENSG00000135821","ENSG00000137801","ENSG00000099250","ENSG00000182585","ENSG00000047644","ENSG00000005469","ENSG00000196208","ENSG00000228793","ENSG00000156675","ENSG00000099260","ENSG00000149292","ENSG00000127663","ENSG00000149177","ENSG00000157502","ENSG00000148700","ENSG00000165449","ENSG00000147642","ENSG00000169083","ENSG00000007944","ENSG00000169213","ENSG00000214944","ENSG00000049759","ENSG00000144655","ENSG00000125772","ENSG00000013588","ENSG00000197872","ENSG00000113645","ENSG00000111961","ENSG00000176532","ENSG00000163406","ENSG00000174469","ENSG00000115594","ENSG00000167291","ENSG00000164120","ENSG00000175356","ENSG00000140961","ENSG00000155850","ENSG00000274173","ENSG00000111816","ENSG00000123836","ENSG00000235027","ENSG00000211448","ENSG00000198142","ENSG00000172250","ENSG00000179094","ENSG00000134516","ENSG00000170776","ENSG00000137266","ENSG00000095383","ENSG00000112297","ENSG00000162174","ENSG00000171346","ENSG00000138795","ENSG00000188042","ENSG00000273079","ENSG00000095739","ENSG00000179104","ENSG00000153071","ENSG00000183508","ENSG00000010278","ENSG00000112541","ENSG00000115896","ENSG00000166068","ENSG00000138814","ENSG00000211689","ENSG00000007306","ENSG00000171444","ENSG00000132821","ENSG00000125430","ENSG00000145703","ENSG00000125398","ENSG00000130598","ENSG00000168269","ENSG00000140022","ENSG00000134508","ENSG00000177606","ENSG00000171243","ENSG00000131791","ENSG00000152620","ENSG00000124225","ENSG00000180667","ENSG00000151012","ENSG00000107186","ENSG00000104419","ENSG00000196220","ENSG00000134955","ENSG00000157600","ENSG00000016402","ENSG00000171791","ENSG00000100906","ENSG00000105388","ENSG00000189306"],["C1orf116","AQP3","UGDH","FKBP5","SEC14L2","CLDN8","EAF2","STEAP2","RANBP3L","HSD11B2","AC021148.3","PISD","ADAMTS1","ZNF652","ZNF689","OTULINL","ANKRD22","ARHGEF26","AKR1C3","OLR1","EHF","KRT4","AMIGO2","PARM1","ARHGEF37","SERHL2","GLUL","THBS1","NRP1","EPGN","WWC3","CROT","GREB1","AL033523.1","RAB11FIP1","PALMD","TTC12","KDM4B","PTPRJ","PWWP3B","ADD3","SLC16A9","SYBU","AR","MYLIP","RAB3B","ARHGEF28","NEDD4L","CSRNP1","GPCPD1","GPRC5A","CYRIA","WWC1","SASH1","PRR15","SLC15A2","CNTNAP2","IL1R1","TBC1D16","HPGD","SCUBE2","OSGIN1","SLC26A2","AL035661.1","FRK","PFKFB2","AC068580.3","DIO2","SOWAHC","SERHL","PER1","DOCK2","AKAP13","SLC22A23","TBC1D2","CRYBG1","ASRGL1","KRT15","LEF1","ARL4C","GRIN2B","BAMBI","TMTC2","DAB2","TENT5C","CD9","PDE10A","PLCL1","SPRED1","PPP3CA","TRGC1","CEACAM7","MCC","VSTM2L","HS3ST3B1","IQGAP2","SOX9","TNNI2","FOXI1","STON2","CABLES1","JUN","SOSTDC1","PRKAB2","NADK2","PMEPA1","YOD1","SLC7A11","MPDZ","NDRG1","SRGAP3","SLC37A2","TMEM164","IL20RA","BCL2","NFKBIA","CEACAM5","RRP7A"],[5.03,4.09,5.76,4.08,4.63,3.74,2.79,3.22,1.01,3.83,1.42,4.99,3.63,7.71,4.11,3.81,3.22,4.99,1.64,3.09,7.69,3.23,6.31,3.88,3.49,5.1,9.77,5.99,5.77,3.04,6.94,4.67,5.76,1.04,8.87,2.71,4.38,4.62,5.98,3.49,7.01,1.2,3.77,7.01,5.24,2.28,4.2,7.15,4.41,4.4,6.53,4.32,5.59,3.3,5.69,1.77,5.64,6.58,7.24,1.15,5.93,3.33,4.19,3.99,5.32,6.01,2.82,1.11,4.43,3.11,2.66,0.47,6.54,4.95,3.88,6.25,3.27,4.14,2.37,2.79,1.34,6.48,4.36,0.7,5.68,7.91,1.31,0.94,5.43,5.58,3.61,1.58,4.39,1.29,0.71,3.26,5.07,0.63,5.68,4.7,5.63,4.04,1.67,5.21,5.48,6.59,3.16,4.56,4.86,4.77,4.09,1.42,6.28,1.6,6.63,6.18,5,5.82],[4.17,2.37,1.52,2,2.65,2.31,1.87,1.38,4.41,1.14,3.32,1.1,1.19,0.77,1.21,1.33,1.26,0.87,2.49,1.19,0.59,1.04,-0.61,1.11,0.96,0.73,0.5,0.82,0.62,1.16,0.59,0.74,0.67,2.21,0.48,1.04,0.75,0.74,0.6,0.89,0.57,2,0.84,-0.56,0.61,1.22,0.75,0.54,0.72,0.7,0.51,-0.63,0.56,0.84,0.53,1.37,0.54,-0.52,0.48,1.58,0.55,0.66,0.58,-0.63,0.6,0.52,0.76,1.47,0.57,0.67,0.75,-2.05,0.5,0.54,0.62,0.48,0.69,0.53,0.78,0.68,-1.34,-0.46,0.58,-1.64,0.45,0.46,1.31,1.4,0.46,0.45,0.61,-1.1,-0.51,1.2,1.44,0.69,-0.48,1.57,-0.48,0.53,-0.47,0.5,-1.12,0.48,0.45,0.42,0.55,0.5,0.5,0.48,-0.5,1.09,0.43,1.02,-0.42,0.49,-0.45,0.42],[2.33594341996575e-18,1.7929759368467e-15,5.38355572841583e-14,1.99581150223877e-13,3.39989865336337e-13,4.66281491741429e-13,6.38640520850168e-11,1.37898580413687e-10,2.34938767416848e-10,2.41125072777296e-10,4.56797358449743e-10,5.17435312129411e-10,8.59359076817015e-10,2.82825015420488e-09,3.80370649557818e-09,4.10988826865251e-09,6.33968466766362e-09,6.87904952422262e-09,1.29579885908558e-08,1.43287744125949e-08,1.87391033933735e-08,1.91197172093001e-08,2.26405307400469e-08,3.15135256467578e-08,3.47180421923021e-08,3.86849462314598e-08,6.30144339356422e-08,6.52322886727146e-08,8.10127058919948e-08,1.22738396530963e-07,1.29155509388742e-07,1.36799370815654e-07,1.61504849050287e-07,1.700627077742e-07,2.38924956502404e-07,2.42539477286829e-07,2.49597005820358e-07,3.02805639684408e-07,3.04849349477005e-07,3.35767700795867e-07,4.03300457074197e-07,5.62698023711638e-07,6.39586474701191e-07,7.37363778415892e-07,7.50981663229081e-07,9.9369107725464e-07,1.07847663505878e-06,1.18740447667398e-06,1.24968296112671e-06,1.34443744771526e-06,1.40395178081671e-06,1.6405279791354e-06,2.29047913096112e-06,2.80264619227764e-06,2.91213985983344e-06,3.36785721359434e-06,3.88142432577629e-06,4.51193000761487e-06,5.16963604859055e-06,5.82872760124214e-06,6.04494624809133e-06,8.65422965041886e-06,9.01285350464524e-06,1.13882369351988e-05,1.32608691665577e-05,1.40879003780029e-05,1.54332478293724e-05,1.84916290028716e-05,1.8891356654856e-05,2.52375228709492e-05,2.92830225099265e-05,2.94717223249283e-05,3.11759965911171e-05,3.17109694153109e-05,3.20223200367301e-05,4.23023898543312e-05,4.59919108531863e-05,4.82257520364578e-05,5.51821153841508e-05,5.5496580718119e-05,5.89722873802136e-05,6.20049042292954e-05,6.75590998187554e-05,8.70474045520473e-05,0.000100652837343369,0.00010658712046027,0.00011198808823526,0.000114997261874866,0.000116368477747076,0.00011779142909345,0.000118583412498965,0.000119356231125776,0.000124097113460681,0.000126942950751082,0.000130450409058429,0.000135019305928166,0.000136878913385462,0.000141557239382465,0.00017152131442536,0.000175406195538019,0.000175811637468784,0.000180921738066197,0.000189146848541974,0.000204255725073829,0.000218799642372737,0.000239244548771405,0.00024732466317084,0.000249728394620122,0.00025152241871776,0.000254620072997824,0.000270076067778293,0.000280261658456128,0.000288372799577888,0.000298851071894052,0.000301950510328949,0.000341745047231439,0.000410567698236709,0.000415814073849965],[3.04677100266132e-14,1.16928925721457e-11,2.34059057885759e-10,6.50784235592507e-10,8.86897562716368e-10,1.01361824946391e-09,1.18996975906411e-07,2.24826398041966e-07,3.14499432423427e-07,3.14499432423427e-07,5.41637086023636e-07,5.62409064675326e-07,8.62201572224948e-07,2.63491905437816e-06,3.30744958812175e-06,3.35032954300217e-06,4.86402983060803e-06,4.98463571913531e-06,8.89531816792273e-06,9.34451023317377e-06,1.13353850709501e-05,1.13353850709501e-05,1.28391496714101e-05,1.71262881254442e-05,1.81130969725679e-05,1.94064520652665e-05,3.03865978985077e-05,3.03865978985077e-05,3.64361628603203e-05,5.33625635317781e-05,5.43411389986247e-05,5.57585685483931e-05,6.38335680655421e-05,6.5239055808791e-05,8.78734000625585e-05,8.78734000625585e-05,8.79863174841873e-05,0.000101952565775092,0.000101952565775092,0.000109485453037012,0.000128298728332165,0.00017474453150645,0.00019400293929134,0.000217667862966598,0.000217667862966598,0.000281754624361571,0.000299288739384504,0.000322652428942889,0.00033264520126481,0.000350709952611002,0.0003590537858273,0.000411488585228135,0.000563673949153319,0.000676942857145875,0.000690600730760137,0.000784410029230552,0.000888165218966668,0.00101463970843656,0.00114284005053842,0.00126706823505002,0.0012925284248173,0.00182059866661957,0.00186594679779505,0.0023208870991531,0.00266094640829865,0.00278406794894381,0.00300441569311199,0.00354685760418315,0.00357101398332299,0.00470247158293986,0.00533888436505611,0.00533888436505611,0.00556889493652094,0.00556889493652094,0.00556889493652094,0.00725986935355319,0.00779055186049492,0.00806421133091691,0.00904802377883033,0.00904802377883033,0.00949599437407563,0.00986256055930122,0.0106165462522413,0.0135161821139566,0.015444881852583,0.0161653001414337,0.0167892026994539,0.0169213404627554,0.0169213404627554,0.0169213404627554,0.0169213404627554,0.0169213404627554,0.0174042865684696,0.0176140096451741,0.0179101545826221,0.0183443417418862,0.0184052749204802,0.018840112992505,0.0225975000409088,0.0227040711634194,0.0227040711634194,0.0231349238195824,0.0239518674323589,0.0256164175205572,0.0271790831949296,0.0294383646191079,0.0300973110764747,0.0300973110764747,0.0300973110764747,0.0301909964737329,0.0317351545228133,0.0326379715289578,0.0332853665919857,0.0341922327255624,0.034246439184526,0.0384256952675833,0.0457695255393281,0.0459615505527551],["protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","lncRNA","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","lncRNA","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","lncRNA","protein_coding","protein_coding","lncRNA","protein_coding","protein_coding","transcribed_unitary_pseudogene","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","TR_C_gene","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding"],[79098,360,7358,2289,23541,9073,55840,261729,202151,3291,null,23761,9510,22834,115509,54491,118932,26084,8644,4973,26298,3851,347902,25849,389337,253190,2752,7057,8829,255324,55841,54677,9687,100507336,80223,54873,54970,23030,5795,139221,120,220963,55638,367,29116,5865,64283,23327,64651,56261,9052,81553,23286,23328,222171,6565,26047,3554,125058,3248,57758,29948,1836,null,2444,5208,null,1734,65124,94009,5187,1794,11214,63027,55357,202,80150,3866,51176,10123,2904,25805,160335,[1601,112267931],54855,928,[10846,90632],5334,161742,5530,445347,1087,4163,128434,9953,10788,6662,7136,2299,85439,91768,3725,25928,5565,133686,56937,55432,23657,8777,10397,9901,219855,84187,53832,596,4792,1048,27341]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>gene_id<\/th>\n      <th>gene_name<\/th>\n      <th>logCPM<\/th>\n      <th>logFC<\/th>\n      <th>PValue<\/th>\n      <th>FDR<\/th>\n      <th>gene_biotype<\/th>\n      <th>entrezid<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatSignif(data, 3, 3, \",\", \".\");\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatSignif(data, 3, 3, \",\", \".\");\n  }"},{"className":"dt-right","targets":[2,3,4,5]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render"],"jsHooks":[]}</script>
+<div id="htmlwidget-cfdc3760fd4e2bf93212" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cfdc3760fd4e2bf93212">{"x":{"filter":"none","vertical":false,"caption":"<caption>All genes were considered as DE using the criteria of an FDR-adjusted p-value &lt; 0.05.<\/caption>","data":[["ENSG00000182795","ENSG00000165272","ENSG00000109814","ENSG00000096060","ENSG00000100003","ENSG00000156284","ENSG00000145088","ENSG00000157214","ENSG00000164188","ENSG00000176387","ENSG00000287262","ENSG00000241878","ENSG00000154734","ENSG00000198740","ENSG00000156853","ENSG00000145569","ENSG00000152766","ENSG00000114790","ENSG00000196139","ENSG00000173391","ENSG00000170477","ENSG00000135373","ENSG00000139211","ENSG00000169116","ENSG00000183111","ENSG00000183569","ENSG00000135821","ENSG00000137801","ENSG00000099250","ENSG00000182585","ENSG00000047644","ENSG00000005469","ENSG00000196208","ENSG00000228793","ENSG00000156675","ENSG00000099260","ENSG00000149292","ENSG00000149177","ENSG00000127663","ENSG00000157502","ENSG00000148700","ENSG00000165449","ENSG00000147642","ENSG00000007944","ENSG00000169083","ENSG00000169213","ENSG00000214944","ENSG00000049759","ENSG00000144655","ENSG00000125772","ENSG00000013588","ENSG00000197872","ENSG00000113645","ENSG00000111961","ENSG00000176532","ENSG00000163406","ENSG00000174469","ENSG00000115594","ENSG00000167291","ENSG00000164120","ENSG00000175356","ENSG00000140961","ENSG00000155850","ENSG00000274173","ENSG00000111816","ENSG00000123836","ENSG00000235027","ENSG00000211448","ENSG00000198142","ENSG00000172250","ENSG00000134516","ENSG00000179094","ENSG00000170776","ENSG00000095383","ENSG00000137266","ENSG00000112297","ENSG00000162174","ENSG00000171346","ENSG00000138795","ENSG00000188042","ENSG00000273079","ENSG00000095739","ENSG00000179104","ENSG00000153071","ENSG00000183508","ENSG00000010278","ENSG00000112541","ENSG00000115896","ENSG00000166068","ENSG00000211689","ENSG00000007306","ENSG00000138814","ENSG00000171444","ENSG00000132821","ENSG00000125430","ENSG00000145703","ENSG00000125398","ENSG00000130598","ENSG00000168269","ENSG00000134508","ENSG00000140022","ENSG00000177606","ENSG00000171243","ENSG00000131791","ENSG00000152620","ENSG00000124225","ENSG00000180667","ENSG00000151012","ENSG00000107186","ENSG00000104419","ENSG00000196220","ENSG00000134955","ENSG00000157600","ENSG00000016402","ENSG00000171791","ENSG00000100906","ENSG00000189306","ENSG00000105388"],["C1orf116","AQP3","UGDH","FKBP5","SEC14L2","CLDN8","EAF2","STEAP2","RANBP3L","HSD11B2","AC021148.3","PISD","ADAMTS1","ZNF652","ZNF689","OTULINL","ANKRD22","ARHGEF26","AKR1C3","OLR1","KRT4","EHF","AMIGO2","PARM1","ARHGEF37","SERHL2","GLUL","THBS1","NRP1","EPGN","WWC3","CROT","GREB1","AL033523.1","RAB11FIP1","PALMD","TTC12","PTPRJ","KDM4B","PWWP3B","ADD3","SLC16A9","SYBU","MYLIP","AR","RAB3B","ARHGEF28","NEDD4L","CSRNP1","GPCPD1","GPRC5A","CYRIA","WWC1","SASH1","PRR15","SLC15A2","CNTNAP2","IL1R1","TBC1D16","HPGD","SCUBE2","OSGIN1","SLC26A2","AL035661.1","FRK","PFKFB2","AC068580.3","DIO2","SOWAHC","SERHL","DOCK2","PER1","AKAP13","TBC1D2","SLC22A23","CRYBG1","ASRGL1","KRT15","LEF1","ARL4C","GRIN2B","BAMBI","TMTC2","DAB2","TENT5C","CD9","PDE10A","PLCL1","SPRED1","TRGC1","CEACAM7","PPP3CA","MCC","VSTM2L","HS3ST3B1","IQGAP2","SOX9","TNNI2","FOXI1","CABLES1","STON2","JUN","SOSTDC1","PRKAB2","NADK2","PMEPA1","YOD1","SLC7A11","MPDZ","NDRG1","SRGAP3","SLC37A2","TMEM164","IL20RA","BCL2","NFKBIA","RRP7A","CEACAM5"],[5.03,4.09,5.76,4.08,4.63,3.74,2.79,3.22,1.01,3.83,1.42,4.99,3.63,7.71,4.11,3.81,3.22,4.99,1.64,3.09,3.23,7.69,6.31,3.88,3.49,5.1,9.77,5.99,5.77,3.04,6.94,4.67,5.76,1.04,8.87,2.71,4.38,5.98,4.62,3.49,7.01,1.2,3.77,5.24,7.01,2.28,4.2,7.15,4.41,4.4,6.53,4.32,5.59,3.3,5.69,1.77,5.64,6.58,7.24,1.15,5.93,3.33,4.19,3.99,5.32,6.01,2.82,1.11,4.43,3.11,0.47,2.66,6.54,3.88,4.95,6.25,3.27,4.14,2.37,2.79,1.34,6.48,4.36,0.7,5.68,7.91,1.31,0.94,5.43,3.61,1.58,5.58,4.39,1.29,0.71,3.26,5.07,0.63,5.68,5.63,4.7,4.04,1.67,5.21,5.48,6.59,3.16,4.56,4.86,4.77,4.09,1.42,6.28,1.6,6.63,6.18,5.82,5],[4.17,2.37,1.52,2,2.65,2.31,1.87,1.38,4.4,1.14,3.32,1.1,1.19,0.77,1.21,1.33,1.26,0.87,2.49,1.19,1.04,0.59,-0.61,1.11,0.96,0.73,0.5,0.82,0.62,1.16,0.59,0.74,0.67,2.21,0.48,1.04,0.75,0.6,0.74,0.89,0.57,2,0.84,0.61,-0.55,1.22,0.75,0.54,0.72,0.7,0.5,-0.63,0.56,0.84,0.53,1.36,0.54,-0.52,0.48,1.58,0.55,0.66,0.58,-0.63,0.6,0.52,0.76,1.47,0.57,0.67,-2.05,0.75,0.5,0.62,0.54,0.48,0.69,0.53,0.78,0.68,-1.34,-0.46,0.58,-1.64,0.45,0.46,1.31,1.4,0.46,0.61,-1.1,0.45,-0.51,1.2,1.44,0.69,-0.48,1.57,-0.48,-0.47,0.53,0.5,-1.12,0.48,0.45,0.42,0.55,0.5,0.5,0.48,-0.5,1.09,0.43,1.02,-0.42,0.49,0.42,-0.45],[1.97046978048252e-18,1.58468069324245e-15,4.80007945580635e-14,1.78552821212256e-13,2.99953518680222e-13,4.16020564684257e-13,5.91045048163615e-11,1.29714929745416e-10,2.18387348259443e-10,2.27179913500421e-10,4.26166525493309e-10,4.84108477915093e-10,8.09380298545913e-10,2.7368425791417e-09,3.53595000783742e-09,3.82508611477111e-09,5.98561068151154e-09,6.51539697653022e-09,1.2263916761644e-08,1.36304787983031e-08,1.83597396229528e-08,1.91184680746274e-08,2.1306450670783e-08,2.98183057584114e-08,3.33839478221152e-08,3.73418338736641e-08,5.50163022914421e-08,6.00047153497281e-08,7.82618888428072e-08,1.1679763897584e-07,1.28924629878707e-07,1.31177318483809e-07,1.53345546474615e-07,1.64604941646799e-07,2.06414879471107e-07,2.35458501729274e-07,2.39357004759856e-07,2.90429251286998e-07,2.93222009794762e-07,3.23648199088936e-07,3.92349894885273e-07,5.44570754092756e-07,6.13566080403194e-07,7.41763070131597e-07,7.47207474949464e-07,9.57528447322391e-07,1.0402983785488e-06,1.19087480068337e-06,1.19944838945597e-06,1.30962652076787e-06,1.38210946197409e-06,1.617558202236e-06,2.21669575333277e-06,2.70218891924223e-06,2.80753082290517e-06,3.29614902633982e-06,3.85289366855699e-06,4.30875853385389e-06,5.41091970292761e-06,5.74670306600032e-06,5.78475472538939e-06,8.62033556984112e-06,8.97935023298901e-06,1.1255492869032e-05,1.30065093457756e-05,1.35591815661102e-05,1.51468816704189e-05,1.83029820512722e-05,1.86782471310903e-05,2.49560245149194e-05,2.87630721070905e-05,2.88585379419308e-05,3.03502064610784e-05,3.15156685124499e-05,3.16113790329198e-05,4.08898133582828e-05,4.50817348799217e-05,4.77166256488472e-05,5.44421038074118e-05,5.49782894604803e-05,5.88546533618227e-05,6.10101736777363e-05,6.64616248035805e-05,8.56063635247258e-05,0.000100021323635406,0.000104252257942628,0.000111037226262191,0.000112903707481363,0.000116333431246273,0.000116650369282915,0.000119203188822073,0.000119229688541545,0.000122825892178507,0.000124502044684885,0.000129711554164745,0.000132360842422849,0.000137262545343526,0.000140259448257049,0.000166613482226452,0.000171766793835168,0.000172656980303091,0.000180387425638508,0.000188765438176597,0.000204943014838235,0.000219621408930564,0.000239998759787141,0.00024676448998128,0.000247006351946,0.000247719849761609,0.000253454465534024,0.000270223351547049,0.000278237035829578,0.000281546217101115,0.00029569949398376,0.000298140194291071,0.00033294097664164,0.00040484047898671,0.000413540826736597],[2.57008373468335e-14,1.03344951409806e-11,2.08691454473608e-10,5.82216111767865e-10,7.82458748829227e-10,9.04359370862794e-10,1.10128579474258e-07,2.11483978583682e-07,2.96310761178599e-07,2.96310761178599e-07,5.05317272000839e-07,5.26185573120546e-07,8.12057479533411e-07,2.5497598399818e-06,3.0746263968149e-06,3.11816238718498e-06,4.59237177170324e-06,4.72112904249354e-06,8.41885612221699e-06,8.88911674831338e-06,1.13346445044257e-05,1.13346445044257e-05,1.20826102651749e-05,1.620500675029e-05,1.7417073257754e-05,1.87326745851616e-05,2.65769492884177e-05,2.79514822252323e-05,3.51989591785081e-05,5.07797201720628e-05,5.34670551557602e-05,5.34670551557602e-05,6.06086655354063e-05,6.31453604088001e-05,7.69219792269042e-05,8.43765787319674e-05,8.43765787319674e-05,9.80639659936688e-05,9.80639659936688e-05,0.000105533586517925,0.000124815114121673,0.000169115151086472,0.000186110288062764,0.000216573935461463,0.000216573935461463,0.000271500946487521,0.00028869386705132,0.00031927357844233,0.00031927357844233,0.000341629174207507,0.00035346771985349,0.000405727146764695,0.000545516277560741,0.000652678705068082,0.00066579317314822,0.00076770842411697,0.00088163670384191,0.000968950647535453,0.00119618009636076,0.00123689435874187,0.00123689435874187,0.00181346833608771,0.00185901055696628,0.0022938342732935,0.00260990617533772,0.00267958189646629,0.00294866832279514,0.00351067345433447,0.00353073010624364,0.00465002039640134,0.00522780431078616,0.00522780431078616,0.00542270880646363,0.00549742955635164,0.00549742955635164,0.00701744520568529,0.00763637750699765,0.00797907626074248,0.00896352286791306,0.00896352286791306,0.00947705239257103,0.00970433774730139,0.0104440840037723,0.0132924261839643,0.0153479779314894,0.0158111883761128,0.0166466499096294,0.0167341256440843,0.0169034003005149,0.0169034003005149,0.0169034003005149,0.0169034003005149,0.0172260012009061,0.0172753209449463,0.0178087136944292,0.0179831507054293,0.0184568595764495,0.0186673875879254,0.0219509055422183,0.0222966831098338,0.0222966831098338,0.0230665999274809,0.0239035690304598,0.0257026129089913,0.0272811622541081,0.0295311681500347,0.0296422935820245,0.0296422935820245,0.0296422935820245,0.0300527872178207,0.0317524610290825,0.0324021933779035,0.0324974098199101,0.0338142830794647,0.0338142830794647,0.0374357686063527,0.045131062969433,0.0457102796875036],["protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","lncRNA","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","lncRNA","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","lncRNA","protein_coding","protein_coding","lncRNA","protein_coding","protein_coding","transcribed_unitary_pseudogene","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","TR_C_gene","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding"],[79098,360,7358,2289,23541,9073,55840,261729,202151,3291,null,23761,9510,22834,115509,54491,118932,26084,8644,4973,3851,26298,347902,25849,389337,253190,2752,7057,8829,255324,55841,54677,9687,100507336,80223,54873,54970,5795,23030,139221,120,220963,55638,29116,367,5865,64283,23327,64651,56261,9052,81553,23286,23328,222171,6565,26047,3554,125058,3248,57758,29948,1836,null,2444,5208,null,1734,65124,94009,1794,5187,11214,55357,63027,202,80150,3866,51176,10123,2904,25805,160335,[1601,112267931],54855,928,[10846,90632],5334,161742,445347,1087,5530,4163,128434,9953,10788,6662,7136,2299,91768,85439,3725,25928,5565,133686,56937,55432,23657,8777,10397,9901,219855,84187,53832,596,4792,27341,1048]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>gene_id<\/th>\n      <th>gene_name<\/th>\n      <th>logCPM<\/th>\n      <th>logFC<\/th>\n      <th>PValue<\/th>\n      <th>FDR<\/th>\n      <th>gene_biotype<\/th>\n      <th>entrezid<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatSignif(data, 3, 3, \",\", \".\", null);\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatSignif(data, 3, 3, \",\", \".\", null);\n  }"},{"className":"dt-right","targets":[2,3,4,5]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render"],"jsHooks":[]}</script>
 <div id="top-de-genes" class="section level3">
 <h3>Top DE Genes</h3>
-<p>logCPM values for the most up and down-regulated genes were also inspected using simple boxplots.</p>
+<p>logCPM values for the most up and down-regulated genes were also
+inspected using simple boxplots.</p>
 <div class="figure" style="text-align: center">
 <img src="figure/zr75_dge_analysis.Rmd/plotTopUp-1.png" alt="*Top ranked up-regulated genes*" width="960" />
 <p class="caption">
@@ -1689,7 +1872,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotTopUp-1.png" target="_blank">7263367</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotTopUp-1.png" target="_blank">7263367</a>
 </td>
 <td>
 Steve Ped
@@ -1732,7 +1915,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotTopDown-1.png" target="_blank">7263367</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotTopDown-1.png" target="_blank">7263367</a>
 </td>
 <td>
 Steve Ped
@@ -1749,7 +1932,11 @@ Steve Ped
 </div>
 <div id="checks-for-bias" class="section level2">
 <h2>Checks For Bias</h2>
-<p>Using the sign of logFC to indicate direction, and -<span class="math inline">\(\log_{10} p\)</span> as the ranking statistic, bias was also checked within the set of results, using GC content and gene length as potential sources of bias amongst the set of DE genes.</p>
+<p>Using the sign of logFC to indicate direction, and -<span
+class="math inline">\(\log_{10} p\)</span> as the ranking statistic,
+bias was also checked within the set of results, using GC content and
+gene length as potential sources of bias amongst the set of DE
+genes.</p>
 <pre class="r"><code>a &lt;- topTable %&gt;%
   ggplot(aes(signedRank, gc_content)) +
   geom_point(aes(colour = DE), alpha = 0.4) +
@@ -1808,7 +1995,14 @@ plot_grid(
 <div class="figure" style="text-align: center">
 <img src="figure/zr75_dge_analysis.Rmd/plotBias-1.png" alt="*Genes ranked for signed differential expression shown against A) GC Content, and B) Gene Length. Ranks were assigned based on the ranking statistic R = -sign(logFC)*log~10~p, such that genes at the left are most down-regulated, whilst those at the right are the most up-regulated. Horizontal black lines indicate the overall average value, whilst blue curves indicate the localised GAM fit. A small positive bias was noted at both extremes for GC content indicating any ranked-list approaches should be treated with caution.*" width="960" />
 <p class="caption">
-<em>Genes ranked for signed differential expression shown against A) GC Content, and B) Gene Length. Ranks were assigned based on the ranking statistic R = -sign(logFC)</em>log<sub>10</sub>p, such that genes at the left are most down-regulated, whilst those at the right are the most up-regulated. Horizontal black lines indicate the overall average value, whilst blue curves indicate the localised GAM fit. A small positive bias was noted at both extremes for GC content indicating any ranked-list approaches should be treated with caution.*
+<em>Genes ranked for signed differential expression shown against A) GC
+Content, and B) Gene Length. Ranks were assigned based on the ranking
+statistic R = -sign(logFC)</em>log<sub>10</sub>p, such that genes at the
+left are most down-regulated, whilst those at the right are the most
+up-regulated. Horizontal black lines indicate the overall average value,
+whilst blue curves indicate the localised GAM fit. A small positive bias
+was noted at both extremes for GC content indicating any ranked-list
+approaches should be treated with caution.*
 </p>
 </div>
 <p>
@@ -1835,7 +2029,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/DRMCRL/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotBias-1.png" target="_blank">7263367</a>
+<a href="https://github.com/Wenjun-Liu/T47D_ZR75_DHT_StrippedSerum_RNASeq/blob/726336764ae9f11af70f4cb8dea3076a62346bed/docs/figure/zr75_dge_analysis.Rmd/plotBias-1.png" target="_blank">7263367</a>
 </td>
 <td>
 Steve Ped
@@ -1881,111 +2075,106 @@ ct &lt;- &quot;ZR75&quot;</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.0.3 (2020-10-10)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 18.04.5 LTS
+<pre><code>R version 4.1.3 (2022-03-10)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur/Monterey 10.16
 
 Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.7.1
-LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.7.1
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
 
 locale:
- [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8    
- [5] LC_MONETARY=en_AU.UTF-8    LC_MESSAGES=en_AU.UTF-8   
- [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
+[1] en_AU.UTF-8/en_AU.UTF-8/en_AU.UTF-8/C/en_AU.UTF-8/en_AU.UTF-8
 
 attached base packages:
- [1] splines   stats4    parallel  stats     graphics  grDevices utils    
- [8] datasets  methods   base     
+[1] splines   stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
 
 other attached packages:
- [1] DT_0.18                 ggrepel_0.9.1           cqn_1.36.0             
- [4] quantreg_5.85           SparseM_1.81            preprocessCore_1.52.1  
- [7] nor1mix_1.3-0           mclust_5.4.7            ggfortify_0.4.11       
-[10] cowplot_1.1.1           magrittr_2.0.1          ensembldb_2.14.1       
-[13] AnnotationFilter_1.14.0 GenomicFeatures_1.42.3  AnnotationDbi_1.52.0   
-[16] Biobase_2.50.0          GenomicRanges_1.42.0    GenomeInfoDb_1.26.7    
-[19] IRanges_2.24.1          S4Vectors_0.28.1        AnnotationHub_2.22.1   
-[22] BiocFileCache_1.14.0    dbplyr_2.1.1            BiocGenerics_0.36.1    
-[25] edgeR_3.32.1            limma_3.46.0            glue_1.4.2             
-[28] pander_0.6.3            scales_1.1.1            yaml_2.2.1             
-[31] forcats_0.5.1           stringr_1.4.0           dplyr_1.0.5            
-[34] purrr_0.3.4             readr_1.4.0             tidyr_1.1.3            
-[37] tibble_3.1.1            ggplot2_3.3.3           tidyverse_1.3.1        
-[40] workflowr_1.6.2        
+ [1] DT_0.22                 ggrepel_0.9.1           cqn_1.40.0             
+ [4] quantreg_5.88           SparseM_1.81            preprocessCore_1.56.0  
+ [7] nor1mix_1.3-0           mclust_5.4.9            ggfortify_0.4.14       
+[10] cowplot_1.1.1           magrittr_2.0.3          ensembldb_2.18.4       
+[13] AnnotationFilter_1.18.0 GenomicFeatures_1.46.5  AnnotationDbi_1.56.2   
+[16] Biobase_2.54.0          GenomicRanges_1.46.1    GenomeInfoDb_1.30.1    
+[19] IRanges_2.28.0          S4Vectors_0.32.4        AnnotationHub_3.2.2    
+[22] BiocFileCache_2.2.1     dbplyr_2.1.1            BiocGenerics_0.40.0    
+[25] edgeR_3.36.0            limma_3.50.1            glue_1.6.2             
+[28] pander_0.6.5            scales_1.1.1            yaml_2.3.5             
+[31] forcats_0.5.1           stringr_1.4.0           dplyr_1.0.8            
+[34] purrr_0.3.4             readr_2.1.2             tidyr_1.2.0            
+[37] tibble_3.1.6            ggplot2_3.3.5           tidyverse_1.3.1        
+[40] workflowr_1.7.0        
 
 loaded via a namespace (and not attached):
-  [1] utf8_1.2.1                    tidyselect_1.1.0             
-  [3] RSQLite_2.2.7                 htmlwidgets_1.5.3            
-  [5] FactoMineR_2.4                grid_4.0.3                   
-  [7] BiocParallel_1.24.1           munsell_0.5.0                
-  [9] statmod_1.4.35                withr_2.4.2                  
- [11] colorspace_2.0-0              highr_0.9                    
- [13] knitr_1.33                    rstudioapi_0.13              
- [15] leaps_3.1                     MatrixGenerics_1.2.1         
- [17] labeling_0.4.2                git2r_0.28.0                 
- [19] GenomeInfoDbData_1.2.4        hwriter_1.3.2                
- [21] bit64_4.0.5                   farver_2.1.0                 
- [23] rprojroot_2.0.2               vctrs_0.3.7                  
- [25] generics_0.1.0                xfun_0.22                    
- [27] R6_2.5.0                      ngsReports_1.6.1             
- [29] locfit_1.5-9.4                bitops_1.0-7                 
- [31] cachem_1.0.4                  DelayedArray_0.16.3          
- [33] assertthat_0.2.1              promises_1.2.0.1             
- [35] gtable_0.3.0                  conquer_1.0.2                
- [37] rlang_0.4.10                  MatrixModels_0.5-0           
- [39] scatterplot3d_0.3-41          rtracklayer_1.50.0           
- [41] lazyeval_0.2.2                broom_0.7.6                  
- [43] BiocManager_1.30.12           reshape2_1.4.4               
- [45] modelr_0.1.8                  crosstalk_1.1.1              
- [47] backports_1.2.1               httpuv_1.6.0                 
- [49] tools_4.0.3                   ellipsis_0.3.1               
- [51] RColorBrewer_1.1-2            jquerylib_0.1.4              
- [53] ggdendro_0.1.22               Rcpp_1.0.6                   
- [55] plyr_1.8.6                    progress_1.2.2               
- [57] zlibbioc_1.36.0               RCurl_1.98-1.3               
- [59] prettyunits_1.1.1             openssl_1.4.3                
- [61] zoo_1.8-9                     SummarizedExperiment_1.20.0  
- [63] haven_2.4.1                   cluster_2.1.0                
- [65] fs_1.5.0                      here_1.0.1                   
- [67] data.table_1.14.0             reprex_2.0.0                 
- [69] whisker_0.4                   ProtGenerics_1.22.0          
- [71] matrixStats_0.58.0            hms_1.0.0                    
- [73] mime_0.10                     evaluate_0.14                
- [75] xtable_1.8-4                  XML_3.99-0.6                 
- [77] jpeg_0.1-8.1                  readxl_1.3.1                 
- [79] gridExtra_2.3                 compiler_4.0.3               
- [81] biomaRt_2.46.3                crayon_1.4.1                 
- [83] htmltools_0.5.1.1             mgcv_1.8-35                  
- [85] later_1.2.0                   lubridate_1.7.10             
- [87] DBI_1.1.1                     MASS_7.3-53                  
- [89] rappdirs_0.3.3                ShortRead_1.48.0             
- [91] Matrix_1.2-18                 cli_2.5.0                    
- [93] pkgconfig_2.0.3               flashClust_1.01-2            
- [95] GenomicAlignments_1.26.0      plotly_4.9.3                 
- [97] xml2_1.3.2                    bslib_0.2.4                  
- [99] XVector_0.30.0                rvest_1.0.0                  
-[101] digest_0.6.27                 Biostrings_2.58.0            
-[103] rmarkdown_2.7                 cellranger_1.1.0             
-[105] curl_4.3                      shiny_1.6.0                  
-[107] Rsamtools_2.6.0               lifecycle_1.0.0              
-[109] nlme_3.1-149                  jsonlite_1.7.2               
-[111] viridisLite_0.4.0             askpass_1.1                  
-[113] fansi_0.4.2                   pillar_1.6.0                 
-[115] lattice_0.20-41               fastmap_1.1.0                
-[117] httr_1.4.2                    interactiveDisplayBase_1.28.0
-[119] png_0.1-7                     BiocVersion_3.12.0           
-[121] bit_4.0.4                     stringi_1.5.3                
-[123] sass_0.3.1                    blob_1.2.1                   
-[125] latticeExtra_0.6-29           memoise_2.0.0                </code></pre>
+  [1] readxl_1.4.0                  backports_1.4.1              
+  [3] lazyeval_0.2.2                crosstalk_1.2.0              
+  [5] BiocParallel_1.28.3           digest_0.6.29                
+  [7] htmltools_0.5.2               fansi_1.0.3                  
+  [9] memoise_2.0.1                 tzdb_0.3.0                   
+ [11] Biostrings_2.62.0             modelr_0.1.8                 
+ [13] matrixStats_0.61.0            vroom_1.5.7                  
+ [15] prettyunits_1.1.1             colorspace_2.0-3             
+ [17] blob_1.2.2                    rvest_1.0.2                  
+ [19] rappdirs_0.3.3                haven_2.4.3                  
+ [21] xfun_0.30                     callr_3.7.0                  
+ [23] crayon_1.5.1                  RCurl_1.98-1.6               
+ [25] jsonlite_1.8.0                zoo_1.8-9                    
+ [27] gtable_0.3.0                  zlibbioc_1.40.0              
+ [29] XVector_0.34.0                MatrixModels_0.5-0           
+ [31] DelayedArray_0.20.0           DBI_1.1.2                    
+ [33] Rcpp_1.0.8.3                  viridisLite_0.4.0            
+ [35] xtable_1.8-4                  progress_1.2.2               
+ [37] bit_4.0.4                     htmlwidgets_1.5.4            
+ [39] httr_1.4.2                    ellipsis_0.3.2               
+ [41] farver_2.1.0                  pkgconfig_2.0.3              
+ [43] XML_3.99-0.9                  sass_0.4.1                   
+ [45] here_1.0.1                    locfit_1.5-9.5               
+ [47] utf8_1.2.2                    labeling_0.4.2               
+ [49] tidyselect_1.1.2              rlang_1.0.2                  
+ [51] later_1.3.0                   munsell_0.5.0                
+ [53] BiocVersion_3.14.0            cellranger_1.1.0             
+ [55] tools_4.1.3                   cachem_1.0.6                 
+ [57] cli_3.2.0                     generics_0.1.2               
+ [59] RSQLite_2.2.11                broom_0.7.12                 
+ [61] ggdendro_0.1.23               evaluate_0.15                
+ [63] fastmap_1.1.0                 processx_3.5.3               
+ [65] knitr_1.38                    bit64_4.0.5                  
+ [67] fs_1.5.2                      KEGGREST_1.34.0              
+ [69] nlme_3.1-157                  whisker_0.4                  
+ [71] mime_0.12                     xml2_1.3.3                   
+ [73] biomaRt_2.50.3                compiler_4.1.3               
+ [75] rstudioapi_0.13               plotly_4.10.0                
+ [77] filelock_1.0.2                curl_4.3.2                   
+ [79] png_0.1-7                     interactiveDisplayBase_1.32.0
+ [81] reprex_2.0.1                  statmod_1.4.36               
+ [83] bslib_0.3.1                   stringi_1.7.6                
+ [85] highr_0.9                     ps_1.6.0                     
+ [87] lattice_0.20-45               ProtGenerics_1.26.0          
+ [89] Matrix_1.4-1                  vctrs_0.4.0                  
+ [91] pillar_1.7.0                  lifecycle_1.0.1              
+ [93] BiocManager_1.30.16           jquerylib_0.1.4              
+ [95] data.table_1.14.2             bitops_1.0-7                 
+ [97] httpuv_1.6.5                  rtracklayer_1.54.0           
+ [99] R6_2.5.1                      BiocIO_1.4.0                 
+[101] promises_1.2.0.1              gridExtra_2.3                
+[103] MASS_7.3-56                   ngsReports_1.10.0            
+[105] assertthat_0.2.1              SummarizedExperiment_1.24.0  
+[107] rprojroot_2.0.3               rjson_0.2.21                 
+[109] withr_2.5.0                   GenomicAlignments_1.30.0     
+[111] Rsamtools_2.10.0              GenomeInfoDbData_1.2.7       
+[113] mgcv_1.8-40                   parallel_4.1.3               
+[115] hms_1.1.1                     grid_4.1.3                   
+[117] rmarkdown_2.13                MatrixGenerics_1.6.0         
+[119] git2r_0.30.1                  getPass_0.2-2                
+[121] shiny_1.7.1                   lubridate_1.8.0              
+[123] restfulr_0.0.13              </code></pre>
 </div>
 </div>
 </div>
@@ -1993,7 +2182,7 @@ loaded via a namespace (and not attached):
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->
@@ -2047,6 +2236,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
